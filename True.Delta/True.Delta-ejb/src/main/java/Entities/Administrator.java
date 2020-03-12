@@ -12,6 +12,8 @@ import javax.persistence.Embeddable;
 
 public class Administrator {
 	private int Hamdi;
+	
+	private int saidi;
 
 
 }
