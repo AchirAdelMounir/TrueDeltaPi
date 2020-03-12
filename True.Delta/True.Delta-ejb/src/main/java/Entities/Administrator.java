@@ -14,6 +14,8 @@ public class Administrator {
 	private int hamdi;
 	
 	private int saidi;
+	
+	private String mounir;
 
 	public int getHamdi() {
 		return hamdi;
