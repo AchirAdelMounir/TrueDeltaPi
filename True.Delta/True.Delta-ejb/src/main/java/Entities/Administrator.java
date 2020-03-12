@@ -11,7 +11,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 
 public class Administrator {
-	private int mounir;
+	private int Hamdi;
 
 
 }
