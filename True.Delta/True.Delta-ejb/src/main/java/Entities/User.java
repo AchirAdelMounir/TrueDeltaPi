@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import Enumerations.*;
 
@@ -42,6 +43,35 @@ public class User implements Serializable {
 	@Column(name = "USER_LOGIN")
 	private String login;
 	
+	@Column(name = "Age")
+	private int age;
+	
+	@Column(name = "Residency Status")
+	private String Residence;
+	
+	@Column(name = "Professional Status")
+	private String Profession;
+	
+	@Column(name = "Type of contract")
+	private String typeofcontract;
+	
+	@Column(name = "Resources")
+	private String Resource;
+	
+	@Column(name = "Refund in progress")
+	private int Refund;
+	
+	@Column(name = "Credit Balance")
+	private int Credit;
+	
+	@Column(name = "Risk")
+	private int Risk;
+	
+	@Column(name = "Diversified")
+	private boolean Diversity;
+	
+	
+	
 	@Embedded
 	private AssetManager asset_manager;
 	@Column(name = "USER_TYPE")
@@ -55,7 +85,8 @@ public class User implements Serializable {
 	private Set<Complain> Articles;
 	@OneToMany(mappedBy="User")
 	private Set<Contract> Contratcs;
-	
+	@OneToOne 
+	private Portfolio portfolio;
 	
 	
 	
@@ -123,6 +154,78 @@ public class User implements Serializable {
 
 	public void setType(UserType type) {
 		Type = type;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getResidence() {
+		return Residence;
+	}
+
+	public void setResidence(String residence) {
+		Residence = residence;
+	}
+
+	public String getProfession() {
+		return Profession;
+	}
+
+	public void setProfession(String profession) {
+		Profession = profession;
+	}
+
+	public String getTypeofcontract() {
+		return typeofcontract;
+	}
+
+	public void setTypeofcontract(String typeofcontract) {
+		this.typeofcontract = typeofcontract;
+	}
+
+	public String getResource() {
+		return Resource;
+	}
+
+	public void setResource(String resource) {
+		Resource = resource;
+	}
+
+	public int getRefund() {
+		return Refund;
+	}
+
+	public void setRefund(int refund) {
+		Refund = refund;
+	}
+
+	public int getCredit() {
+		return Credit;
+	}
+
+	public void setCredit(int credit) {
+		Credit = credit;
+	}
+
+	public int getRisk() {
+		return Risk;
+	}
+
+	public void setRisk(int risk) {
+		Risk = risk;
+	}
+
+	public boolean isDiversity() {
+		return Diversity;
+	}
+
+	public void setDiversity(boolean diversity) {
+		Diversity = diversity;
 	}
 	
 	
