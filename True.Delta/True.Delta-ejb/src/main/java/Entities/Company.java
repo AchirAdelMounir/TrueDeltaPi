@@ -1,9 +1,11 @@
 package Entities;
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column; 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
 @Table( name= "COMPANIES")
@@ -24,6 +26,8 @@ public class Company implements Serializable {
 	private String Sector;
 	@Column(name="INDUSTRY")
 	private String Industry;
+	@OneToMany(mappedBy="Company")
+	private Set<Security> Securities;
 	
 	
 	public Company(String symbol, String market, String name, String sector, String industry) {

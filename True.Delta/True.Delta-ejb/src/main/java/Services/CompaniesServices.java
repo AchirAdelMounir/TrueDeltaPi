@@ -9,7 +9,7 @@ import Interfaces.CompaniesServicesInterface;
 @Stateful
 
 public class CompaniesServices implements CompaniesServicesInterface {
-	@PersistenceContext(unitName= "imputation-ejb")
+	@PersistenceContext(unitName= "primary")
 	EntityManager em;
 
 	@Override

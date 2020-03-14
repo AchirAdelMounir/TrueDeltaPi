@@ -3,6 +3,8 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import Enumerations.ContractType;
@@ -42,6 +48,12 @@ public class Contract implements Serializable {
 	ContractType ContartType;
 	@Enumerated(EnumType.STRING) 
     Enumerations.FinancialAsset FinancialAsset;
+	@OneToOne
+	private Portfolio Portfolio;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="User_Id",referencedColumnName="Id")
+	private User User;
+	
 	public int getIDContract() {
 		return IDContract;
 	}

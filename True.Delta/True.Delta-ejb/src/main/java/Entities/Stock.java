@@ -2,14 +2,15 @@ package Entities;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.Column; 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-@Entity
-@Table( name= "STOCKS")
+
+@Embeddable
 
 public class Stock implements Serializable {
 	
@@ -17,10 +18,6 @@ public class Stock implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	@Column(name="ID")
-	private int Id;
 	private Date DATE;
 	@Column(name="OPEN")
     private double Open;
@@ -40,10 +37,10 @@ public class Stock implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Stock(int id, Date dATE, double open, double high, double low, double close, double adj_Close,
+	public Stock(Date dATE, double open, double high, double low, double close, double adj_Close,
 			double volume) {
 		super();
-		Id = id;
+		
 		DATE = dATE;
 		Open = open;
 		High = high;
@@ -58,12 +55,7 @@ public class Stock implements Serializable {
 	
 	
 	
-	public int getId() {
-		return Id;
-	}
-	public void setId(int id) {
-		Id = id;
-	}
+
 	public Date getDATE() {
 		return DATE;
 	}
@@ -109,7 +101,7 @@ public class Stock implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Stock [Id=" + Id + ", DATE=" + DATE + ", Open=" + Open + ", High=" + High + ", Low=" + Low + ", Close="
+		return "Stock [DATE=" + DATE + ", Open=" + Open + ", High=" + High + ", Low=" + Low + ", Close="
 				+ Close + ", Adj_Close=" + Adj_Close + ", Volume=" + Volume + "]";
 	}
 	
