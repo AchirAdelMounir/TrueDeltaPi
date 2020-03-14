@@ -25,7 +25,10 @@ public class Portfolio implements Serializable{
 	private int IdPortfolio;
 	@Column (name="Type_of_Portfolio")
 	private int TypePortfolio;
-	
+	@Column (name="Returns")
+	private double Returns;
+	@Column (name="Volatility")
+	private int Volatility;
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
@@ -41,17 +44,24 @@ public class Portfolio implements Serializable{
 	
 	
 	
-	public Portfolio(int idPortfolio, int idContract, int idCostumer, int idBroker, int idStock, int idBond,
-			int typePortfolio) {
+	public Portfolio(int idPortfolio, int typePortfolio, double returns, int volatility, Entities.Contract contract,
+			Set<Security> securities, Entities.User user) {
 		super();
 		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
+		Returns = returns;
+		Volatility = volatility;
+		Contract = contract;
+		Securities = securities;
+		User = user;
 	}
-	
-	
+
+
+
 	public int getIdPortfolio() {
 		return IdPortfolio;
 	}
+	
 	public void setIdPortfolio(int idPortfolio) {
 		IdPortfolio = idPortfolio;
 	}
@@ -59,9 +69,35 @@ public class Portfolio implements Serializable{
 	public int getTypePortfolio() {
 		return TypePortfolio;
 	}
+	
 	public void setTypePortfolio(int typePortfolio) {
 		TypePortfolio = typePortfolio;
 	}
+
+
+
+	public double getReturns() {
+		return Returns;
+	}
+
+
+
+	public void setReturns(double returns) {
+		Returns = returns;
+	}
+
+
+
+	public int getVolatility() {
+		return Volatility;
+	}
+
+
+
+	public void setVolatility(int volatility) {
+		Volatility = volatility;
+	}
+
 	
 	
 	
