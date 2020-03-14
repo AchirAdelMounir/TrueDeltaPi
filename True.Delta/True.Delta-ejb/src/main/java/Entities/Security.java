@@ -26,6 +26,8 @@ public class Security implements Serializable {
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name="ID")
 	private int Id;
+	@Column(name="TYPE")
+	private String Type;
 	@Embedded
 	private Stock S;
 	@Embedded
@@ -55,6 +57,24 @@ public class Security implements Serializable {
 	}
 	public void setB(Bond b) {
 		B = b;
+	}
+	public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		Type = type;
+	}
+	public Company getCompany() {
+		return Company;
+	}
+	public void setCompany(Company company) {
+		Company = company;
+	}
+	public Portfolio getPortfolio() {
+		return Portfolio;
+	}
+	public void setPortfolio(Portfolio portfolio) {
+		Portfolio = portfolio;
 	}
 
 }

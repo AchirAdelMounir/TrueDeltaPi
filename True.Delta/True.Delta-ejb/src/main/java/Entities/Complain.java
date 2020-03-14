@@ -70,6 +70,12 @@ public class Complain implements Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public User getUser() {
+		return User;
+	}
+	public void setUser(User user) {
+		User = user;
+	}
 	
 	
 

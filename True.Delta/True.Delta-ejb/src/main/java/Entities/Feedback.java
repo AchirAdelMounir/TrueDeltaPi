@@ -52,6 +52,15 @@ public class Feedback implements Serializable{
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public User getUser() {
+		return User;
+	}
+	public void setUser(User user) {
+		User = user;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
 	
 	
 	

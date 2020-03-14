@@ -42,8 +42,7 @@ public class Contract implements Serializable {
 	Date StartDate;
 	@Column()
 	Date EndDate;
-	@Column
-	int IDUser;
+	
 	@Enumerated(EnumType.STRING)
 	ContractType ContartType;
 	@Enumerated(EnumType.STRING) 
@@ -84,12 +83,7 @@ public class Contract implements Serializable {
 	public void setEndDate(Date endDate) {
 		EndDate = endDate;
 	}
-	public int getIDUser() {
-		return IDUser;
-	}
-	public void setIDUser(int iDUser) {
-		IDUser = iDUser;
-	}
+
 	public ContractType getContartType() {
 		return ContartType;
 	}
@@ -102,7 +96,7 @@ public class Contract implements Serializable {
 	public void setFinancialAsset(Enumerations.FinancialAsset financialAsset) {
 		FinancialAsset = financialAsset;
 	}
-	public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate, int iDUser,
+	public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate,
 			ContractType contartType, Enumerations.FinancialAsset financialAsset) {
 		super();
 		IDContract = iDContract;
@@ -110,13 +104,25 @@ public class Contract implements Serializable {
 		CreationDate = creationDate;
 		StartDate = startDate;
 		EndDate = endDate;
-		IDUser = iDUser;
+		
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
 	}
 	public Contract() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Portfolio getPortfolio() {
+		return Portfolio;
+	}
+	public void setPortfolio(Portfolio portfolio) {
+		Portfolio = portfolio;
+	}
+	public User getUser() {
+		return User;
+	}
+	public void setUser(User user) {
+		User = user;
 	}
 	
 	

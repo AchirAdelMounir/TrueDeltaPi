@@ -77,6 +77,14 @@ public class Company implements Serializable {
 		return "Company [Symbol=" + Symbol + ", Market=" + Market + ", Name=" + Name + ", Sector=" + Sector
 				+ ", Industry=" + Industry + "]";
 	}
+
+	public Set<Security> getSecurities() {
+		return Securities;
+	}
+
+	public void setSecurities(Set<Security> securities) {
+		Securities = securities;
+	}
 	
 	
 }

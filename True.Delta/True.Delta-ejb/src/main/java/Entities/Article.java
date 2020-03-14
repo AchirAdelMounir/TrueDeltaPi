@@ -96,6 +96,14 @@ public class Article implements Serializable {
 	public void setPrediction(String prediction) {
 		this.prediction = prediction;
 	}
+
+	public User getUser() {
+		return User;
+	}
+
+	public void setUser(User user) {
+		User = user;
+	}
 	
 	
 	
