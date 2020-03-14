@@ -23,16 +23,6 @@ public class Portfolio implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name="Id_Portfolio")
 	private int IdPortfolio;
-	@Column (name="Id_Contract")
-	private int IdContract;
-	@Column (name="Id_Costumer")
-	private int IdCostumer;
-	@Column (name="Id_Broker")
-	private int IdBroker;
-	@Column (name="Id_Stock")
-	private int IdStock;
-	@Column (name="Id_Bond")
-	private int IdBond;
 	@Column (name="Type_of_Portfolio")
 	private int TypePortfolio;
 	
@@ -41,6 +31,8 @@ public class Portfolio implements Serializable{
 	private Contract Contract;
 	@OneToMany(mappedBy="Portfolio")
 	private Set<Security> Securities;
+	@OneToOne(mappedBy="portfolio")
+	private User User;
 
 	
 	public Portfolio() {
@@ -53,11 +45,6 @@ public class Portfolio implements Serializable{
 			int typePortfolio) {
 		super();
 		IdPortfolio = idPortfolio;
-		IdContract = idContract;
-		IdCostumer = idCostumer;
-		IdBroker = idBroker;
-		IdStock = idStock;
-		IdBond = idBond;
 		TypePortfolio = typePortfolio;
 	}
 	
@@ -68,36 +55,7 @@ public class Portfolio implements Serializable{
 	public void setIdPortfolio(int idPortfolio) {
 		IdPortfolio = idPortfolio;
 	}
-	public int getIdContract() {
-		return IdContract;
-	}
-	public void setIdContract(int idContract) {
-		IdContract = idContract;
-	}
-	public int getIdCostumer() {
-		return IdCostumer;
-	}
-	public void setIdCostumer(int idCostumer) {
-		IdCostumer = idCostumer;
-	}
-	public int getIdBroker() {
-		return IdBroker;
-	}
-	public void setIdBroker(int idBroker) {
-		IdBroker = idBroker;
-	}
-	public int getIdStock() {
-		return IdStock;
-	}
-	public void setIdStock(int idStock) {
-		IdStock = idStock;
-	}
-	public int getIdBond() {
-		return IdBond;
-	}
-	public void setIdBond(int idBond) {
-		IdBond = idBond;
-	}
+
 	public int getTypePortfolio() {
 		return TypePortfolio;
 	}
