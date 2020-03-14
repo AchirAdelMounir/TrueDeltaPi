@@ -5,9 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name="PORTFOLIO")
@@ -34,6 +37,10 @@ public class Portfolio implements Serializable{
 	private int TypePortfolio;
 	
 	
+	@OneToOne(mappedBy="Portfolio")
+	private Contract Contract;
+	@OneToMany(mappedBy="Portfolio")
+	private Set<Security> Securities;
 
 	
 	public Portfolio() {

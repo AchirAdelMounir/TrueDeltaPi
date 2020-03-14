@@ -3,6 +3,8 @@ package Entities;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +12,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import Enumerations.ContractType;
@@ -36,12 +42,17 @@ public class Contract implements Serializable {
 	Date StartDate;
 	@Column()
 	Date EndDate;
-	@Column
-	int IDUser;
+	
 	@Enumerated(EnumType.STRING)
 	ContractType ContartType;
 	@Enumerated(EnumType.STRING) 
     Enumerations.FinancialAsset FinancialAsset;
+	@OneToOne
+	private Portfolio Portfolio;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="User_Id",referencedColumnName="Id")
+	private User User;
+	
 	public int getIDContract() {
 		return IDContract;
 	}
@@ -72,12 +83,7 @@ public class Contract implements Serializable {
 	public void setEndDate(Date endDate) {
 		EndDate = endDate;
 	}
-	public int getIDUser() {
-		return IDUser;
-	}
-	public void setIDUser(int iDUser) {
-		IDUser = iDUser;
-	}
+
 	public ContractType getContartType() {
 		return ContartType;
 	}
@@ -90,7 +96,7 @@ public class Contract implements Serializable {
 	public void setFinancialAsset(Enumerations.FinancialAsset financialAsset) {
 		FinancialAsset = financialAsset;
 	}
-	public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate, int iDUser,
+	public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate,
 			ContractType contartType, Enumerations.FinancialAsset financialAsset) {
 		super();
 		IDContract = iDContract;
@@ -98,13 +104,25 @@ public class Contract implements Serializable {
 		CreationDate = creationDate;
 		StartDate = startDate;
 		EndDate = endDate;
-		IDUser = iDUser;
+		
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
 	}
 	public Contract() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	public Portfolio getPortfolio() {
+		return Portfolio;
+	}
+	public void setPortfolio(Portfolio portfolio) {
+		Portfolio = portfolio;
+	}
+	public User getUser() {
+		return User;
+	}
+	public void setUser(User user) {
+		User = user;
 	}
 	
 	

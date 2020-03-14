@@ -1,5 +1,6 @@
 package Entities;
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -7,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import Enumerations.UserType;
@@ -23,8 +25,8 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID_USER")
-	private int id;
+	@Column(name = "Id")
+	private int Id;
 	
 	@Column(name = "USER_NOM")
 	private String nom;
@@ -46,6 +48,16 @@ public class User implements Serializable {
 	@Column(name = "USER_TYPE")
 	private UserType Type;
 	
+	@OneToMany(mappedBy="User")
+	private Set<Feedback> Feedbacks;
+	@OneToMany(mappedBy="User")
+	private Set<Complain> Complains;
+	@OneToMany(mappedBy="User")
+	private Set<Complain> Articles;
+	@OneToMany(mappedBy="User")
+	private Set<Contract> Contratcs;
+	
+	
 	
 	
 
@@ -59,11 +71,11 @@ public class User implements Serializable {
 	}
 
 	public int getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.Id = id;
 	}
 
 	public String getNom() {
