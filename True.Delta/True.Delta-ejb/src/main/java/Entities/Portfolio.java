@@ -65,7 +65,7 @@ public class Portfolio implements Serializable{
 	public void setIdPortfolio(int idPortfolio) {
 		IdPortfolio = idPortfolio;
 	}
-	
+
 	public int getTypePortfolio() {
 		return TypePortfolio;
 	}
