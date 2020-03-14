@@ -3,6 +3,7 @@
 	<name>True.Delta-ejb</name>
 	<comment></comment>
 	<projects>
+		<project>True.Delta</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
