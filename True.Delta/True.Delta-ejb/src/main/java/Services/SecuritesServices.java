@@ -1,10 +1,11 @@
 package Services;
 
+import java.util.List;
+
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import Entities.Bond;
+import javax.persistence.TypedQuery;
 import Entities.Security;
 import Interfaces.SecuritiesServicesInterface;
 
@@ -32,14 +33,18 @@ public class SecuritesServices implements SecuritiesServicesInterface {
 	}
 
 	@Override
-	public void DisplaySecurity(int IdSecurity) {
-		// TODO Auto-generated method stub
+	public Security DisplaySecurity(int IdSecurity) {
+		Security S=new Security();
+		S=em.find(Security.class, IdSecurity);
+		return S;
+		
 		
 	}
 
 	@Override
-	public void DisplaySecurities() {
-		// TODO Auto-generated method stub
+	public List<Security> DisplaySecurities() {
+		TypedQuery<Security> query= em.createQuery("Select * from Security",Security.class);
+		return query.getResultList();
 		
 	}
 

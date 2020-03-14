@@ -1,7 +1,10 @@
 package Services;
+import java.util.List;
+
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import Entities.Company;
 import Interfaces.CompaniesServicesInterface;
@@ -15,7 +18,7 @@ public class CompaniesServices implements CompaniesServicesInterface {
 	@Override
 	public String AddCompany(Company C) {
 		em.persist(C);
-		System.out.println("Bond:"+ C.getSymbol());
+		System.out.println("Company:"+ C.getSymbol());
 		return C.getSymbol();
 		
 	}
@@ -29,20 +32,22 @@ public class CompaniesServices implements CompaniesServicesInterface {
 	}
 
 	@Override
-	public void DisplayCompany(int IdCompany) {
-		// TODO Auto-generated method stub
+	public Company DisplayCompany(int IdCompany) {
+		return em.find(Company.class,IdCompany );
 		
 	}
 
 	@Override
-	public void DisplayCompanies() {
-		// TODO Auto-generated method stub
+	public List<Company> DisplayCompanies() {
+		TypedQuery<Company> query=em.createQuery("Select * from Company",Company.class);
+		return query.getResultList();
 		
 	}
 
 	@Override
-	public void EditCompany(int IdCompany) {
-		// TODO Auto-generated method stub
+	public void EditCompany(Company C) {
+		C=em.find(Company.class,C.getSymbol());
+		AddCompany(C);
 		
 	}
 
