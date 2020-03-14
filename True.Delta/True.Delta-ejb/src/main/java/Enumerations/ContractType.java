@@ -1,4 +1,5 @@
 package Enumerations;
+import Entities.*;
 
 public enum ContractType
 {
