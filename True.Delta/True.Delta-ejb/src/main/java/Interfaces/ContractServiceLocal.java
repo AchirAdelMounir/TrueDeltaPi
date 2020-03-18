@@ -11,6 +11,6 @@ public interface ContractServiceLocal {
 	public void DeleteContractById(int IdContract);
 	public void EditContract(int IdContract);
 	void AffecterAMAContrat (int IdAM , int IdCpntract );
-	public void ReadContract(int IdContract);
+	public void ReadContract(int IdContract); 
 
 }

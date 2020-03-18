@@ -22,7 +22,7 @@ import Enumerations.ContractType;
 
 
 @Entity
-@Table(name="Contract")
+@Table(name="Contract") 
 
 public class Contract implements Serializable {
 	
