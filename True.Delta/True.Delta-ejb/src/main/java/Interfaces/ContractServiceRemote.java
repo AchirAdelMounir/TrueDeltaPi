@@ -12,5 +12,5 @@ public interface ContractServiceRemote {
 	public void EditContract(int IdContract);
 	void AffecterAMAContrat (int IdAM , int IdCpntract );
 	public void ReadContract(int IdContract);
-
+ 
 }
