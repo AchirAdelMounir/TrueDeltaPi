@@ -47,7 +47,7 @@ public class User implements Serializable {
 	
 	
 	@Embedded
-	private Visitor visitor;
+	private Customer customer;
 	
 	@Embedded
 	private AssetManager asset_manager;
@@ -138,13 +138,15 @@ public class User implements Serializable {
 		Type = type;
 	}
 
-	public Visitor getVisitor() {
-		return visitor;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setVisitor(Visitor visitor) {
-		this.visitor = visitor;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
+
+	
 
 	
 
