@@ -1,7 +1,7 @@
 package Enumerations;
 public enum UserType {
 	
-	AssetManager, Client, Administrator
+	AssetManager,Customer , Administrator
 	
 
 }
