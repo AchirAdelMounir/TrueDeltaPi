@@ -1,18 +1,21 @@
 package Entities;
 import java.io.Serializable;
 
+
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import Enumerations.*;
+
 
 
 @Entity
@@ -51,9 +54,11 @@ public class User implements Serializable {
 	
 	@Embedded
 	private AssetManager asset_manager;
-	@Column(name = "USER_TYPE")
-	private UserType Type;
+	//@Column(name = "USER_TYPE")
+	//private UserType Type;
 	
+	@Enumerated(EnumType.STRING) 
+    Enumerations.UserType UserType;
 	
 	
 	
@@ -130,13 +135,13 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
-	public UserType getType() {
+	/*public UserType getType() {
 		return Type;
 	}
 
 	public void setType(UserType type) {
 		Type = type;
-	}
+	}*/
 
 	public Visitor getVisitor() {
 		return visitor;
@@ -146,6 +151,69 @@ public class User implements Serializable {
 		this.visitor = visitor;
 	}
 
+	public Set<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(Set<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
+	public Enumerations.UserType getUserType() {
+		return UserType;
+	}
+
+	public void setUserType(Enumerations.UserType userType) {
+		UserType = userType;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(int id, String nom, String prenom, String adresseMail, String password, String login, Visitor visitor,
+			AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
+			Set<Complain> complains, Set<Complain> articles, Set<Contract> contratcs, Portfolio portfolio) {
+		super();
+		Id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.visitor = visitor;
+		this.asset_manager = asset_manager;
+		UserType = userType;
+		Feedbacks = feedbacks;
+		Complains = complains;
+		Articles = articles;
+		Contratcs = contratcs;
+		this.portfolio = portfolio;
+	}
+
+	public User(String nom, String prenom, String adresseMail, String password, String login, 
+			 Enumerations.UserType userType) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		
+		UserType = userType;
+	}
+
+
+
+
+
+
+
+	
+	
+
+	
 	
 
 }

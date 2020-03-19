@@ -3,11 +3,14 @@ package Entities;
 
 
 import java.io.Serializable;
+import java.util.List;
 
-
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Embeddable
@@ -71,6 +74,10 @@ public class AssetManager implements Serializable{
 	public void setRisk(String risk) {
 		this.risk = risk;
 	}
+
+
+
+	
 	
 	
 	
