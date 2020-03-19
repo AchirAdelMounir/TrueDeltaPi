@@ -46,22 +46,22 @@ public class User implements Serializable {
 	@Column(name = "Age")
 	private int age;
 	
-	@Column(name = "Residency Status")
+	@Column(name = "Residency_Status")
 	private String Residence;
 	
-	@Column(name = "Professional Status")
+	@Column(name = "Professional_Status")
 	private String Profession;
 	
-	@Column(name = "Type of contract")
+	@Column(name = "Type_of_contract")
 	private String typeofcontract;
 	
 	@Column(name = "Resources")
 	private String Resource;
 	
-	@Column(name = "Refund in progress")
+	@Column(name = "Refund_in_progress")
 	private int Refund;
 	
-	@Column(name = "Credit Balance")
+	@Column(name = "Credit_Balance")
 	private int Credit;
 	
 	@Column(name = "Risk")
