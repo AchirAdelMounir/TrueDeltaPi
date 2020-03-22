@@ -7,11 +7,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import Entities.Company;
-import Interfaces.CompaniesServicesInterface;
+import Interfaces.CompaniesServicesInterfaceLocal;
+import Interfaces.CompaniesServicesInterfaceRemote;
 
 @Stateful
 
-public class CompaniesServices implements CompaniesServicesInterface {
+public class CompaniesServices implements CompaniesServicesInterfaceRemote,CompaniesServicesInterfaceLocal {
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
 
@@ -24,16 +25,16 @@ public class CompaniesServices implements CompaniesServicesInterface {
 	}
 
 	@Override
-	public void DeleteCompany(int IdCompany) {
+	public void DeleteCompany(String sym) {
 		Company C=new Company();
-		C=em.find(Company.class, IdCompany);
+		C=em.find(Company.class,sym);
 		em.remove(C);
 		
 	}
 
 	@Override
-	public Company DisplayCompany(int IdCompany) {
-		return em.find(Company.class,IdCompany );
+	public Company DisplayCompany(String sym) {
+		return em.find(Company.class,sym);
 		
 	}
 
@@ -45,10 +46,20 @@ public class CompaniesServices implements CompaniesServicesInterface {
 	}
 
 	@Override
-	public void EditCompany(Company C) {
-		C=em.find(Company.class,C.getSymbol());
-		AddCompany(C);
+	public Company EditCompany(Company C,String sym) {
+		Company OldC=em.find(Company.class,sym);
+		OldC.setIndustry(C.getIndustry());
+		OldC.setMarket(C.getMarket());
+		OldC.setName(C.getName());
+		OldC.setSector(C.getSector());
+		OldC.setSecurities(C.getSecurities());
+		OldC.setSymbol(C.getSymbol());
+		return OldC;
+		
 		
 	}
+	}
 
-}
+
+
+	

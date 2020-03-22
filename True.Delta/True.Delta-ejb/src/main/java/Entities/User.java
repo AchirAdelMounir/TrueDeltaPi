@@ -44,35 +44,8 @@ public class User implements Serializable {
 	@Column(name = "USER_LOGIN")
 	private String login;
 	
-<<<<<<< HEAD
-	@Column(name = "Age")
-	private int age;
+
 	
-	@Column(name = "Residency_Status")
-	private String Residence;
-	
-	@Column(name = "Professional_Status")
-	private String Profession;
-	
-	@Column(name = "Type_of_contract")
-	private String typeofcontract;
-	
-	@Column(name = "Resources")
-	private String Resource;
-	
-	@Column(name = "Refund_in_progress")
-	private int Refund;
-	
-	@Column(name = "Credit_Balance")
-	private int Credit;
-	
-	@Column(name = "Risk")
-	private int Risk;
-	
-	@Column(name = "Diversified")
-	private boolean Diversity;
-=======
->>>>>>> branch 'master' of https://github.com/AchirAdelMounir/TrueDeltaPi.git
 	
 	
 	@Embedded

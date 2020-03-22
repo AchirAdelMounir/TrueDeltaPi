@@ -5,11 +5,11 @@ import javax.ejb.Remote;
 import Entities.Company;
 @Remote
 
-public interface CompaniesServicesInterface {
+public interface CompaniesServicesInterfaceRemote {
 	public String AddCompany(Company C);
-	public void DeleteCompany(int IdCompany);
-	public Company DisplayCompany(int IdCompany);
+	public void DeleteCompany(String sym);
+	public Company DisplayCompany(String sym);
 	public List<Company> DisplayCompanies();
-	public void EditCompany(Company C);
+	public Company EditCompany(Company C,String sym);
 
 }
