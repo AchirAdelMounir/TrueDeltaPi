@@ -22,7 +22,7 @@ import Enumerations.ContractType;
 
 
 @Entity
-@Table(name="T_Contrat")
+@Table(name="Contract")
 
 public class Contract implements Serializable {
 	
@@ -45,6 +45,7 @@ public class Contract implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	ContractType ContartType;
+	
 	@Enumerated(EnumType.STRING) 
     Enumerations.FinancialAsset FinancialAsset;
 	@OneToOne
@@ -123,6 +124,16 @@ public class Contract implements Serializable {
 	}
 	public void setUser(User user) {
 		User = user;
+	}
+	public Contract(int amount, Date creationDate, Date startDate, Date endDate, ContractType contartType,
+			Enumerations.FinancialAsset financialAsset) {
+		super();
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		ContartType = contartType;
+		FinancialAsset = financialAsset;
 	}
 	
 	
