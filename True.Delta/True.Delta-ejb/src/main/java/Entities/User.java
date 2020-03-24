@@ -74,6 +74,7 @@ public class User implements Serializable {
 	
 	@Embedded
 	private AssetManager asset_manager;
+	
 	@Column(name = "USER_TYPE")
 	private UserType Type;
 	

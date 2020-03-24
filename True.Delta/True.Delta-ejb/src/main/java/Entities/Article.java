@@ -10,11 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 
 @Entity
-@Table(name="T_UTILISATEUR")
 public class Article implements Serializable {
 	
 	/**
@@ -29,6 +27,9 @@ public class Article implements Serializable {
 	
 	@Column(name = "ARTICLE_TEXT")
 	private String article;
+	
+	@Column(name = "ARTICLE_TITLE")
+	private String title;
 	
 	@Column(name = "SOCIETE")
 	private String firm;
@@ -103,6 +104,14 @@ public class Article implements Serializable {
 
 	public void setUser(User user) {
 		User = user;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	
