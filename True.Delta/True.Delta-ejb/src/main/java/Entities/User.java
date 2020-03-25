@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import Enumerations.*;
-
 
 @Entity
 @Table(name="USER")
@@ -51,7 +52,7 @@ public class User implements Serializable {
 	
 	@Embedded
 	private AssetManager asset_manager;
-	@Column(name = "USER_TYPE")
+	@Enumerated(EnumType.STRING)
 	private UserType Type;
 	
 	
@@ -71,7 +72,23 @@ public class User implements Serializable {
 
 	
 	
+
+	public User() {
+		super();
+	}
+
 	
+
+	public User(String nom, String prenom, String adresseMail, String password, String login, UserType type) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		Type = type;
+	}
+
 
 
 	public AssetManager getAsset_manager() {
@@ -145,6 +162,79 @@ public class User implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	
+
+
+
+	public Set<Feedback> getFeedbacks() {
+		return Feedbacks;
+	}
+
+
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		Feedbacks = feedbacks;
+	}
+
+
+
+	public Set<Complain> getComplains() {
+		return Complains;
+	}
+
+
+
+	public void setComplains(Set<Complain> complains) {
+		Complains = complains;
+	}
+
+
+
+	public Set<Complain> getArticles() {
+		return Articles;
+	}
+
+
+
+	public void setArticles(Set<Complain> articles) {
+		Articles = articles;
+	}
+
+
+
+	public Set<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+
+
+	public void setContratcs(Set<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
+
+
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
+
+
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [Id=" + Id + ", nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password="
+				+ password + ", login=" + login + ", customer=" + customer + ", Type=" + Type + "]";
+	}
+
+
+
 
 	
 

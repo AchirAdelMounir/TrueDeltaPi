@@ -1,9 +1,13 @@
 package Entities;
 
 import java.io.Serializable;
+
 import Enumerations.*;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 
 
 
@@ -12,27 +16,24 @@ import javax.persistence.Embeddable;
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Column(name = "Customer_FamilyName")
-	private String nom;
-	
-	@Column(name = "Customer_Name")
-	private String prenom;
 	
 	@Column(name = "Age")
 	private int age;
 	
-	@Column(name = "Residency_Status")
+	@Enumerated(EnumType.STRING)
 	private Residency_Status_Type Residency_Status; // propriétaire ou locataire
 	
-	@Column(name = "Professional_Status")
+	@Enumerated(EnumType.STRING)
 	private Professional_Status_Type Profession;
 	
-	@Column(name = "Type_of_contract")
+	@Enumerated(EnumType.STRING)
 	private Type_of_contract_type typeofcontract; // type du contrat de travail
 	
 	@Column(name = "Resources")
-	private int Resource;
+	private double Resource;
+	
+	@Column(name = "Salary")
+	private double Salary;
 	
 	@Column(name = "Refund_in_progress")
 	private double Refund; // les remboursements en cours (crédits,pension alimentaire,autre charge)
@@ -41,33 +42,21 @@ public class Customer implements Serializable{
 	private double Credit; // Solde en banque
 	
 	@Column(name = "Risk")
-	private int Risk; // le risque à prendre
+	private float Risk; // le risque à prendre
 	
-	@Column(name = "Diversified")
+	@Enumerated(EnumType.STRING)
+	private Bank_type bank; 
+	
+	@Column(name = "Score")
+	private int score; 
+	
+	@Enumerated(EnumType.STRING)
 	private Diversified_Type Diversity; // divérsifié ou pas 
 	
-	@Column(name = "Active_account")
+	@Enumerated(EnumType.STRING)
 	private Active_account_Type active; // 1 s'il est actif, 0 s'il ne l'est pas
 	
-
-	public String getNom() {
-		return nom;
-	}
-
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+	
 
 
 	public int getAge() {
@@ -83,6 +72,16 @@ public class Customer implements Serializable{
 	
 
 
+	public double getSalary() {
+		return Salary;
+	}
+
+
+	public void setSalary(double salary) {
+		Salary = salary;
+	}
+
+
 	public Residency_Status_Type getResidency_Status() {
 		return Residency_Status;
 	}
@@ -94,12 +93,12 @@ public class Customer implements Serializable{
 
 
 
-	public int getResource() {
+	public double getResource() {
 		return Resource;
 	}
 
 
-	public void setResource(int resource) {
+	public void setResource(double resource) {
 		Resource = resource;
 	}
 
@@ -124,12 +123,12 @@ public class Customer implements Serializable{
 	}
 
 
-	public int getRisk() {
+	public float getRisk() {
 		return Risk;
 	}
 
 
-	public void setRisk(int risk) {
+	public void setRisk(float risk) {
 		Risk = risk;
 	}
 
@@ -173,6 +172,31 @@ public class Customer implements Serializable{
 		this.active = active;
 	}
 
+
+	
+
+	public Bank_type getBank() {
+		return bank;
+	}
+
+
+	public void setBank(Bank_type bank) {
+		this.bank = bank;
+	}
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+	
+	
 
 	
 	

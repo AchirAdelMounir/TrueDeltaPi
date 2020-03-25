@@ -1,0 +1,157 @@
+package Services;
+
+import java.util.List;
+
+
+import javax.ejb.Stateful;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import Entities.*;
+import Enumerations.Active_account_Type;
+import Enumerations.Professional_Status_Type;
+import Enumerations.Residency_Status_Type;
+import Enumerations.Type_of_contract_type;
+import Interfaces.UserServiceLocal;
+import Interfaces.UserServiceRemote;
+@Stateful
+public class UserService implements  UserServiceRemote,UserServiceLocal {
+
+	@PersistenceContext(unitName= "primary")
+	EntityManager em;
+	
+	@Override
+	public int AddUser(User U) {
+		// TODO Auto-generated method stub
+		em.persist(U);
+		System.out.println("IdUser :"+ U.getId());
+		return U.getId();
+	}
+
+	@Override
+	public void DeleteUser(int Id) {
+		User u = new User();
+		u=em.find(User.class, Id);
+		em.remove(u);
+		
+	}
+
+	
+
+	
+
+	@Override
+	public void EditUser(User u) {
+		// TODO Auto-generated method stub
+		em.merge(u);
+		
+	}
+
+	@Override
+	public User DisplayUser(int Id) {
+		User u = new User();
+		System.out.println(Id);
+		u=em.find(User.class, Id);
+		
+		return u;
+	}
+
+	@Override
+	public List<User> DisplayUsers() {
+		Query query=em.createQuery("select u from User u");
+		return query.getResultList();
+	}
+
+	@Override
+	public int EstimatedScore(User u) {
+		int score =0;
+		if(u.getCustomer().getAge()>=18&&u.getCustomer().getAge()<40) {
+			score +=50;
+		}
+		else
+		{
+			score +=25;
+		}
+		if(u.getCustomer().getResidency_Status()==Residency_Status_Type.Owner)
+		{
+			score+=50;
+		}
+		else 
+		{
+			score +=20;
+		}
+		if(u.getCustomer().getProfession()==Professional_Status_Type.Doctor||u.getCustomer().getProfession()==Professional_Status_Type.Engineer)
+		{
+			score+=50;
+		}
+		else if(u.getCustomer().getProfession()==Professional_Status_Type.Professor)
+		{
+			score +=30;
+		}
+		else 
+		{
+			score +=20;
+		}
+		
+		if(u.getCustomer().getTypeofcontract()==Type_of_contract_type.Fixed_term_contract)
+		{
+			score +=20;
+		}
+		else if(u.getCustomer().getTypeofcontract()==Type_of_contract_type.permanent_work_contract)
+		{
+			score += 30;
+		}
+		else
+		{
+			score += 10;
+		}
+		
+		if(u.getCustomer().getResource()<100000)
+		{
+			score +=0;
+		}
+		else if(u.getCustomer().getResource()>=100000&&u.getCustomer().getResource()<500000)
+		{
+			score +=30;
+		}
+		else
+		{
+			score += 50;
+		}
+		if(u.getCustomer().getRefund()<(0.5*u.getCustomer().getSalary()) && u.getCustomer().getRefund()>(0.1*u.getCustomer().getSalary()))
+		{
+			score +=10;
+		}	
+		else if(u.getCustomer().getRefund()<=(0.1*u.getCustomer().getSalary()))
+		{
+			score +=30;
+		}
+		if(u.getCustomer().getCredit()<10000)
+		{
+			score+=10;
+		}
+		else if(u.getCustomer().getCredit()>10000&&u.getCustomer().getCredit()<100000)
+		{
+			score+=30;
+		}
+		else
+		{
+			score+=50;
+		}
+	
+			return score;
+		
+	}
+
+	@Override
+	public void validateProfile(User u) {
+		if(u.getCustomer().getScore()>200)
+		{
+			u.getCustomer().setActive(Active_account_Type.Active);
+			em.merge(u);
+		}
+		
+	}
+
+}
