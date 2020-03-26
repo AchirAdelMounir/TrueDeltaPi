@@ -12,6 +12,7 @@ public interface CompaniesServicesInterfaceLocal {
 	public Company DisplayCompany(String sym);
 	public List<Company> DisplayCompanies();
 	public Company EditCompany(Company C,String sym);
+	public void CompaniesInfoFinder();
 	
 
 }

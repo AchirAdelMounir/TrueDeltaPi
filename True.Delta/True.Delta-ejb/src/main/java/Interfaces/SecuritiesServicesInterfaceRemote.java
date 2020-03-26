@@ -18,6 +18,8 @@ public interface SecuritiesServicesInterfaceRemote {
 	public List<Security> SearchByMaturityDate(Date d);
 	public List<Bond> DisplayBonds();
 	public List<Stock> DisplayStocks();
+	public Stock StocksDownloader(String Sym,String Period1, String Period2);
+	public void getStockPriceInstantly();
 	
 
 }
