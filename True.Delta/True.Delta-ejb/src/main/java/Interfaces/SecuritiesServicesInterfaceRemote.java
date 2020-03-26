@@ -14,6 +14,7 @@ public interface SecuritiesServicesInterfaceRemote {
 	public void DeleteSecurity(int IdSecurity);
 	public Security DisplaySecurity(int IdSecurity);
 	public List<Security> DisplaySecurities();
+	public Boolean ifExists(Security S);
 	public void EditSecurity(int IdSecurity,Object o);
 	public List<Security> SearchByMaturityDate(Date d);
 	public List<Bond> DisplayBonds();

@@ -55,7 +55,20 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote,Compa
 		OldC.setMarket(C.getMarket());
 		OldC.setName(C.getName());
 		OldC.setSector(C.getSector());
+		OldC.setBITDA(C.getBITDA());
+		OldC.setDividendYield(C.getDividendYield());
+		OldC.setMarket_Cap_E(C.getMarket_Cap_E());
+		OldC.setPrice(C.getPrice());
+		OldC.setR_Earnings_Share(C.getR_Earnings_Share());
+		OldC.setR_Price_Book(C.getR_Price_Book());
+		OldC.setR_Price_Earnings(C.getR_Price_Earnings());
+		OldC.setR_Price_Sales(C.getR_Price_Sales());
+		OldC.setYear_Week_High(C.getYear_Week_High());
+		OldC.setYear_Week_Low(C.getYear_Week_Low());
+		OldC.setSEC_Filings("http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK="+OldC.getSymbol());
+		
 		OldC.setSecurities(C.getSecurities());
+		
 		
 		return OldC;
 		
@@ -113,7 +126,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote,Compa
 				C.setMarket("Nasdaq");
 			
 
-				if(em.find(Company.class, C.getSymbol())==null)
+				if(ifExists(C)==false)
 				{
 					AddCompany(C);
 				}
@@ -128,6 +141,15 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote,Compa
 
 		}
 		
+		
+	}
+
+	@Override
+	public Boolean ifExists(Company C) {
+		if(em.find(Company.class, C.getSymbol())==null)
+			return false;
+		else 
+			return true;
 		
 	}
 	}

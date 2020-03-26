@@ -12,6 +12,7 @@ public interface SecuritiesServicesInterfaceLocal {
 	public int AddSecurity(Security S);
 	public void DeleteSecurity(int IdSecurity);
 	public Security DisplaySecurity(int IdSecurity);
+	public Boolean ifExists(Security S);
 	public List<Security> DisplaySecurities();
 	public void EditSecurity(int IdSecurity,Object o);
 	public List<Security> SearchByMaturityDate(Date d);

@@ -18,6 +18,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import Entities.Bond;
+import Entities.Company;
 import Entities.Security;
 import Entities.Stock;
 import Interfaces.SecuritiesServicesInterfaceLocal;
@@ -183,6 +184,14 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		
 		
 		
+	}
+
+	@Override
+	public Boolean ifExists(Security S) {
+		if(em.find(Company.class, S.getId())==null)
+			return false;
+		else 
+			return true;
 	}
 	
 

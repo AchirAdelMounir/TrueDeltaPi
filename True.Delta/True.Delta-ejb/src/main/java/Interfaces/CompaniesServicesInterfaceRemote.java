@@ -12,6 +12,6 @@ public interface CompaniesServicesInterfaceRemote {
 	public List<Company> DisplayCompanies();
 	public Company EditCompany(Company C,String sym);
 	public void CompaniesInfoFinder();
-	
+	public Boolean ifExists(Company C);
 
 }
