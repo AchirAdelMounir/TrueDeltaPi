@@ -1,14 +1,22 @@
 package Services;
 
+
+
+import java.util.List;
+
 import javax.ejb.Stateful;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
+import Entities.AssetManager;
 import Entities.Contract;
 import Entities.User;
 import Interfaces.ContractServiceLocal;
 import Interfaces.ContractServiceRemote;
+
 
 
 
@@ -26,15 +34,17 @@ public class ContractService implements  ContractServiceRemote , ContractService
 		
 		return contract.getIDContract();
 	}
-
+	
 	@Override
-	public int AddUser(User user) {
+	public int AddUser (User user) {
 		
 		em.persist(user);
-		
+		System.out.println("Asset Manager:"+ user.getId());
 		
 		return user.getId();
 	}
+
+
 
 	@Override
 	public void DeleteContractById(int IdContract) {
@@ -45,27 +55,36 @@ public class ContractService implements  ContractServiceRemote , ContractService
 	}
 
 	@Override
-	public void EditContract(int IdContract) {
-		// TODO Auto-generated method stub
+public void EditContractByID(int IdContract , int Amount) {
+		/*Query query = em.createQuery("update Contract c set Amount=:Amount where c.id=:IdContract");
+		query.setParameter("Amount", Amount);
+		query.setParameter("IDContract", IdContract);
+		int modified = query.executeUpdate();
+		if(modified == 1){
+		System.out.println("successfully updated");
+		}else{
+		System.out.println("failed to update");
+		}*/
+		Contract contract = em.find(Contract.class, IdContract);
+		contract.setAmount(Amount);
 
 	}
 
 	@Override
 	public void AffecterAMAContrat(int IdAM, int IdCpntract) {
-		
+	
+		 
 
 	}
 
 	@Override
-	public void ReadListeContract(int IdContract) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void AffecterAAContrat(int IdAM, int IdCpntract) {
-		// TODO Auto-generated method stub
+	public Contract ReadContractById( int contractId ) {
+		return em.find(Contract.class, contractId);
 		
 	}
+
+
+
+
 
 }

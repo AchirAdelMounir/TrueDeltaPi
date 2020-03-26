@@ -138,7 +138,6 @@ public class User implements Serializable {
 	/*public UserType getType() {
 		return Type;
 	}
-
 	public void setType(UserType type) {
 		Type = type;
 	}*/
