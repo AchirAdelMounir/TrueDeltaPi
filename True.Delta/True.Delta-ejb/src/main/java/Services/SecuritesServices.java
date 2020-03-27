@@ -32,9 +32,13 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 
 	@Override
 	public int AddSecurity(Security S) {
+		if(ifExists(S)==false)
+		{
 		em.persist(S);
 		System.out.println("Bond:" + S.getId());
-		return S.getId();
+		return S.getId();}
+		else 
+			return 0;
 
 	}
 
@@ -42,15 +46,22 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	public void DeleteSecurity(int IdSecurity) {
 		Security S = new Security();
 		S = em.find(Security.class, IdSecurity);
+		if(ifExists(S)==false)
+		{
 		em.remove(S);
+		}
+		
 
 	}
 
 	@Override
 	public Security DisplaySecurity(int IdSecurity) {
 		Security S = new Security();
+		if(ifExists(S)==false)
+		{
 		S = em.find(Security.class, IdSecurity);
-		return S;
+		return S;}
+		else return null;
 
 	}
 
