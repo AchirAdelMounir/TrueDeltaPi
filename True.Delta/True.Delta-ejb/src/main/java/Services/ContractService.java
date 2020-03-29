@@ -83,7 +83,15 @@ public void EditContractByID(int IdContract , int Amount) {
 		
 	}
 
+    @Override
+    public void ListContract() {
+    	//return em.find(Contract.class, contractId);
+    	 List<Contract> contrats ;
+    	 contrats=  (List<Contract>) em.createQuery("select c from contract c", Contract.class).getSingleResult();
+    	 
 
+    }
+    
 
 
 

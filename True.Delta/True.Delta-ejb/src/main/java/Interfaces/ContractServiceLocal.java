@@ -19,5 +19,7 @@ public interface ContractServiceLocal {
 	public void EditContractByID(int IdContract , int Amount);
 	void AffecterAMAContrat(int IdAM, int IdCpntract);
 	public Contract ReadContractById( int contractId );
+	public void ListContract( );
+
 
 }
