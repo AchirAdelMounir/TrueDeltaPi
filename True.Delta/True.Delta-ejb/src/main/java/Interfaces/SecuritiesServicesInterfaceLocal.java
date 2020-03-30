@@ -2,7 +2,6 @@ package Interfaces;
 import javax.ejb.Local;
 
 import Entities.*;
-import Entities.Security;
 
 import java.sql.Date;
 import java.util.List;
@@ -21,6 +20,7 @@ public interface SecuritiesServicesInterfaceLocal {
 	public List<Stock> StocksDownloader(String Sym,String Period1, String Period2);
 	public void getStockPriceInstantly();
 	public double VolatilityCalculator(String Sym,String Period1, String Period2);
+	public List<Company> SearchByInput(String SearchField, String operator, Object o);
 	
 
 }

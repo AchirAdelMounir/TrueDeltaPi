@@ -3,6 +3,7 @@ package Services;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Date;
@@ -234,6 +235,42 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		System.out.println("Var"+Var);
 		return Var;
 	}
-	
+	@Override
+	public List<Company> SearchByInput(String SearchField, String operator, Object o) {
+		if (o instanceof Integer) {
+			int O = (Integer) o;
+			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		else if (o instanceof Double) {
+			Double O = (Double) o;
+			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		else if (o instanceof String) {
+			String O = (String) o;
+			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " +"'"+O+"'",
+					Company.class).getResultList());
+
+		}
+		else if (o instanceof BigInteger)
+		 {
+			BigInteger O = (BigInteger) o;
+			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		else if(o instanceof Date)
+		 {
+			Date O = (Date) o;
+			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		return null;
+	}
+
 
 }
