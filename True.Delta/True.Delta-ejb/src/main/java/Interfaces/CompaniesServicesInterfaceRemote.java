@@ -1,8 +1,10 @@
 package Interfaces;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.Remote;
 import Entities.Company;
+import Entities.Security;
 @Remote
 
 public interface CompaniesServicesInterfaceRemote {
@@ -13,5 +15,7 @@ public interface CompaniesServicesInterfaceRemote {
 	public Company EditCompany(Company C,String sym);
 	public void CompaniesInfoFinder();
 	public Boolean ifExists(Company C);
+	public List<Company> SearchByMarketCap(BigInteger M,String operator);
+	public List<Company> SearchByInput(String SearchField, String operator,Object o);
 
 }

@@ -25,7 +25,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 
 	@Override
 	public String AddCompany(Company C) {
-		if (ifExists(C)) {
+		if (ifExists(C) == false) {
 			em.persist(C);
 			System.out.println("Company:" + C.getSymbol());
 			return C.getSymbol();
@@ -38,7 +38,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 	public void DeleteCompany(String sym) {
 		Company C = new Company();
 		C = em.find(Company.class, sym);
-		if (ifExists(C)) {
+		if (ifExists(C) == true) {
 
 			em.remove(C);
 		}
@@ -49,7 +49,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 	public Company DisplayCompany(String sym) {
 		Company C = new Company();
 		C = em.find(Company.class, sym);
-		if (ifExists(C)) {
+		if (ifExists(C) == true) {
 			return C;
 		} else
 			return null;
@@ -105,8 +105,10 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 			}
 			while (input.hasNextLine()) {
 
-				String line = input.nextLine().replaceAll("(?m)$", ",").replaceAll(",,", ",0,")//pour enlever les valeur abbérrantes
-						.replace("Allergan, Plc", "Allergan. Plc")//pour enelever les virgules parce que ce sont les délémiteurs
+				String line = input.nextLine().replaceAll("(?m)$", ",").replaceAll(",,", ",0,")// pour enlever les
+																								// valeur abbérrantes
+						.replace("Allergan, Plc", "Allergan. Plc")// pour enelever les virgules parce que ce sont les
+																	// délémiteurs
 						.replace("American International Group, Inc.", "American International Group. Inc.")
 						.replace("Analog Devices, Inc.", "Analog Devices Inc.")
 						.replace("AvalonBay Communities, Inc.", "AvalonBay Communities Inc.")
@@ -172,9 +174,48 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 			return true;
 
 	}
-	
-	/*public List<Security> SearchByMarketCap(BigInteger M) {
-		return (em.createQuery("select c from Company c where MaturityDate <=" + d, Security.class).getResultList());
-	}*/
+
+	@Override
+	public List<Company> SearchByMarketCap(BigInteger M, String operator) {
+		return (em.createQuery("select c from Company c where Market_Cap_E " + operator + " " + M, Company.class)
+				.getResultList());
+	}
+
+	@Override
+	public List<Company> SearchByInput(String SearchField, String operator, Object o) {
+		if (o instanceof Integer) {
+			int O = (Integer) o;
+			return (em.createQuery("select c from Company c where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		else if (o instanceof Double) {
+			Double O = (Double) o;
+			return (em.createQuery("select c from Company c where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		else if (o instanceof String) {
+			String O = (String) o;
+			return (em.createQuery("select c from Company c where " + SearchField + " " + operator + " " +"'"+O+"'",
+					Company.class).getResultList());
+
+		}
+		else if (o instanceof BigInteger)
+		 {
+			BigInteger O = (BigInteger) o;
+			return (em.createQuery("select c from Company c where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		else if(o instanceof Date)
+		 {
+			Date O = (Date) o;
+			return (em.createQuery("select c from Company c where " + SearchField + " " + operator + " " + O,
+					Company.class).getResultList());
+
+		}
+		return null;
+	}
 
 }

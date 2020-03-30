@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "SECURITIES")
@@ -34,6 +35,8 @@ public class Security implements Serializable {
 	private Stock S;
 	@Embedded
 	private Bond B;
+	@Transient
+	double Volatility;
 
 	// Relations
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -104,6 +107,12 @@ public class Security implements Serializable {
 
 	public void setPortfolio(Portfolio portfolio) {
 		Portfolio = portfolio;
+	}
+	public double getVolatility() {
+		return Volatility;
+	}
+	public void setVolatility(double volatility) {
+		Volatility = volatility;
 	}
 
 }

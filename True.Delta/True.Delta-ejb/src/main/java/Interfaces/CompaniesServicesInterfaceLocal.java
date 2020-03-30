@@ -1,4 +1,5 @@
 package Interfaces;
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -14,6 +15,8 @@ public interface CompaniesServicesInterfaceLocal {
 	public List<Company> DisplayCompanies();
 	public Company EditCompany(Company C,String sym);
 	public void CompaniesInfoFinder();
-	public Boolean ifExists(Company C);
+
+	public List<Company> SearchByMarketCap(BigInteger M,String operator);
+	public List<Company> SearchByInput(String SearchField, String operator,Object o);
 
 }

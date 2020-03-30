@@ -46,7 +46,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	public void DeleteSecurity(int IdSecurity) {
 		Security S = new Security();
 		S = em.find(Security.class, IdSecurity);
-		if(ifExists(S)==false)
+		if(ifExists(S)==true)
 		{
 		em.remove(S);
 		}
@@ -57,7 +57,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	@Override
 	public Security DisplaySecurity(int IdSecurity) {
 		Security S = new Security();
-		if(ifExists(S)==false)
+		if(ifExists(S)==true)
 		{
 		S = em.find(Security.class, IdSecurity);
 		return S;}
@@ -133,10 +133,13 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public Stock StocksDownloader(String Sym, String Period1, String Period2) {
+	public List<Stock> StocksDownloader(String Sym, String Period1, String Period2) {
+		System.out.println("HELLO WORLD");
+		
 		 /*Period1 = "2019-05-05";
 		 Period2 = "2020-02-05";
 		*/
+		List<Stock>Ls=new ArrayList<>();
 		Date localDate1 = Date.valueOf(Period1);
 		Date localDate2 = Date.valueOf(Period2);
 		long p1 = localDate1.getTime() / 1000;
@@ -165,7 +168,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 				S.setClose(newinput.nextDouble());
 				S.setAdj_Close(newinput.nextDouble());
 				S.setVolume(newinput.nextInt());
-				System.out.println(S);
+				Ls.add(S);
 
 			}
 
@@ -173,7 +176,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			System.err.println(e);
 
 		}
-		return null;
+		return Ls;
 
 	}
 
@@ -203,6 +206,33 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			return false;
 		else 
 			return true;
+	}
+
+
+	@Override
+	public double VolatilityCalculator(String Sym, String Period1, String Period2) {
+		System.out.println("HELLO WORLD");
+		List<Stock> Ls=StocksDownloader(Sym, Period1, Period2);
+		long ObsNumber=Ls.stream().count();
+		System.out.println("ObsNumber"+ObsNumber);
+		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
+		System.out.println("Mean"+Mean);
+		double PeriodDeviation=0;
+		double Var=0;
+		double Racine=0;
+		
+		for(Stock i : Ls)
+		{System.out.println("PeriodDev"+PeriodDeviation);
+		System.out.println("PeriodDev2   h"+(i.getAdj_Close()-Mean));
+		
+		Racine=(i.getAdj_Close()-Mean);
+			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
+			
+			System.out.println("PeriodDev"+PeriodDeviation);
+		}
+		Var=(PeriodDeviation/(ObsNumber-1));
+		System.out.println("Var"+Var);
+		return Var;
 	}
 	
 
