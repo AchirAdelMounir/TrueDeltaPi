@@ -81,6 +81,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	@Override
 	public void moneyBasdPortfoio(float money, int idUser) {
 		
+	
 	}
 	
 
