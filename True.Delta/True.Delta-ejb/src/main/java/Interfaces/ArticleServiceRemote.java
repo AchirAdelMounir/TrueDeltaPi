@@ -2,13 +2,13 @@ package Interfaces;
 
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import Entities.Article;
 import Entities.Company;
 
-@Local
-public interface ArticleServiceLocal {
+@Remote
+public interface ArticleServiceRemote {
 	
 	public int addArticle(Article a);
 	public void removeArticle(int IdSecurity);

@@ -10,9 +10,10 @@ import javax.persistence.PersistenceContext;
 import Entities.Article;
 import Entities.Company;
 import Interfaces.ArticleServiceLocal;
+import Interfaces.ArticleServiceRemote;
 
 @Stateless
-public class ArticleService implements ArticleServiceLocal {
+public class ArticleService implements ArticleServiceLocal, ArticleServiceRemote {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	
