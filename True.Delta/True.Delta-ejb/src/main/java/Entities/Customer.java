@@ -13,11 +13,7 @@ public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "Customer_FamilyName")
-	private String nom;
-	
-	@Column(name = "Customer_Name")
-	private String prenom;
+
 	
 	@Column(name = "Age")
 	private int age;
@@ -50,25 +46,7 @@ public class Customer implements Serializable{
 	private Active_account_Type active; // 1 s'il est actif, 0 s'il ne l'est pas
 	
 
-	public String getNom() {
-		return nom;
-	}
-
-
-	public void setNom(String nom) {
-		this.nom = nom;
-	}
-
-
-	public String getPrenom() {
-		return prenom;
-	}
-
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
+	
 
 	public int getAge() {
 		return age;
