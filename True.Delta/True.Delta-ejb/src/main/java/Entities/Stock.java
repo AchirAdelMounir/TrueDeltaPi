@@ -29,8 +29,8 @@ public class Stock implements Serializable {
 	private double Close;
 	@Column(name="ADJ_CLOSE")
 	private double Adj_Close;
-	@Column(name="VOLUME")
-	private double Volume;
+	@Column(name="VOLUME_TRADED")
+	private int Volume;
 	
 	public Stock() {
 		super();
@@ -38,7 +38,7 @@ public class Stock implements Serializable {
 	}
 	
 	public Stock(Date dATE, double open, double high, double low, double close, double adj_Close,
-			double volume) {
+			int volume) {
 		super();
 		
 		DATE = dATE;
@@ -92,10 +92,10 @@ public class Stock implements Serializable {
 	public void setAdj_Close(double adj_Close) {
 		Adj_Close = adj_Close;
 	}
-	public double getVolume() {
+	public int getVolume() {
 		return Volume;
 	}
-	public void setVolume(double volume) {
+	public void setVolume(int volume) {
 		Volume = volume;
 	}
 
