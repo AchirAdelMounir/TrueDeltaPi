@@ -17,5 +17,8 @@ public interface CompaniesServicesInterfaceRemote {
 	public Boolean ifExists(Company C);
 	public List<Company> SearchByMarketCap(BigInteger M,String operator);
 	public List<Company> SearchByInput(String SearchField, String operator,Object o);
+	public List<Company> GetTopByInput(String Input,int TopN);
+	public List<Company> ReplaceMissingValues(List<Company> L);
+	
 
 }

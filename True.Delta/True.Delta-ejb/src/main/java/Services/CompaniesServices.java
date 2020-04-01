@@ -6,6 +6,7 @@ import java.net.URLConnection;
 import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.LongStream;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -216,6 +217,58 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 
 		}
 		return null;
+	}
+	
+	public List<Company> GetTopByInput(String Input,int TopN)
+	{
+		return (em.createQuery("select c from Company c ORDER BY "+Input+" DESC",
+	          Company.class).setMaxResults(TopN).getResultList());
+		
+	}
+
+	@Override
+	public List<Company> ReplaceMissingValues(List<Company> L) {
+		
+	for(Company i: L)
+	{
+		if(i.getBITDA()==BigInteger.valueOf(0)) {
+			//i.setBITDA(L.stream().flatMapToBigInt(e->e.getBITDA()).average());
+		}
+		else if(i.getDividendYield()==0)
+		{
+			i.setDividendYield(L.stream().mapToDouble(e->e.getDividendYield()).average().getAsDouble());
+		}
+		else if(i.getPrice()==0)
+		{
+			i.setPrice(L.stream().mapToDouble(e->e.getPrice()).average().getAsDouble());
+		}
+		else if(i.getR_Earnings_Share()==0)
+		{
+			i.setR_Earnings_Share(L.stream().mapToDouble(e->e.getR_Earnings_Share()).average().getAsDouble());
+		}
+		else if(i.getR_Price_Book()==0)
+		{
+			i.setR_Price_Book(L.stream().mapToDouble(e->e.getR_Price_Book()).average().getAsDouble());
+		}
+		else if(i.getR_Price_Earnings()==0)
+		{
+			i.setR_Price_Earnings(L.stream().mapToDouble(e->e.getR_Price_Earnings()).average().getAsDouble());
+		}
+		else if(i.getR_Price_Sales()==0)
+		{
+			i.setR_Price_Sales(L.stream().mapToDouble(e->e.getR_Price_Sales()).average().getAsDouble());
+		}
+		else if(i.getYear_Week_High()==0)
+		{
+			i.setYear_Week_High(L.stream().mapToDouble(e->e.getYear_Week_High()).average().getAsDouble());
+		}
+		else if(i.getYear_Week_Low()==0)
+		{
+			i.setYear_Week_Low(L.stream().mapToDouble(e->e.getYear_Week_Low()).average().getAsDouble());
+		}
+	}
+		
+		return L;
 	}
 
 }

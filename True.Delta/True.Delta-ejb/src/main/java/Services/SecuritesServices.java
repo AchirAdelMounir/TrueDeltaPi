@@ -271,6 +271,13 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		}
 		return null;
 	}
+	public List<Security> GetTopByInput(String Input,int TopN)
+	{
+		return (em.createQuery("select s from Security s ORDER BY "+Input+" DESC",
+	          Security.class).setMaxResults(TopN).getResultList());
+		
+	}
+
 
 
 }
