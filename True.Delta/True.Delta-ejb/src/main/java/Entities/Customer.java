@@ -17,10 +17,14 @@ import javax.persistence.Enumerated;
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+
 	
 	@Column(name = "Date_Of_Birth")
 	private Date DateB;
-	
+
+
+
+
 	@Enumerated(EnumType.STRING)
 	private Professional_Status_Type Profession;
 	
@@ -60,6 +64,8 @@ public class Customer implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Active_account_Type active; // 1 s'il est actif, 0 s'il ne l'est pas
 	
+
+
 	
 	
 	

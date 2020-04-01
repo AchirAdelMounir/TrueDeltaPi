@@ -5,10 +5,13 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
                 
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
-        <dependent-module archiveName="True.Delta-web.war" deploy-path="/" handle="module:/resource/True.Delta-web/True.Delta-web">
+        <dependent-module archiveName="True.Delta-web.war" deploy-path="/" handle="module:/classpath/var/M2_REPO/True-Delta/True.Delta-web/1.0.0/True.Delta-web-1.0.0.war">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="True.Delta-ejb.jar" deploy-path="/" handle="module:/resource/True.Delta-ejb/True.Delta-ejb">
+        <dependent-module archiveName="True.Delta-ejb.jar" deploy-path="/" handle="module:/classpath/var/M2_REPO/True-Delta/True.Delta-ejb/1.0.0/True.Delta-ejb-1.0.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jsoup.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jsoup/jsoup/1.13.1/jsoup-1.13.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
             

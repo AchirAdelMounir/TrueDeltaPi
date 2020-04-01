@@ -45,6 +45,8 @@ public class User implements Serializable {
 	@Column(name = "USER_LOGIN")
 	private String login;
 	
+
+	
 	
 	
 	@Embedded
