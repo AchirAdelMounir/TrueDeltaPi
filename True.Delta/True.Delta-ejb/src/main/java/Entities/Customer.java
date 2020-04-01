@@ -1,6 +1,7 @@
 package Entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import Enumerations.*;
 import javax.persistence.Column;
@@ -17,68 +18,89 @@ public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "Age")
-	private int age;
-	
-	@Enumerated(EnumType.STRING)
-	private Residency_Status_Type Residency_Status; // propriétaire ou locataire
+	@Column(name = "Date_Of_Birth")
+	private Date DateB;
 	
 	@Enumerated(EnumType.STRING)
 	private Professional_Status_Type Profession;
 	
 	@Enumerated(EnumType.STRING)
-	private Type_of_contract_type typeofcontract; // type du contrat de travail
+	private Type_of_contract_type typeofcontract;// type du contrat de travail
+	
+	@Column(name = "Seniority")
+	private int Seniority;
+	
+	@Enumerated(EnumType.STRING)
+	private Residency_Status_Type Residency_Status; // propriétaire ou locataire
 	
 	@Column(name = "Resources")
 	private double Resource;
 	
-	@Column(name = "Salary")
-	private double Salary;
-	
-	@Column(name = "Refund_in_progress")
-	private double Refund; // les remboursements en cours (crédits,pension alimentaire,autre charge)
+	@Enumerated(EnumType.STRING)
+	private Bank_type bank; 
 	
 	@Column(name = "Credit_Balance")
 	private double Credit; // Solde en banque
 	
+	@Column(name = "Monthly_Net_Income")
+	private double NetIncome;
+	
+	@Column(name = "Refund_in_progress")
+	private double Refund; // les remboursements en cours (crédits,pension alimentaire,autre charge)
+	
+	@Column(name = "Repayment_Date")
+	private String Repayment;
+	
 	@Column(name = "Risk")
 	private float Risk; // le risque à prendre
-	
-	@Enumerated(EnumType.STRING)
-	private Bank_type bank; 
 	
 	@Column(name = "Score")
 	private int score; 
 	
 	@Enumerated(EnumType.STRING)
-	private Diversified_Type Diversity; // divérsifié ou pas 
-	
-	@Enumerated(EnumType.STRING)
 	private Active_account_Type active; // 1 s'il est actif, 0 s'il ne l'est pas
 	
 	
-
-
-	public int getAge() {
-		return age;
-	}
-
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-
+	
 	
 
-
-	public double getSalary() {
-		return Salary;
+	public Date getDateB() {
+		return DateB;
 	}
 
 
-	public void setSalary(double salary) {
-		Salary = salary;
+	public void setDateB(Date dateB) {
+		DateB = dateB;
+	}
+
+
+	public int getSeniority() {
+		return Seniority;
+	}
+
+
+	public void setSeniority(int seniority) {
+		Seniority = seniority;
+	}
+
+
+	public double getNetIncome() {
+		return NetIncome;
+	}
+
+
+	public void setNetIncome(double netIncome) {
+		NetIncome = netIncome;
+	}
+
+
+	public String getRepayment() {
+		return Repayment;
+	}
+
+
+	public void setRepayment(String repayment) {
+		Repayment = repayment;
 	}
 
 
@@ -150,16 +172,6 @@ public class Customer implements Serializable{
 
 	public void setTypeofcontract(Type_of_contract_type typeofcontract) {
 		this.typeofcontract = typeofcontract;
-	}
-
-
-	public Diversified_Type getDiversity() {
-		return Diversity;
-	}
-
-
-	public void setDiversity(Diversified_Type diversity) {
-		Diversity = diversity;
 	}
 
 

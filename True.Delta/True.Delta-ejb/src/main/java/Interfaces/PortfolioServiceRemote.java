@@ -14,4 +14,5 @@ public interface PortfolioServiceRemote {
 	public void EditPortfolio(Portfolio p);
 	public void AffectedPortfolio(int idPortfolio,int idUser);
 	public float getRisk(int idUser);
+	public void moneyBasdPortfoio(float money, int idUser);
 }

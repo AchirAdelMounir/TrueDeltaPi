@@ -36,6 +36,9 @@ public class Portfolio implements Serializable{
 	@Column (name="Volatility")
 	private float Volatility;
 	
+	@Column (name="Price")
+	private double Price;
+	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
 	@OneToMany(mappedBy="Portfolio")
@@ -52,27 +55,14 @@ public class Portfolio implements Serializable{
 	
 
 
-
-
-
-
-
-
-
-	public Portfolio(Portfolio_Type typePortfolio, double returns, float volatility) {
+	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price) {
 		super();
+		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
 		Returns = returns;
 		Volatility = volatility;
-		
+		Price = price;
 	}
-
-
-
-
-
-
-
 
 
 
@@ -81,79 +71,36 @@ public class Portfolio implements Serializable{
 	@Override
 	public String toString() {
 		return "Portfolio [IdPortfolio=" + IdPortfolio + ", TypePortfolio=" + TypePortfolio + ", Returns=" + Returns
-				+ ", Volatility=" + Volatility ;
+				+ ", Volatility=" + Volatility + ", Price=" + Price + "]";
 	}
 
 
 
 
 
+	public double getPrice() {
+		return Price;
+	}
 
-
-
-
-
-
+	public void setPrice(double price) {
+		Price = price;
+	}
 
 	public Contract getContract() {
 		return Contract;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	public void setContract(Contract contract) {
 		Contract = contract;
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 	public Set<Security> getSecurities() {
 		return Securities;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	public void setSecurities(Set<Security> securities) {
 		Securities = securities;
 	}
-
-
-
-
-
-
-
-
-
-
-
 
 	public int getIdPortfolio() {
 		return IdPortfolio;
@@ -163,12 +110,9 @@ public class Portfolio implements Serializable{
 		IdPortfolio = idPortfolio;
 	}
 
-	
-
 	public Portfolio_Type getTypePortfolio() {
 		return TypePortfolio;
 	}
-
 
 	public void setTypePortfolio(Portfolio_Type typePortfolio) {
 		TypePortfolio = typePortfolio;
@@ -187,25 +131,18 @@ public class Portfolio implements Serializable{
 		return Returns;
 	}
 
-
 	public void setReturns(double returns) {
 		Returns = returns;
 	}
-
-
 
 	public float getVolatility() {
 		return Volatility;
 	}
 
-
-
 	public void setVolatility(float volatility) {
 		Volatility = volatility;
 	}
 
-	
-	
 	
 
 }

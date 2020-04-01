@@ -1,6 +1,9 @@
 package Services;
 
+import java.util.Date;
 import java.util.List;
+
+
 
 
 import javax.ejb.Stateful;
@@ -66,12 +69,15 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 	@Override
 	public int EstimatedScore(User u) {
 		int score =0;
-		if(u.getCustomer().getAge()>=18&&u.getCustomer().getAge()<40) {
+		int age;
+		Date today = new Date();
+		age=(today.getYear()+1900)-(u.getCustomer().getDateB().getYear()+1900);
+		if(age>=18&&age<60) {
 			score +=50;
 		}
 		else
 		{
-			score +=25;
+			score +=20;
 		}
 		if(u.getCustomer().getResidency_Status()==Residency_Status_Type.Owner)
 		{
@@ -81,18 +87,24 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		{
 			score +=20;
 		}
-		if(u.getCustomer().getProfession()==Professional_Status_Type.Doctor||u.getCustomer().getProfession()==Professional_Status_Type.Engineer)
-		{
-			score+=50;
-		}
-		else if(u.getCustomer().getProfession()==Professional_Status_Type.Professor)
+		if (u.getCustomer().getSeniority()>=5&&u.getCustomer().getSeniority()<20)
 		{
 			score +=30;
 		}
-		else 
+		if (u.getCustomer().getSeniority()>20)
 		{
-			score +=20;
+			score +=50;
 		}
+		if((u.getCustomer().getProfession()==Professional_Status_Type.Employee&&u.getCustomer().getNetIncome()>=1000&&u.getCustomer().getNetIncome()<3000)||(u.getCustomer().getProfession()==Professional_Status_Type.Entrepreneur&&u.getCustomer().getNetIncome()>=2500&&u.getCustomer().getNetIncome()<6000))
+
+		{
+			score +=25;
+		}
+		else if ((u.getCustomer().getProfession()==Professional_Status_Type.Employee&& u.getCustomer().getNetIncome()>=3000)||(u.getCustomer().getProfession()==Professional_Status_Type.Entrepreneur&&u.getCustomer().getNetIncome()>=6000))
+		{
+			score +=50;
+		}
+		
 		
 		if(u.getCustomer().getTypeofcontract()==Type_of_contract_type.Fixed_term_contract)
 		{
@@ -102,7 +114,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		{
 			score += 30;
 		}
-		else
+		else if(u.getCustomer().getTypeofcontract()==Type_of_contract_type.The_Initiation_into_the_World_of_Work_Scheme)
 		{
 			score += 10;
 		}
@@ -119,11 +131,11 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		{
 			score += 50;
 		}
-		if(u.getCustomer().getRefund()<(0.5*u.getCustomer().getSalary()) && u.getCustomer().getRefund()>(0.1*u.getCustomer().getSalary()))
+		if(u.getCustomer().getRefund()<(0.4*u.getCustomer().getNetIncome()) && u.getCustomer().getRefund()>(0.1*u.getCustomer().getNetIncome()))
 		{
 			score +=10;
 		}	
-		else if(u.getCustomer().getRefund()<=(0.1*u.getCustomer().getSalary()))
+		else if(u.getCustomer().getRefund()<=(0.1*u.getCustomer().getNetIncome()))
 		{
 			score +=30;
 		}
@@ -139,7 +151,11 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		{
 			score+=50;
 		}
-	
+		if(u.getCustomer().getRepayment().equals("2020"))
+		{
+			score+=30;
+		}
+		
 			return score;
 		
 	}
@@ -153,5 +169,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		}
 		
 	}
+
+
 
 }

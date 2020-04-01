@@ -16,4 +16,5 @@ public interface UserServiceLocal {
 	public void EditUser(User u);
 	public int EstimatedScore (User u);
 	public void validateProfile(User u);
+	
 }

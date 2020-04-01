@@ -1,23 +1,29 @@
 package Services;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import Entities.Bond;
 import Entities.Portfolio;
+import Entities.Stock;
 import Entities.User;
 import Interfaces.PortfolioServiceLocal;
 import Interfaces.PortfolioServiceRemote;
+import Enumerations.*;
 
 @Stateful
 public class PortfolioService implements PortfolioServiceLocal, PortfolioServiceRemote {
 
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
-	
+
 	@Override
 	public int AddPortfolio(Portfolio P) {
 		em.persist(P);
@@ -52,16 +58,16 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 
 	@Override
 	public void AffectedPortfolio(int idPortfolio,int idUser) {
-	User u = new User();
-	Portfolio p = new Portfolio();
-	u=em.find(User.class, idUser);
-	p=em.find(Portfolio.class, idPortfolio);
-	u.setPortfolio(p);
-	p.setUser(u);
-	em.merge(u);
-	em.merge(p);
-	
-		
+		User u = new User();
+		Portfolio p = new Portfolio();
+		u=em.find(User.class, idUser);
+		p=em.find(Portfolio.class, idPortfolio);
+		u.setPortfolio(p);
+		p.setUser(u);
+		em.merge(u);
+		em.merge(p);
+
+
 	}
 
 	@Override
@@ -70,5 +76,12 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		u=em.find(User.class, idUser);
 		return u.getCustomer().getRisk();
 	}
+	UserService us = new UserService();
+
+	@Override
+	public void moneyBasdPortfoio(float money, int idUser) {
+		
+	}
+	
 
 }
