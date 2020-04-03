@@ -1,7 +1,6 @@
 package Entities;
 import java.io.Serializable;
-
-
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -70,7 +69,7 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="User")
 	private Set<Complain> Articles;
 	@OneToMany(mappedBy="User")
-	private Set<Contract> Contratcs;
+	private List<Contract> Contratcs;
 	@OneToOne 
 	private Portfolio portfolio;
 
@@ -150,16 +149,26 @@ public class User implements Serializable {
 		this.visitor = visitor;
 	}
 
-	public Set<Contract> getContratcs() {
+/*	public Set<Contract> getContratcs() {
 		return Contratcs;
 	}
 
 	public void setContratcs(Set<Contract> contratcs) {
 		Contratcs = contratcs;
-	}
+	}*/
+	
+	
 
 	public Enumerations.UserType getUserType() {
 		return UserType;
+	}
+
+	public List<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(List<Contract> contratcs) {
+		Contratcs = contratcs;
 	}
 
 	public void setUserType(Enumerations.UserType userType) {
@@ -171,7 +180,7 @@ public class User implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String nom, String prenom, String adresseMail, String password, String login, Visitor visitor,
+	/*public User(int id, String nom, String prenom, String adresseMail, String password, String login, Visitor visitor,
 			AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
 			Set<Complain> complains, Set<Complain> articles, Set<Contract> contratcs, Portfolio portfolio) {
 		super();
@@ -189,7 +198,10 @@ public class User implements Serializable {
 		Articles = articles;
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
-	}
+	}*/
+	
+	
+	
 
 	public User(String nom, String prenom, String adresseMail, String password, String login, 
 			 Enumerations.UserType userType) {
@@ -203,16 +215,26 @@ public class User implements Serializable {
 		UserType = userType;
 	}
 
+	public User(int id, String nom, String prenom, String adresseMail, String password, String login, Visitor visitor,
+			AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
+			Set<Complain> complains, Set<Complain> articles, List<Contract> contratcs, Portfolio portfolio) {
+		super();
+		Id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.visitor = visitor;
+		this.asset_manager = asset_manager;
+		UserType = userType;
+		Feedbacks = feedbacks;
+		Complains = complains;
+		Articles = articles;
+		Contratcs = contratcs;
+		this.portfolio = portfolio;
+	}
 
 
-
-
-
-
-	
-	
-
-	
-	
 
 }

@@ -2,7 +2,9 @@ package Services;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateful;
 
@@ -14,6 +16,7 @@ import javax.persistence.TypedQuery;
 import Entities.AssetManager;
 import Entities.Contract;
 import Entities.User;
+import Enumerations.UserType;
 import Interfaces.ContractServiceLocal;
 import Interfaces.ContractServiceRemote;
 
@@ -71,9 +74,30 @@ public void EditContractByID(int IdContract , int Amount) {
 	}
 
 	@Override
-	public void AffecterAMAContrat(int IdAM, int IdCpntract) {
+	public void AffecterAMAContrat(int IdAM, int IdContract) {
 	
-		 
+		
+		/*Contract contratManagedEntity =  em.find(Contract.class, IdContract);
+		User userManagedEntity = em.find(User.class, IdAM);
+		if (userManagedEntity.getUserType()== UserType.AssetManager)  {
+		contratManagedEntity.setUser(userManagedEntity);
+		}*/
+		
+	/*	User userManagedEntity = em.find(User.class, IdAM);
+		Contract contratManagedEntity =  em.find(Contract.class, IdContract);
+		if(userManagedEntity.getContratcs() == null)
+		{ List<Contract> contracts = new ArrayList<>();
+		contracts.add(contratManagedEntity);
+		userManagedEntity.setContratcs(contracts);
+		}else{ userManagedEntity.getContratcs().add(contratManagedEntity);
+		}*/
+		
+		Contract contratManagedEntity = em.find(Contract.class, IdContract);
+		User userManagedEntity = em.find(User.class, IdAM);
+		if (userManagedEntity.getUserType()== UserType.AssetManager)    {
+		contratManagedEntity.setUser(userManagedEntity);
+		em.merge(contratManagedEntity);
+		}
 
 	}
 
@@ -83,16 +107,38 @@ public void EditContractByID(int IdContract , int Amount) {
 		
 	}
 
-    @Override
-    public void ListContract() {
+  
+	@Override
+    public List<Contract> ListContract() {
     	//return em.find(Contract.class, contractId);
-    	 List<Contract> contrats ;
-    	 contrats=  (List<Contract>) em.createQuery("select c from contract c", Contract.class).getSingleResult();
-    	 
+    	 List<Contract> contrats =  em.createQuery("select c from contract c", Contract.class).getResultList();
+    	 return contrats;
 
     }
-    
 
+	@Override
+	public List<String> getAllContratcNamesByAssetManager(int ContractId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	 /* @Override
+	public List<String> getAllContratcNamesByAssetManager(int ContractId){
+    	
+    	Contract ContractManagedEntity = em.find(Contract.class, ContractId);
+    	List<String> AMNames = new ArrayList<>();
+    	for(User AM : ContractManagedEntity.getUser()){
+    	AMNames.add(AM.getNom());
+    	}
+}*/
+	
+	@Override
+	public float GetAmountByUserID (int UserId) {
+		
+		TypedQuery<Float> query = em.createQuery("Select c.amount from contract c join c.user u where u.id= UserId " , Float.class);
+		query.setParameter("UserId", UserId);
+		return query.getSingleResult();
+	}
 
 
 }

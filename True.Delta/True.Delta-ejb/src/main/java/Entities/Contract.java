@@ -2,7 +2,9 @@ package Entities;
 
 import java.io.Serializable;
 
+
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +24,7 @@ import Enumerations.ContractType;
 
 
 
+
 @Entity
 @Table(name="Contract") 
 
@@ -36,7 +39,7 @@ public class Contract implements Serializable {
 	@Column()
 	int IDContract;
 	@Column()
-	int Amount;
+	float Amount;
 	@Column()
 	Date CreationDate;
 	@Column()
@@ -63,7 +66,7 @@ public class Contract implements Serializable {
 	public void setIDContract(int iDContract) {
 		IDContract = iDContract;
 	}
-	public int getAmount() {
+	public float getAmount() {
 		return Amount;
 	}
 	public void setAmount(int amount) {
@@ -151,11 +154,5 @@ public class Contract implements Serializable {
 	}
 
 
-	
-	
-	
-	
-	
-	
 
 }

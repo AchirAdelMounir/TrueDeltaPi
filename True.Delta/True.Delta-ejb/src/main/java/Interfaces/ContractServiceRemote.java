@@ -15,9 +15,12 @@ public interface ContractServiceRemote {
 	public int AddContract(Contract contract);
 	public void DeleteContractById(int IdContract);
 	public void EditContractByID(int IdContract , int Amount);
-	void AffecterAMAContrat(int IdAM, int IdCpntract);
+	void AffecterAMAContrat(int IdAM, int IdContract);
 	public Contract ReadContractById( int contractId );
-	public void ListContract( );
+	public List<Contract> ListContract( );
+	List<String> getAllContratcNamesByAssetManager(int ContractId);
+	public float GetAmountByUserID (int UserId);
+
 
 	
 	
