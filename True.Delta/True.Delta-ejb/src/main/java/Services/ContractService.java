@@ -4,14 +4,12 @@ package Services;
 
 import java.util.List;
 
+
 import javax.ejb.Stateful;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
-import Entities.AssetManager;
 import Entities.Contract;
 import Entities.User;
 import Interfaces.ContractServiceLocal;
@@ -78,17 +76,17 @@ public void EditContractByID(int IdContract , int Amount) {
 	}
 
 	@Override
-	public Contract ReadContractById( int contractId ) {
-		return em.find(Contract.class, contractId);
-		
+	public Contract ReadContractById ( int contractId ) {
+		Contract contracts = em.find(Contract.class, contractId);
+			return contracts;
 	}
 
     @Override
-    public void ListContract() {
-    	//return em.find(Contract.class, contractId);
-    	 List<Contract> contrats ;
-    	 contrats=  (List<Contract>) em.createQuery("select c from contract c", Contract.class).getSingleResult();
-    	 
+    public List ListContract() {
+    	
+    	 List <Contract>  contracts = em.createQuery("select c from Contract c",Contract.class).getResultList();
+ 		
+ 		return contracts ; 
 
     }
     

@@ -36,7 +36,7 @@ public class Contract implements Serializable {
 	@Column()
 	int IDContract;
 	@Column()
-	int Amount;
+    int Amount;
 	@Column()
 	Date CreationDate;
 	@Column()
@@ -100,7 +100,7 @@ public class Contract implements Serializable {
 	public void setFinancialAsset(Enumerations.FinancialAsset financialAsset) {
 		FinancialAsset = financialAsset;
 	}
-	public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate,
+	/*public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate,
 			ContractType contartType, Enumerations.FinancialAsset financialAsset) {
 		super();
 		IDContract = iDContract;
@@ -111,7 +111,7 @@ public class Contract implements Serializable {
 		
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
-	}
+	}*/
 	public Contract() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -149,6 +149,21 @@ public class Contract implements Serializable {
 		FinancialAsset = financialAsset;
 		User = user;
 	}
+	@Override
+	public String toString() {
+		return "Contract [IDContract=" + IDContract + ", Amount=" + Amount + ", CreationDate=" + CreationDate
+				+ ", StartDate=" + StartDate + ", EndDate=" + EndDate + ", ContartType=" + ContartType
+				+ ", FinancialAsset=" + FinancialAsset + "]";
+	}
+	public Contract(int amount, Date creationDate, Date startDate, Date endDate, Entities.User user) {
+		super();
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		User = user;
+	}
+	
 
 
 	

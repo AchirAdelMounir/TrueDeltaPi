@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -19,7 +20,7 @@ public interface ContractServiceLocal {
 	public void EditContractByID(int IdContract , int Amount);
 	void AffecterAMAContrat(int IdAM, int IdCpntract);
 	public Contract ReadContractById( int contractId );
-	public void ListContract( );
+	public  List ListContract( );
 
 
 }
