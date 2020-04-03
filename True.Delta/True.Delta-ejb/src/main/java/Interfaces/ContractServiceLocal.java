@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Local;
 
@@ -19,9 +20,13 @@ public interface ContractServiceLocal {
 	public void EditContractByID(int IdContract , int Amount);
 	void AffecterAMAContrat(int IdAM, int IdContract);
 	public Contract ReadContractById( int contractId );
+<<<<<<< HEAD
 	public List<Contract> ListContract( );
 	List<String> getAllContratcNamesByAssetManager(int ContractId);
 	public float GetAmountByUserID (int UserId);
+=======
+	public  List ListContract( );
+>>>>>>> branch 'Eya-Djebbi' of https://github.com/AchirAdelMounir/TrueDeltaPi.git
 
 
 }
