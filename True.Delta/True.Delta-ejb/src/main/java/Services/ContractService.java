@@ -105,10 +105,8 @@ public void EditContractByID(int IdContract , int Amount) {
     	    	 
     	/*Query banque =  em.createQuery("select * from Banque b , User u where u.CRedit=b.Credit   ") ;*/
     	
-    
     	return null;
-    	   
-    		
+   		
     }
     
     @Override    
