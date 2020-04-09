@@ -103,10 +103,10 @@ public void EditContractByID(int IdContract , int Amount) {
     	// int Query;
     	//Query a =  em.createQuery("select Credit from Banque b , User u where u.Credit_Balance =b.Credit ");
     	    	 
-    	Query banque =  em.createQuery("select * from Banque b , User u where u.CRedit=b.Credit   ") ;
+    	/*Query banque =  em.createQuery("select * from Banque b , User u where u.CRedit=b.Credit   ") ;*/
     	
     
-    	return false;
+    	return null;
     	   
     		
     }
