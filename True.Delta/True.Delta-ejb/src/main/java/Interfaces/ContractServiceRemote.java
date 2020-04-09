@@ -7,6 +7,7 @@ import javax.ejb.Remote;
 
 import Entities.Contract;
 import Entities.User;
+import Entities.Visitor;
 
 
 @Remote
@@ -19,6 +20,9 @@ public interface ContractServiceRemote {
 	void AffecterAMAContrat(int IdAM, int IdCpntract);
 	public Contract ReadContractById( int contractId );
 	public  List ListContract( );
+	public Boolean  VerificationBanque();
+	public int ScoreVisitor  (int IdVisitor);
+	public int ScoreContract(int IdUser);
 
 	
 	

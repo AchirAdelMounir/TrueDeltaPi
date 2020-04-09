@@ -8,6 +8,7 @@ import javax.ejb.Local;
 
 import Entities.Contract;
 import Entities.User;
+import Entities.Visitor;
 
 
 @Local
@@ -21,6 +22,11 @@ public interface ContractServiceLocal {
 	void AffecterAMAContrat(int IdAM, int IdCpntract);
 	public Contract ReadContractById( int contractId );
 	public  List ListContract( );
+	public Boolean VerificationBanque();
+	public int  ScoreVisitor  (int IdVisitor);
+	public int ScoreContract(int IdUser);
+	
+	
 
 
 }

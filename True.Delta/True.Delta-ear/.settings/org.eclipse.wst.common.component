@@ -35,6 +35,9 @@
         <dependent-module archiveName="curvesapi.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/github/virtuald/curvesapi/1.04/curvesapi-1.04.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="mysql-connector-java.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/mysql/mysql-connector-java/5.1.36/mysql-connector-java-5.1.36.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
             
     </wb-module>
     

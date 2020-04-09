@@ -5,6 +5,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+import Enumerations.ContractType;
+import Enumerations.TypeDevise;
 
 
 @Embeddable
@@ -46,6 +51,46 @@ public class Visitor implements Serializable{
 	@Column(name = "Diversified")
 	private boolean Diversity; // divérsifié ou pas 
 	
+	@Column(name ="Civil_Status")
+	private String Civil_Status; //etat civile (marié / célibataire / ... )
+	
+	@Column(name="Account_Number")
+	private int Account_Number;
+
+	@Enumerated(EnumType.STRING)
+	TypeDevise Devise;
+	
+
+
+
+	public TypeDevise getDevise() {
+		return Devise;
+	}
+
+
+	public void setDevise(TypeDevise devise) {
+		Devise = devise;
+	}
+
+
+	public int getAccount_Number() {
+		return Account_Number;
+	}
+
+
+	public void setAccount_Number(int account_Number) {
+		Account_Number = account_Number;
+	}
+
+
+	public String getCivil_Status() {
+		return Civil_Status;
+	}
+
+
+	public void setCivil_Status(String civil_Status) {
+		Civil_Status = civil_Status;
+	}
 
 
 	public String getNom() {
