@@ -1,3 +1,4 @@
+
 package Interfaces;
 
 import javax.ejb.Local;
@@ -14,3 +15,4 @@ public interface ContractServiceLocal {
 	public void ReadContract(int IdContract);
 
 }
+

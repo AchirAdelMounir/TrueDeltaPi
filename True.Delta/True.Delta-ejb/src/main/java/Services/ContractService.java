@@ -1,3 +1,4 @@
+
 package Services;
 
 import javax.ejb.Stateful;
@@ -48,4 +49,3 @@ public class ContractService implements ContractServiceLocal , ContractServiceRe
 
 	}
 
-}

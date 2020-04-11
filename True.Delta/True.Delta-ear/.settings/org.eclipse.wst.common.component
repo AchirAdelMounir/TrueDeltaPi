@@ -11,6 +11,9 @@
         <dependent-module archiveName="True.Delta-ejb.jar" deploy-path="/" handle="module:/resource/True.Delta-ejb/True.Delta-ejb">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jsoup.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/jsoup/jsoup/1.13.1/jsoup-1.13.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
             
     </wb-module>
     
