@@ -4,21 +4,24 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.LongStream;
 
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import Entities.Company;
 import Entities.Security;
+import Entities.Stock;
 import Interfaces.CompaniesServicesInterfaceLocal;
 import Interfaces.CompaniesServicesInterfaceRemote;
 
-@Stateful
+@Stateless
 
 public class CompaniesServices implements CompaniesServicesInterfaceRemote, CompaniesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")
@@ -270,5 +273,6 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 		
 		return L;
 	}
+	
 
 }

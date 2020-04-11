@@ -3,6 +3,7 @@ package Services;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -24,8 +26,13 @@ import Entities.Security;
 import Entities.Stock;
 import Interfaces.SecuritiesServicesInterfaceLocal;
 import Interfaces.SecuritiesServicesInterfaceRemote;
+import yahoofinance.YahooFinance;
 
-@Stateful
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+@Stateless
 
 public class SecuritesServices implements SecuritiesServicesInterfaceRemote, SecuritiesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")
@@ -33,12 +40,11 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 
 	@Override
 	public int AddSecurity(Security S) {
-		if(ifExists(S)==false)
-		{
-		em.persist(S);
-		System.out.println("Bond:" + S.getId());
-		return S.getId();}
-		else 
+		if (ifExists(S) == false) {
+			em.persist(S);
+			System.out.println("Bond:" + S.getId());
+			return S.getId();
+		} else
 			return 0;
 
 	}
@@ -47,22 +53,20 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	public void DeleteSecurity(int IdSecurity) {
 		Security S = new Security();
 		S = em.find(Security.class, IdSecurity);
-		if(ifExists(S)==true)
-		{
-		em.remove(S);
+		if (ifExists(S) == true) {
+			em.remove(S);
 		}
-		
 
 	}
 
 	@Override
 	public Security DisplaySecurity(int IdSecurity) {
 		Security S = new Security();
-		if(ifExists(S)==true)
-		{
-		S = em.find(Security.class, IdSecurity);
-		return S;}
-		else return null;
+		if (ifExists(S) == true) {
+			S = em.find(Security.class, IdSecurity);
+			return S;
+		} else
+			return null;
 
 	}
 
@@ -136,18 +140,18 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	@Override
 	public List<Stock> StocksDownloader(String Sym, String Period1, String Period2) {
 		System.out.println("HELLO WORLD");
-		
-		 /*Period1 = "2019-05-05";
-		 Period2 = "2020-02-05";
-		*/
-		List<Stock>Ls=new ArrayList<>();
+
+		/*
+		 * Period1 = "2019-05-05"; Period2 = "2020-02-05";
+		 */
+		List<Stock> Ls = new ArrayList<>();
 		Date localDate1 = Date.valueOf(Period1);
 		Date localDate2 = Date.valueOf(Period2);
 		long p1 = localDate1.getTime() / 1000;
-		
+
 		long p2 = localDate2.getTime() / 1000;
-		String url = "https://query1.finance.yahoo.com/v7/finance/download/" + Sym
-				+ "?period1="+p1+"&period2="+p2+"&interval=1d&events=history";
+		String url = "https://query1.finance.yahoo.com/v7/finance/download/" + Sym + "?period1=" + p1 + "&period2=" + p2
+				+ "&interval=1d&events=history";
 		try {
 			URL yhoofin = new URL(url);
 			URLConnection data = yhoofin.openConnection();
@@ -182,59 +186,60 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public void getStockPriceInstantly()  {
-		/*String Sym="KO";
-		URL url= new URL("https://finance.yahoo.com/quote/KO?p=KO");
-		URLConnection urlConn=url.openConnection();
-		InputStreamReader inStream=new InputStreamReader(urlConn.getInputStream());
-		BufferedReader buff=new BufferedReader(inStream);
-		String line=buff.readLine();
-		while(line!=null)
-		{
-			System.out.println(line);
-			
-		}*/
+	public BigDecimal getStockPriceInstantly(String Sym) {
+		yahoofinance.Stock stock = null;
+		try {
+			stock = YahooFinance.get(Sym);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			BigDecimal price = stock.getQuote(true).getPrice();
+			return price;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 		
-		
-		
-		
-		
+
 	}
 
 	@Override
 	public Boolean ifExists(Security S) {
-		if(em.find(Company.class, S.getId())==null)
+		if (em.find(Company.class, S.getId()) == null)
 			return false;
-		else 
+		else
 			return true;
 	}
-
 
 	@Override
 	public double VolatilityCalculator(String Sym, String Period1, String Period2) {
 		System.out.println("HELLO WORLD");
-		List<Stock> Ls=StocksDownloader(Sym, Period1, Period2);
-		long ObsNumber=Ls.stream().count();
-		System.out.println("ObsNumber"+ObsNumber);
-		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
-		System.out.println("Mean"+Mean);
-		double PeriodDeviation=0;
-		double Var=0;
-		double Racine=0;
-		
-		for(Stock i : Ls)
-		{System.out.println("PeriodDev"+PeriodDeviation);
-		System.out.println("PeriodDev2   h"+(i.getAdj_Close()-Mean));
-		
-		Racine=(i.getAdj_Close()-Mean);
-			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
-			
-			System.out.println("PeriodDev"+PeriodDeviation);
+		List<Stock> Ls = StocksDownloader(Sym, Period1, Period2);
+		long ObsNumber = Ls.stream().count();
+		System.out.println("ObsNumber" + ObsNumber);
+		double Mean = Ls.stream().mapToDouble(e -> e.getAdj_Close()).average().getAsDouble();
+		System.out.println("Mean" + Mean);
+		double PeriodDeviation = 0;
+		double Var = 0;
+		double Racine = 0;
+
+		for (Stock i : Ls) {
+			System.out.println("PeriodDev" + PeriodDeviation);
+			System.out.println("PeriodDev2   h" + (i.getAdj_Close() - Mean));
+
+			Racine = (i.getAdj_Close() - Mean);
+			PeriodDeviation += Math.pow((i.getAdj_Close() - Mean), 2);
+
+			System.out.println("PeriodDev" + PeriodDeviation);
 		}
-		Var=(PeriodDeviation/(ObsNumber-1));
-		System.out.println("Var"+Var);
+		Var = (PeriodDeviation / (ObsNumber - 1));
+		System.out.println("Var" + Var);
 		return Var;
 	}
+
 	@Override
 	public List<Company> SearchByInput(String SearchField, String operator, Object o) {
 		if (o instanceof Integer) {
@@ -242,28 +247,24 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
 					Company.class).getResultList());
 
-		}
-		else if (o instanceof Double) {
+		} else if (o instanceof Double) {
 			Double O = (Double) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
 					Company.class).getResultList());
 
-		}
-		else if (o instanceof String) {
+		} else if (o instanceof String) {
 			String O = (String) o;
-			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " +"'"+O+"'",
-					Company.class).getResultList());
+			return (em
+					.createQuery("select s from Security s where " + SearchField + " " + operator + " " + "'" + O + "'",
+							Company.class)
+					.getResultList());
 
-		}
-		else if (o instanceof BigInteger)
-		 {
+		} else if (o instanceof BigInteger) {
 			BigInteger O = (BigInteger) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
 					Company.class).getResultList());
 
-		}
-		else if(o instanceof Date)
-		 {
+		} else if (o instanceof Date) {
 			Date O = (Date) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
 					Company.class).getResultList());
@@ -271,13 +272,57 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		}
 		return null;
 	}
-	public List<Security> GetTopByInput(String Input,int TopN)
-	{
-		return (em.createQuery("select s from Security s ORDER BY "+Input+" DESC",
-	          Security.class).setMaxResults(TopN).getResultList());
-		
+
+	public List<Security> GetTopByInput(String Input, int TopN) {
+		return (em.createQuery("select s from Security s ORDER BY " + Input + " DESC", Security.class)
+				.setMaxResults(TopN).getResultList());
+
 	}
 
+	/*public void DisplayStockPrices() {
+		final String url = "https://finance.yahoo.com/quote/TSLA/";
 
+		try {
+			Document document = Jsoup.connect(url).get();
+
+			for (Element row : document.select("table.tablesorter.full tr")) {
+				if (row.select("td:nth-of-type(1)").text().equals("")) {
+					continue;
+				} else {
+					String ticker = row.select("td:nth-of-type(1)").text();
+					String name = row.select("td:nth-of-type(2)").text();
+					String tempPrice = row.select("td.right:nth-of-type(3)").text();
+					String tempPrice1 = tempPrice.replace(",", "");
+					// final double price = Double.parseDouble(tempPrice1);
+
+					System.out.println(ticker + " " + name + " " + tempPrice1);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}*/
+	public List<Security> SecuritiesFinder(int Number,String operator,double value)
+	{if (Number==-1)
+	{
+		return (em.createQuery("select s from Security s WHERE s.price"+operator+""+value, Security.class)
+				.getResultList());
+		
+	}
+	else {
+		return (em.createQuery("select s from Security s WHERE s.price"+operator+""+value, Security.class)
+				.setMaxResults(Number).getResultList());
+	}
+		
+		
+		
+	}
+	public Company DisplayCampanyInformation()
+	{
+		
+		return null;
+		
+	}
+	
 
 }

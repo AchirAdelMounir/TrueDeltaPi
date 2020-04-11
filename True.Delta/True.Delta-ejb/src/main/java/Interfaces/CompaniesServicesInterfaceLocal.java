@@ -6,6 +6,7 @@ import javax.ejb.Local;
 import javax.ejb.Remote;
 import Entities.Company;
 import Entities.Security;
+import Entities.Stock;
 @Local
 
 public interface CompaniesServicesInterfaceLocal {

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Remote;
 import Entities.Company;
 import Entities.Security;
+import Entities.Stock;
 @Remote
 
 public interface CompaniesServicesInterfaceRemote {
