@@ -2,6 +2,7 @@ package Entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column; 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,7 +27,7 @@ public class Company implements Serializable {
 	private String Sector;
 	@Column(name="INDUSTRY")
 	private String Industry;
-	@OneToMany(mappedBy="Company")
+	@OneToMany(mappedBy="Company",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 	private Set<Security> Securities;
 	
 	

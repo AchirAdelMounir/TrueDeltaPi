@@ -50,6 +50,13 @@
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-core-asl</artifactId>
+    <version>1.9.13</version>
+    <scope>provided</scope>
+</dependency>
+        
 
         <!-- Import the CDI API, we use provided scope as the API is included in JBoss WildFly -->
         <dependency>
