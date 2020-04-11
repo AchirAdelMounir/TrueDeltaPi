@@ -1,3 +1,4 @@
+
 package Interfaces;
 
 import javax.ejb.Remote;
@@ -14,3 +15,4 @@ public interface ContractServiceRemote {
 	public void ReadContract(int IdContract);
 
 }
+

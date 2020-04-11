@@ -1,22 +1,28 @@
 package Entities;
 import java.io.Serializable;
-
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+
 import Enumerations.*;
 
 
 @Entity
 @Table(name="USER")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 	
 	/**
@@ -27,7 +33,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	private int Id;
+	private int id;
 	
 	@Column(name = "USER_NOM")
 	private String nom;
@@ -60,12 +66,12 @@ public class User implements Serializable {
 	
 	
 	
-	@OneToMany(mappedBy="User")
-	private Set<Feedback> Feedbacks;
-	@OneToMany(mappedBy="User")
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
+	private Set<Feedback> feedbacks;
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Complain> Complains;
-	@OneToMany(mappedBy="User")
-	private Set<Complain> Articles;
+	//@OneToMany(mappedBy="user")
+	//private Set<Complain> Articles;
 	@OneToMany(mappedBy="User")
 	private Set<Contract> Contratcs;
 	@OneToOne 
@@ -85,11 +91,11 @@ public class User implements Serializable {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.Id = id;
+		this.id = id;
 	}
 
 	public String getNom() {
@@ -147,6 +153,9 @@ public class User implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+	
+	
+	
 
 	
 

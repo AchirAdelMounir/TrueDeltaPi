@@ -3,6 +3,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column; 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,6 +26,13 @@ public class Company implements Serializable {
 	private String Name;
 	@Column(name="SECTOR")
 	private String Sector;
+
+
+	@Column(name="INDUSTRY")
+	private String Industry;
+	@OneToMany(mappedBy="Company",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+private Set<Security> Securities;
+
 	@Column(name="PRICE")
 	private double Price;
 	@Column(name="R_Price_Earnings")
@@ -47,15 +55,6 @@ public class Company implements Serializable {
 	private double R_Price_Book;	
 	@Column(name="SEC_Filings")
 	private String SEC_Filings;
-
-	
-	
-	
-	@OneToMany(mappedBy="Company")
-	private Set<Security> Securities;
-	
-	
-	
 	
 	public Company() {
 		super();
