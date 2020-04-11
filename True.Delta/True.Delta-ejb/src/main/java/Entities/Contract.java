@@ -1,4 +1,5 @@
 
+
 package Entities;
 
 import java.io.Serializable;
@@ -131,3 +132,5 @@ public class Contract implements Serializable {
 	
 
 }
+
+
