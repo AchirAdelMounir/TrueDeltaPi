@@ -41,6 +41,18 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	@Override
 	public int AddSecurity(Security S) {
 		if (ifExists(S) == false) {
+			if(S.getB()==null)
+			{
+				BigDecimal d=getStockPriceInstantly(S.getCompany().getSymbol());
+				S.setType("Stock");
+				S.setPrice(d.doubleValue());
+				
+			}
+			else if (S.getB()!=null)
+			{
+				S.setType("Bond");
+			}
+		
 			em.persist(S);
 			System.out.println("Bond:" + S.getId());
 			return S.getId();
@@ -138,8 +150,8 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public List<Stock> StocksDownloader(String Sym, String Period1, String Period2) {
-		System.out.println("HELLO WORLD");
+	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2) {
+		
 
 		/*
 		 * Period1 = "2019-05-05"; Period2 = "2020-02-05";
@@ -151,7 +163,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 
 		long p2 = localDate2.getTime() / 1000;
 		String url = "https://query1.finance.yahoo.com/v7/finance/download/" + Sym + "?period1=" + p1 + "&period2=" + p2
-				+ "&interval=1d&events=history";
+				+ "&interval="+frequency+"&events=history";
 		try {
 			URL yhoofin = new URL(url);
 			URLConnection data = yhoofin.openConnection();
@@ -217,7 +229,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	@Override
 	public double VolatilityCalculator(String Sym, String Period1, String Period2) {
 		System.out.println("HELLO WORLD");
-		List<Stock> Ls = StocksDownloader(Sym, Period1, Period2);
+		List<Stock> Ls = StocksDownloader(Sym,"1d", Period1, Period2);
 		long ObsNumber = Ls.stream().count();
 		System.out.println("ObsNumber" + ObsNumber);
 		double Mean = Ls.stream().mapToDouble(e -> e.getAdj_Close()).average().getAsDouble();
@@ -237,6 +249,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		}
 		Var = (PeriodDeviation / (ObsNumber - 1));
 		System.out.println("Var" + Var);
+		System.out.println("Mean" + Mean);
 		return Var;
 	}
 
@@ -278,30 +291,14 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 				.setMaxResults(TopN).getResultList());
 
 	}
+	public List<Security> GetLastByInput(String Input,int TopN)
+	{
+		return (em.createQuery("select s from Security s ORDER BY " + Input + " ASC", Security.class)
+				.setMaxResults(TopN).getResultList());
+		
+	}
 
-	/*public void DisplayStockPrices() {
-		final String url = "https://finance.yahoo.com/quote/TSLA/";
-
-		try {
-			Document document = Jsoup.connect(url).get();
-
-			for (Element row : document.select("table.tablesorter.full tr")) {
-				if (row.select("td:nth-of-type(1)").text().equals("")) {
-					continue;
-				} else {
-					String ticker = row.select("td:nth-of-type(1)").text();
-					String name = row.select("td:nth-of-type(2)").text();
-					String tempPrice = row.select("td.right:nth-of-type(3)").text();
-					String tempPrice1 = tempPrice.replace(",", "");
-					// final double price = Double.parseDouble(tempPrice1);
-
-					System.out.println(ticker + " " + name + " " + tempPrice1);
-				}
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}*/
+	
 	public List<Security> SecuritiesFinder(int Number,String operator,double value)
 	{if (Number==-1)
 	{
@@ -317,10 +314,18 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		
 		
 	}
-	public Company DisplayCampanyInformation()
+	public double CoefOfDeviation(String Sym, String Period1, String Period2)
 	{
+		List<Stock> Ls = StocksDownloader(Sym,"1d", Period1, Period2);
+		double Mean = Ls.stream().mapToDouble(e -> e.getAdj_Close()).average().getAsDouble();
+		double StandardDev=Math.sqrt(VolatilityCalculator(Sym, Period1, Period2));
+		return ((StandardDev/Mean)*100);
 		
-		return null;
+	}
+	public double StandardDev(String Sym, String Period1, String Period2)
+	{
+		return Math.sqrt(VolatilityCalculator(Sym, Period1, Period2));
+	
 		
 	}
 	

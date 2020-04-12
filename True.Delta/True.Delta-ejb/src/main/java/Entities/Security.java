@@ -31,7 +31,7 @@ public class Security implements Serializable {
 	@Column(name = "TYPE")
 	private String Type;
 	@Column(name = "Price")
-	private String Price;
+	private double Price;
 
 	@Embedded
 	private Stock S;
@@ -116,10 +116,10 @@ public class Security implements Serializable {
 	public void setVolatility(double volatility) {
 		Volatility = volatility;
 	}
-	public String getPrice() {
+	public double getPrice() {
 		return Price;
 	}
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		Price = price;
 	}
 

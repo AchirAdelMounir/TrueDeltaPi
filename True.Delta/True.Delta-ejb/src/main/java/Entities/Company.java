@@ -27,9 +27,6 @@ public class Company implements Serializable {
 	@Column(name="SECTOR")
 	private String Sector;
 
-
-	@Column(name="INDUSTRY")
-	private String Industry;
 	@OneToMany(mappedBy="Company",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 private Set<Security> Securities;
 
