@@ -48,6 +48,7 @@
          <type>ejb</type>
          <scope>provided</scope>
       </dependency>
+      
 
       <!-- Import the JAX-RS API, we use provided scope as the API is included in JBoss WildFly -->
       <dependency>
@@ -62,6 +63,7 @@
          <artifactId>cdi-api</artifactId>
          <scope>provided</scope>
       </dependency>
+      
       
       <!-- Import the JSF API, we use provided scope as the API is included in JBoss WildFly -->
       <dependency>
