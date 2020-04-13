@@ -71,6 +71,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		int score =0;
 		int age;
 		Date today = new Date();
+		System.out.println(today.getYear()+1900);
 		age=(today.getYear()+1900)-(u.getCustomer().getDateB().getYear()+1900);
 		if(age>=18&&age<60) {
 			score +=50;

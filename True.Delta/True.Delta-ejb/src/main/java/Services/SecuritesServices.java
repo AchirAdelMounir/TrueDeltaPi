@@ -42,6 +42,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			return 0;
 
 	}
+	
 
 	@Override
 	public void DeleteSecurity(int IdSecurity) {
@@ -151,7 +152,9 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		try {
 			URL yhoofin = new URL(url);
 			URLConnection data = yhoofin.openConnection();
+			
 			Scanner input = new Scanner(data.getInputStream()).useDelimiter(",");
+		
 			if (input.hasNext()) {
 				input.nextLine();
 			}
@@ -160,17 +163,18 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 				String line = input.nextLine().replaceAll("(?m)$", ",");
 				Scanner newinput = new Scanner(line).useDelimiter(",");
 
-				// System.out.println(line);
+			
 				Stock S = new Stock();
 				S.setDATE(Date.valueOf(newinput.next()));
-				S.setOpen(newinput.nextDouble());
-				S.setHigh(newinput.nextDouble());
-				S.setLow(newinput.nextDouble());
-				S.setClose(newinput.nextDouble());
-				S.setAdj_Close(newinput.nextDouble());
-				S.setVolume(newinput.nextInt());
+				S.setOpen(Double.parseDouble(newinput.next()));
+				S.setHigh(Double.parseDouble(newinput.next()));
+				S.setLow(Double.parseDouble(newinput.next()));
+				S.setClose(Double.parseDouble(newinput.next()));
+				S.setAdj_Close(Double.parseDouble(newinput.next()));
+				S.setVolume(Integer.parseInt(newinput.next()));
+				
 				Ls.add(S);
-
+				
 			}
 
 		} catch (Exception e) {
@@ -235,6 +239,10 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		System.out.println("Var"+Var);
 		return Var;
 	}
+	
+	
+	
+	
 	@Override
 	public List<Company> SearchByInput(String SearchField, String operator, Object o) {
 		if (o instanceof Integer) {

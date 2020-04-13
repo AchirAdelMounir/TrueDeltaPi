@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Embeddable
 
-public class Stock implements Serializable{
+public class Stock implements Serializable, Comparator<Stock>{
 	
 	/**
 	 * 
@@ -107,6 +107,13 @@ public class Stock implements Serializable{
 	public String toString() {
 		return "Stock [DATE=" + DATE + ", Open=" + Open + ", High=" + High + ", Low=" + Low + ", Close=" + Close
 				+ ", Adj_Close=" + Adj_Close + ", Volume=" + Volume + "]";
+	}
+
+	@Override
+	public int compare(Stock o1, Stock o2) {
+		if(o1.getClose() < o2.getClose())
+		return 1;
+		return -1;
 	}
 
 

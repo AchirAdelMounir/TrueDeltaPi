@@ -1,6 +1,7 @@
 package Services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +22,14 @@ import Enumerations.*;
 @Stateful
 public class PortfolioService implements PortfolioServiceLocal, PortfolioServiceRemote {
 
+
+
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
+
+	SecuritesServices ss = new SecuritesServices();
+	String Period1= "2019-01-02";
+	String Period2 = "2019-01-04";
 
 	@Override
 	public int AddPortfolio(Portfolio P) {
@@ -53,7 +60,8 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 
 	@Override
 	public void EditPortfolio(Portfolio p) {
-		em.merge(p);
+		//em.merge(p);
+		System.out.println(stocks());
 	}
 
 	@Override
@@ -78,11 +86,154 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	}
 	UserService us = new UserService();
 
-	@Override
-	public void moneyBasdPortfoio(float money, int idUser) {
-		
-	
+	public List<Stock> stocks(){
+		List<String> symbols = new ArrayList<String>();
+
+		symbols.add("AAPL");
+		symbols.add("NFLX");
+		symbols.add("GILD");
+		symbols.add("BBY");
+		symbols.add("MSFT");
+
+		//return symbols;
+		List<Stock> allStock = new ArrayList<Stock>();
+		for (String symb : symbols) {
+			List<Stock> a = ss.StocksDownloader(symb, Period1, Period2);
+			for (Stock stock : a) {
+				System.out.println("symb is ;"+symb+" stock is  "+stock  );
+				allStock.add(stock);
+			}
+			
+			
+		}
+		return allStock;
 	}
-	
+
+
+	public double volatilityCalculator(List<Stock> Ls) {
+
+		long ObsNumber=Ls.stream().count();
+		System.out.println("ObsNumber"+ObsNumber);
+		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
+		System.out.println("Mean"+Mean);
+		double PeriodDeviation=0;
+		double Var=0;
+		double Racine=0;
+
+		for(Stock i : Ls)
+		{
+
+			Racine=(i.getAdj_Close()-Mean);
+			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
+
+
+		}
+		Var=(PeriodDeviation/(ObsNumber-1));
+
+		return Var;
+	}
+
+	@Override
+	public float moneyBasdPortfoio(float money, Portfolio p) {
+
+
+		List<Stock> chosenStocks = new ArrayList<Stock>();
+		float sum =money;
+		{
+			//float vol=0;
+
+			int i=0;
+			while (sum>=money && i<stocks().size()) 
+			{	
+				if(stocks().get(i).getClose()>=money)
+				{
+					chosenStocks.add(stocks().get(i));
+	                sum+= stocks().get(i).getClose();
+					
+				}
+				i++;
+			}
+
+			System.out.println("size == " +chosenStocks.size());
+			System.out.println("sum == " +sum);
+
+            double Mean=chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble();
+			System.out.println("Mean"+Mean);
+			double PeriodDeviation=0;
+			double Var=0;
+			double Racine=0;
+
+			for(Stock i1 : chosenStocks)
+			{
+
+				Racine=(i1.getClose()-Mean);
+				PeriodDeviation+=Math.pow((i1.getClose()-Mean),2);
+
+
+			}
+			float vol =(float) (PeriodDeviation/(chosenStocks.stream().count()-1));
+
+			
+			p.setReturns(Math.round(Mean));
+			p.setVolatility(Math.round(vol));
+			p.setPrice(Math.round(sum));
+			AddPortfolio(p);
+			return  vol;
+
+
+
+
+		}
+
+
+	}
+
+	@Override
+	public void volatilityBasedPortfolio(float maxVol,Portfolio p) {
+		List<Stock> chosenStocks = new ArrayList<Stock>();
+		double vol =0;
+		double mean = 0;
+		double sum=stocks().get(0).getClose();
+		chosenStocks.add(stocks().get(0));	
+		int i=1;
+	//	List<Stock> sortedStockList = stocks().stream().sorted(Comparator.comparing(Stock::getClose)).collect(Collectors.toList());
+		while ( chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble() <maxVol && i<stocks().size()) {	
+			chosenStocks.add(stocks().get(i));			
+			sum += chosenStocks.get(i).getClose();
+			i++;
+		}
+		
+		
+		double Mean=chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble();
+
+		
+		p.setReturns(Math.round(Mean));
+		p.setVolatility(Math.round((float) (maxVol-5 + 5*Math.random())));
+		p.setPrice(Math.round(sum));
+		
+		AddPortfolio(p);
+
+
+	}
+
+	public double getVol(List<Stock> chosenStocks) {
+		double Mean=chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble();
+		System.out.println("Mean"+Mean);
+		double PeriodDeviation=0;
+		
+
+		for(Stock i1 : chosenStocks)
+		{
+
+			double Racine = (i1.getClose()-Mean);
+			PeriodDeviation+=Math.pow((i1.getClose()-Mean),2);
+
+
+		}
+		float vol = (float) (PeriodDeviation/(chosenStocks.stream().count()-1));
+		return vol;
+	}
 
 }
+
+
