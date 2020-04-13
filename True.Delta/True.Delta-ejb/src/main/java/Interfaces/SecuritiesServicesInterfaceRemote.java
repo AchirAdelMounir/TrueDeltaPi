@@ -6,6 +6,7 @@ import Entities.Company;
 import Entities.Security;
 import Entities.Stock;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 @Remote
@@ -20,11 +21,16 @@ public interface SecuritiesServicesInterfaceRemote {
 	public List<Security> SearchByMaturityDate(Date d);
 	public List<Bond> DisplayBonds();
 	public List<Stock> DisplayStocks();
-	public List<Stock> StocksDownloader(String Sym,String Period1, String Period2);
-	public void getStockPriceInstantly();
+	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2);
+	public BigDecimal getStockPriceInstantly(String Sym);
 	public double VolatilityCalculator(String Sym,String Period1, String Period2);
 	public List<Company> SearchByInput(String SearchField, String operator, Object o);
 	public List<Security> GetTopByInput(String Input,int TopN);
+	//public void DisplayStockPrices();
+	public List<Security> SecuritiesFinder(int Number,String operator,double value);
+	public double StandardDev(String Sym, String Period1, String Period2);
+	public double CoefOfDeviation(String Sym, String Period1, String Period2);
+	public List<Security> GetLastByInput(String Input,int TopN);
 	
 
 }

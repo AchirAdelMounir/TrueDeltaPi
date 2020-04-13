@@ -4,21 +4,29 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.net.URLConnection;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.LongStream;
 
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
 
 import Entities.Company;
 import Entities.Security;
+import Entities.Stock;
+import Entities.User;
 import Interfaces.CompaniesServicesInterfaceLocal;
 import Interfaces.CompaniesServicesInterfaceRemote;
 
-@Stateful
+@Stateless
 
 public class CompaniesServices implements CompaniesServicesInterfaceRemote, CompaniesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")
@@ -65,7 +73,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 	}
 
 	@Override
-	public Company EditCompany(Company C, String sym) {
+	public Company EditCompany(String sym,Company C) {
 		if (ifExists(C)) {
 			Company OldC = em.find(Company.class, sym);
 
@@ -75,6 +83,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 			OldC.setBITDA(C.getBITDA());
 			OldC.setDividendYield(C.getDividendYield());
 			OldC.setMarket_Cap_E(C.getMarket_Cap_E());
+			
 			OldC.setPrice(C.getPrice());
 			OldC.setR_Earnings_Share(C.getR_Earnings_Share());
 			OldC.setR_Price_Book(C.getR_Price_Book());
@@ -94,6 +103,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 
 	@Override
 	public void CompaniesInfoFinder() {
+		List<Company>L=new ArrayList<>();
 
 		String url = "https://datahub.io/core/s-and-p-500-companies-financials/r/constituents-financials.csv";
 		try {
@@ -153,11 +163,17 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 				C.setSEC_Filings(newinput.next());
 				C.setMarket("Nasdaq");
 
-				// Verified already with ifExists method !!
-				AddCompany(C);
+				
+				L.add(C);
 
 				System.out.println(C);
 
+			}
+			ReplaceMissingValues(L);
+			for(Company c:L)
+			{
+				// Verified already with ifExists method !!
+				AddCompany(c);
 			}
 
 		} catch (Exception e) {
@@ -198,8 +214,12 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 		}
 		else if (o instanceof String) {
 			String O = (String) o;
-			return (em.createQuery("select c from Company c where " + SearchField + " " + operator + " " +"'"+O+"'",
+			return (em.createQuery("select c from Company c where c.symbol like'%"+o+"%'"+"or c.name like'%"+o+"%'"+"or c.market like'%"+o+"%'",
 					Company.class).getResultList());
+			/*CriteriaBuilder cb = em.getCriteriaBuilder();
+			CriteriaQuery<Company> criteriaQuery = cb.createQuery(Company.class);	
+			Root<Company> rootOfQuery = criteriaQuery.from(Company.class);
+			criteriaQuery.select(rootOfQuery).where(cb.like(rootOfQuery.get("symbol"), (Expression<String>) o));*/
 
 		}
 		else if (o instanceof BigInteger)
@@ -225,6 +245,17 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 	          Company.class).setMaxResults(TopN).getResultList());
 		
 	}
+	public List<Company> GetLastByInput(String Input,int TopN)
+	{
+		return (em.createQuery("select c from Company c ORDER BY "+Input+" ASC",
+		          Company.class).setMaxResults(TopN).getResultList());
+		
+	}
+	/*public User GetUserByStock()
+	{
+		User u=new User();
+		em.createQuery("Select u from User u and p from Portfolio p and s from Security s where u=p.user and");
+	}*/
 
 	@Override
 	public List<Company> ReplaceMissingValues(List<Company> L) {
@@ -270,5 +301,10 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 		
 		return L;
 	}
+
+	
+
+	
+	
 
 }

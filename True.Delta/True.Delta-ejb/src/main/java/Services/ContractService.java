@@ -47,5 +47,5 @@ public class ContractService implements ContractServiceLocal , ContractServiceRe
 	public void ReadContract(int IdContract) {
 		// TODO Auto-generated method stub
 
-	}
+	}}
 

@@ -48,6 +48,7 @@
             <artifactId>True.Delta-web</artifactId>
             <type>war</type>
         </dependency>
+        
         <dependency>
             <groupId>True-Delta</groupId>
             <artifactId>True.Delta-ejb</artifactId>
