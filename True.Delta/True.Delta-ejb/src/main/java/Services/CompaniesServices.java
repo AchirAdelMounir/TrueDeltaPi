@@ -217,7 +217,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 			return (em.createQuery("select c from Company c where c.symbol like'%"+o+"%'"+"or c.name like'%"+o+"%'"+"or c.market like'%"+o+"%'",
 					Company.class).getResultList());
 			/*CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<Company> criteriaQuery = cb.createQuery(Company.class);
+			CriteriaQuery<Company> criteriaQuery = cb.createQuery(Company.class);	
 			Root<Company> rootOfQuery = criteriaQuery.from(Company.class);
 			criteriaQuery.select(rootOfQuery).where(cb.like(rootOfQuery.get("symbol"), (Expression<String>) o));*/
 

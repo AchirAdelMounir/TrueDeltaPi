@@ -150,9 +150,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2) {
-		
-
+	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2) {		
 		/*
 		 * Period1 = "2019-05-05"; Period2 = "2020-02-05";
 		 */
@@ -179,13 +177,15 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 				// System.out.println(line);
 				Stock S = new Stock();
 				S.setDATE(Date.valueOf(newinput.next()));
-				S.setOpen(newinput.nextDouble());
-				S.setHigh(newinput.nextDouble());
-				S.setLow(newinput.nextDouble());
-				S.setClose(newinput.nextDouble());
-				S.setAdj_Close(newinput.nextDouble());
-				S.setVolume(newinput.nextInt());
+				S.setOpen(Double.parseDouble(newinput.next()));
+				S.setHigh(Double.parseDouble(newinput.next()));
+				S.setLow(Double.parseDouble(newinput.next()));
+				S.setClose(Double.parseDouble(newinput.next()));
+				S.setAdj_Close(Double.parseDouble(newinput.next()));
+				S.setVolume(Integer.parseInt(newinput.next()));
 				Ls.add(S);
+				
+				
 
 			}
 
