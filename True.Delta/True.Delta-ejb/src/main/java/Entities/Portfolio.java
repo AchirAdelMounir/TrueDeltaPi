@@ -2,6 +2,8 @@ package Entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 
 import java.io.Serializable;
 import java.util.Set;
+import Enumerations.*;
 
 @Entity
 @Table(name="PORTFOLIO")
@@ -23,12 +26,18 @@ public class Portfolio implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column (name="Id_Portfolio")
 	private int IdPortfolio;
-	@Column (name="Type_of_Portfolio")
-	private int TypePortfolio;
+	
+	@Enumerated(EnumType.STRING)
+	private Portfolio_Type TypePortfolio;
+	
 	@Column (name="Returns")
 	private double Returns;
+	
 	@Column (name="Volatility")
-	private int Volatility;
+	private float Volatility;
+	
+	@Column (name="Price")
+	private double Price;
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
@@ -44,19 +53,54 @@ public class Portfolio implements Serializable{
 	
 	
 	
-	public Portfolio(int idPortfolio, int typePortfolio, double returns, int volatility, Entities.Contract contract,
-			Set<Security> securities, Entities.User user) {
+
+
+	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price) {
 		super();
 		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
 		Returns = returns;
 		Volatility = volatility;
-		Contract = contract;
-		Securities = securities;
-		User = user;
+		Price = price;
 	}
 
 
+
+
+
+	@Override
+	public String toString() {
+		return "Portfolio [IdPortfolio=" + IdPortfolio + ", TypePortfolio=" + TypePortfolio + ", Returns=" + Returns
+				+ ", Volatility=" + Volatility + ", Price=" + Price + "]";
+	}
+
+
+
+
+
+	public double getPrice() {
+		return Price;
+	}
+
+	public void setPrice(double price) {
+		Price = price;
+	}
+
+	public Contract getContract() {
+		return Contract;
+	}
+
+	public void setContract(Contract contract) {
+		Contract = contract;
+	}
+
+	public Set<Security> getSecurities() {
+		return Securities;
+	}
+
+	public void setSecurities(Set<Security> securities) {
+		Securities = securities;
+	}
 
 	public int getIdPortfolio() {
 		return IdPortfolio;
@@ -66,40 +110,39 @@ public class Portfolio implements Serializable{
 		IdPortfolio = idPortfolio;
 	}
 
-	public int getTypePortfolio() {
+	public Portfolio_Type getTypePortfolio() {
 		return TypePortfolio;
 	}
-	
-	public void setTypePortfolio(int typePortfolio) {
+
+	public void setTypePortfolio(Portfolio_Type typePortfolio) {
 		TypePortfolio = typePortfolio;
 	}
 
 
+	public User getUser() {
+		return User;
+	}
+
+	public void setUser(User user) {
+		User = user;
+	}
 
 	public double getReturns() {
 		return Returns;
 	}
 
-
-
 	public void setReturns(double returns) {
 		Returns = returns;
 	}
 
-
-
-	public int getVolatility() {
+	public float getVolatility() {
 		return Volatility;
 	}
 
-
-
-	public void setVolatility(int volatility) {
+	public void setVolatility(float volatility) {
 		Volatility = volatility;
 	}
 
-	
-	
 	
 
 }
