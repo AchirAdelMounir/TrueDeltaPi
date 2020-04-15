@@ -2,7 +2,6 @@
     <wb-module deploy-name="True.Delta-ejb">
         <wb-resource deploy-path="/" source-path="/src/main/resources" tag="defaultRootSource"/>
         <wb-resource deploy-path="/" source-path="/src/main/java"/>
-        <wb-resource deploy-path="/" source-path="/src/test/java"/>
         <property name="java-output-path" value="/True.Delta-ejb/target/classes"/>
     </wb-module>
 </project-modules>

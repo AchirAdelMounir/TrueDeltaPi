@@ -4,18 +4,22 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import Enumerations.*;
-
+import javax.persistence.InheritanceType;
 
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="type")
 @Table(name="USER")
 public class User implements Serializable {
 	
@@ -46,13 +50,13 @@ public class User implements Serializable {
 	
 	
 	
-	@Embedded
-	private Customer customer;
+	/*@Embedded
+	private Visitor visitor;
 	
 	@Embedded
 	private AssetManager asset_manager;
 	@Column(name = "USER_TYPE")
-	private UserType Type;
+	private UserType Type;*/
 	
 	
 	
@@ -74,13 +78,13 @@ public class User implements Serializable {
 	
 
 
-	public AssetManager getAsset_manager() {
+	/*public AssetManager getAsset_manager() {
 		return asset_manager;
 	}
 
 	public void setAsset_manager(AssetManager asset_manager) {
 		this.asset_manager = asset_manager;
-	}
+	}*/
 
 	public int getId() {
 		return Id;
@@ -130,23 +134,21 @@ public class User implements Serializable {
 		this.login = login;
 	}
 
-	public UserType getType() {
+	/*public UserType getType() {
 		return Type;
 	}
 
 	public void setType(UserType type) {
 		Type = type;
+	}*/
+
+	/*public Visitor getVisitor() {
+		return visitor;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	
+	public void setVisitor(Visitor visitor) {
+		this.visitor = visitor;
+	}*/
 
 	
 

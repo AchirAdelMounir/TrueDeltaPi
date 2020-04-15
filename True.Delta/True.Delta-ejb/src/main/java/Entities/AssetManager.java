@@ -7,15 +7,21 @@ import java.io.Serializable;
 
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 
-@Embeddable
-public class AssetManager implements Serializable{
+@Entity
+@DiscriminatorValue(value="AssetManager")
+@PrimaryKeyJoinColumn(name="Id")
+public class AssetManager extends User implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	
 	@Column(name="AM_DESCRIPTION")
 	String description;
