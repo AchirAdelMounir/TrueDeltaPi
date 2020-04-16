@@ -41,10 +41,11 @@ public class Security implements Serializable {
 	double Volatility;
 
 	// Relations
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "COMPANY_SYMBOL", referencedColumnName = "SYMBOL")
 	private Company Company;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name = "Portfolio", referencedColumnName = "Id_Portfolio")
 	private Portfolio Portfolio;
 
 	// Constructeurs 
@@ -121,6 +122,11 @@ public class Security implements Serializable {
 	}
 	public void setPrice(double price) {
 		Price = price;
+	}
+	@Override
+	public String toString() {
+		return "Security [Id=" + Id + ", Type=" + Type + ", Price=" + Price + ", S=" + S + ", B=" + B + ", Volatility="
+				+ Volatility + ", Company=" + Company + ", Portfolio=" + Portfolio + "]";
 	}
 
 }

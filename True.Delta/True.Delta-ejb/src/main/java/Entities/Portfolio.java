@@ -1,7 +1,9 @@
 package Entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,7 @@ public class Portfolio implements Serializable{
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
-	@OneToMany(mappedBy="Portfolio")
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="Portfolio")
 	private Set<Security> Securities;
 	@OneToOne(mappedBy="portfolio")
 	private User User;
