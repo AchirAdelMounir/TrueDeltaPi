@@ -55,7 +55,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		p=em.find(Portfolio.class, IdPortfolio);
 		return p;
 	}
-
+	
 	@Override
 	public List<Portfolio> DisplayPortfolios() {
 		Query query=em.createQuery("select p from Portfolio p");

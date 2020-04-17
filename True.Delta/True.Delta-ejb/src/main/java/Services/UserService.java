@@ -60,7 +60,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		
 		return u;
 	}
-
+	
 	@Override
 	public List<User> DisplayUsers() {
 		Query query=em.createQuery("select u from User u");
