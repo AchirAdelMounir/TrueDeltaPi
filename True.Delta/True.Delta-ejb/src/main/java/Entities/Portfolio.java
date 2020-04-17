@@ -34,8 +34,8 @@ public class Portfolio implements Serializable{
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
-	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="Portfolio")
-	private Set<Security> Securities;
+	@OneToMany(cascade = {CascadeType.MERGE},mappedBy="P")
+	Set<Flux> F;
 	@OneToOne(mappedBy="portfolio")
 	private User User;
 
@@ -54,7 +54,7 @@ public class Portfolio implements Serializable{
 		Returns = returns;
 		Volatility = volatility;
 		Contract = contract;
-		Securities = securities;
+		
 		User = user;
 	}
 
@@ -98,6 +98,18 @@ public class Portfolio implements Serializable{
 
 	public void setVolatility(int volatility) {
 		Volatility = volatility;
+	}
+
+
+
+	public Set<Flux> getF() {
+		return F;
+	}
+
+
+
+	public void setF(Set<Flux> f) {
+		F = f;
 	}
 
 	

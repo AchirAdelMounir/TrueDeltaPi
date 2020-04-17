@@ -1,6 +1,7 @@
 package Services;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -26,6 +27,10 @@ import Entities.Security;
 import Entities.Stock;
 import Interfaces.SecuritiesServicesInterfaceLocal;
 import Interfaces.SecuritiesServicesInterfaceRemote;
+import weka.classifiers.bayes.NaiveBayesUpdateable;
+import weka.core.Instance;
+import weka.core.Instances;
+import weka.core.converters.ArffLoader;
 import yahoofinance.YahooFinance;
 
 import org.jsoup.Jsoup;
@@ -304,6 +309,24 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	
 		
 	}
+	public void TreeClassifier(String[] args) throws Exception {
+	    // load data
+	    ArffLoader loader = new ArffLoader();
+	    loader.setFile(new File(args[0]));
+	    Instances structure = loader.getStructure();
+	    structure.setClassIndex(structure.numAttributes() - 1);
+
+	    // train NaiveBayes
+	    NaiveBayesUpdateable nb = new NaiveBayesUpdateable();
+	    nb.buildClassifier(structure);
+	    Instance current;
+	    while ((current = loader.getNextInstance(structure)) != null)
+	      nb.updateClassifier(current);
+
+	    // output generated model
+	    System.out.println(nb);
+	  }
+	
 	
 
 }
