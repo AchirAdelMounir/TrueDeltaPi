@@ -109,7 +109,7 @@ public class SecuritiesController {
         return Response.ok(service.StandardDev(Sym, Period1, Period2)).build();
     }
 	@GET
-	@Path("StandardDev/{Sym}/{Period1}/{Period2}")
+	@Path("CoefOfDev/{Sym}/{Period1}/{Period2}")
     public Response CoefOfDev(@PathParam("Sym, Period1, Period2")String Sym, String Period1,String Period2) {
         return Response.ok(service.CoefOfDeviation(Sym, Period1, Period2)).build();
     }

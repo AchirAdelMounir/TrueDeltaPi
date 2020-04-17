@@ -213,6 +213,15 @@ public class Customer implements Serializable{
 	}
 
 
+	@Override
+	public String toString() {
+		return "Customer [DateB=" + DateB + ", Profession=" + Profession + ", typeofcontract=" + typeofcontract
+				+ ", Seniority=" + Seniority + ", Residency_Status=" + Residency_Status + ", Resource=" + Resource
+				+ ", bank=" + bank + ", Credit=" + Credit + ", NetIncome=" + NetIncome + ", Refund=" + Refund
+				+ ", Repayment=" + Repayment + ", Risk=" + Risk + ", score=" + score + ", active=" + active + "]";
+	}
+
+
 	
 	
 

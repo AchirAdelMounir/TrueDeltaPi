@@ -2,24 +2,28 @@ package Services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.ejb.Stateful;
+import javax.ejb.FinderException;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import Entities.Bond;
 import Entities.Portfolio;
+import Entities.Security;
 import Entities.Stock;
 import Entities.User;
 import Interfaces.PortfolioServiceLocal;
 import Interfaces.PortfolioServiceRemote;
 import Enumerations.*;
 
-@Stateful
+@Stateless
+
+
 public class PortfolioService implements PortfolioServiceLocal, PortfolioServiceRemote {
 
 
@@ -60,8 +64,8 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 
 	@Override
 	public void EditPortfolio(Portfolio p) {
-		//em.merge(p);
-		System.out.println(stocks());
+		em.merge(p);
+		//System.out.println(stocks());
 	}
 
 	@Override
@@ -70,7 +74,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		Portfolio p = new Portfolio();
 		u=em.find(User.class, idUser);
 		p=em.find(Portfolio.class, idPortfolio);
-		//u.setPortfolio(p);
+		u.setPortfolio(p);
 		p.setUser(u);
 		em.merge(u);
 		em.merge(p);
@@ -84,6 +88,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		u=em.find(User.class, idUser);
 		return u.getCustomer().getRisk();
 	}
+	
 	UserService us = new UserService();
 
 	public List<Stock> stocks(){
@@ -110,28 +115,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	}
 
 
-	public double volatilityCalculator(List<Stock> Ls) {
-
-		long ObsNumber=Ls.stream().count();
-		System.out.println("ObsNumber"+ObsNumber);
-		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
-		System.out.println("Mean"+Mean);
-		double PeriodDeviation=0;
-		double Var=0;
-		double Racine=0;
-
-		for(Stock i : Ls)
-		{
-
-			Racine=(i.getAdj_Close()-Mean);
-			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
-
-
-		}
-		Var=(PeriodDeviation/(ObsNumber-1));
-
-		return Var;
-	}
+	
 
 	@Override
 	public float moneyBasdPortfoio(float money, Portfolio p) {
@@ -177,6 +161,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 			p.setReturns(Math.round(Mean));
 			p.setVolatility(Math.round(vol));
 			p.setPrice(Math.round(sum));
+			p.setRatio((float)(Mean/vol));
 			AddPortfolio(p);
 			return  vol;
 
@@ -196,7 +181,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		double sum=stocks().get(0).getClose();
 		chosenStocks.add(stocks().get(0));	
 		int i=1;
-	//	List<Stock> sortedStockList = stocks().stream().sorted(Comparator.comparing(Stock::getClose)).collect(Collectors.toList());
+		List<Stock> sortedStockList = stocks().stream().sorted(Comparator.comparing(Stock::getClose)).collect(Collectors.toList());
 		while ( chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble() <maxVol && i<stocks().size()) {	
 			chosenStocks.add(stocks().get(i));			
 			sum += chosenStocks.get(i).getClose();
@@ -210,7 +195,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		p.setReturns(Math.round(Mean));
 		p.setVolatility(Math.round((float) (maxVol-5 + 5*Math.random())));
 		p.setPrice(Math.round(sum));
-		
+		p.setRatio((float)(Mean/(float) (maxVol-5 + 5*Math.random())));
 		AddPortfolio(p);
 
 
@@ -232,6 +217,41 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		}
 		float vol = (float) (PeriodDeviation/(chosenStocks.stream().count()-1));
 		return vol;
+	}
+
+	@Override
+	public Portfolio OptimalPortfolio() {
+		// TODO Auto-generated method stub
+		List<Portfolio> ls = DisplayPortfolios();
+		Portfolio porfolio =  Collections.max(ls, Comparator.comparing(p -> p.getRatio()));
+        
+        return porfolio;
+
+		
+	}
+	
+	
+	public double volatilityCalculator(List<Stock> Ls) {
+
+		long ObsNumber=Ls.stream().count();
+		System.out.println("ObsNumber"+ObsNumber);
+		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
+		System.out.println("Mean"+Mean);
+		double PeriodDeviation=0;
+		double Var=0;
+		double Racine=0;
+
+		for(Stock i : Ls)
+		{
+
+			Racine=(i.getAdj_Close()-Mean);
+			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
+
+
+		}
+		Var=(PeriodDeviation/(ObsNumber-1));
+
+		return Var;
 	}
 
 }

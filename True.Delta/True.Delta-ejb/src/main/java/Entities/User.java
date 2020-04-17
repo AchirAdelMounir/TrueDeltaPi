@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -59,7 +61,7 @@ public class User implements Serializable {
 	
 	@Embedded
 	private AssetManager asset_manager;
-	@Column(name = "USER_TYPE")
+	@Enumerated(EnumType.STRING)
 	private UserType Type;
 	
 	
@@ -110,6 +112,38 @@ public class User implements Serializable {
 		return prenom;
 	}
 
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+	public Set<Complain> getComplains() {
+		return Complains;
+	}
+
+	public void setComplains(Set<Complain> complains) {
+		Complains = complains;
+	}
+
+	public Set<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(Set<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
+
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
@@ -152,6 +186,28 @@ public class User implements Serializable {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public User(String nom, String prenom, String adresseMail, String password, String login,
+			UserType type) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		
+		Type = type;
+	}
+
+	public User() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "User [nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password=" + password
+				+ ", login=" + login + ", customer=" + customer + "]";
 	}
 	
 	

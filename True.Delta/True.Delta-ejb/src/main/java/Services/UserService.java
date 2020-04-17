@@ -19,6 +19,7 @@ import Enumerations.Type_of_contract_type;
 import Interfaces.UserServiceLocal;
 import Interfaces.UserServiceRemote;
 @Stateful
+
 public class UserService implements  UserServiceRemote,UserServiceLocal {
 
 	@PersistenceContext(unitName= "primary")
@@ -152,10 +153,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		{
 			score+=50;
 		}
-		if(u.getCustomer().getRepayment().equals("2020"))
-		{
-			score+=30;
-		}
+		
 		
 			return score;
 		
@@ -164,7 +162,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 	@Override
 	public void validateProfile(User u) {
 		if(u.getCustomer().getScore()>200)
-		{
+		{ 
 			u.getCustomer().setActive(Active_account_Type.Active);
 			em.merge(u);
 		}

@@ -16,4 +16,5 @@ public interface PortfolioServiceRemote {
 	public float getRisk(int idUser);
 	public float moneyBasdPortfoio(float money, Portfolio p);
 	public void volatilityBasedPortfolio(float maxVol, Portfolio p);
+	public Portfolio OptimalPortfolio ();
 }
