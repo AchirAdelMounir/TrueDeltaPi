@@ -49,6 +49,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		em.remove(p);
 	}
 
+
 	@Override
 	public Portfolio DisplayPortfolio(int IdPortfolio) {
 		Portfolio p = new Portfolio();

@@ -51,7 +51,8 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		em.merge(u);
 		
 	}
-
+	
+	
 	@Override
 	public User DisplayUser(int Id) {
 		User u = new User();
