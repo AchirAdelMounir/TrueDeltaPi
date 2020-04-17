@@ -154,6 +154,10 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		{
 			score+=50;
 		}
+		if(u.getCustomer().getRepayment().equals("2020"))
+		{
+			score+=30;
+		}
 		
 		
 			return score;
