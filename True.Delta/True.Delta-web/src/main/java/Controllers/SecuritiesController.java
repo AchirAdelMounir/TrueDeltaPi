@@ -112,11 +112,8 @@ public class SecuritiesController {
     }
 	@GET
 	@Path("CoefOfDev/{Sym}/{Period1}/{Period2}")
-<<<<<<< HEAD
-    public Response CoefOfDev(@PathParam("Sym")String Sym,@PathParam("Period1") String Period1,@PathParam ("Period2")String Period2) {
-=======
     public Response CoefOfDev(@PathParam("Sym, Period1, Period2")String Sym, String Period1,String Period2) {
->>>>>>> branch 'master' of https://github.com/AchirAdelMounir/TrueDeltaPi.git
+
         return Response.ok(service.CoefOfDeviation(Sym, Period1, Period2)).build();
     }
 	

@@ -3,12 +3,12 @@ package Entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-<<<<<<< HEAD
+
 import javax.persistence.FetchType;
-=======
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
->>>>>>> branch 'master' of https://github.com/AchirAdelMounir/TrueDeltaPi.git
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -68,22 +68,20 @@ public class Portfolio implements Serializable{
 
 
 	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price,
-			float ratio) {
+			float ratio,Contract contract,User user) {
 
 		super();
 		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
 		Returns = returns;
 		Volatility = volatility;
-<<<<<<< HEAD
 		Contract = contract;
 		
 		User = user;
-=======
+
 		Price = price;
 		Ratio = ratio;
 
->>>>>>> branch 'master' of https://github.com/AchirAdelMounir/TrueDeltaPi.git
 	}
 
 
@@ -132,13 +130,7 @@ public class Portfolio implements Serializable{
 		Contract = contract;
 	}
 
-	public Set<Security> getSecurities() {
-		return Securities;
-	}
-
-	public void setSecurities(Set<Security> securities) {
-		Securities = securities;
-	}
+	
 
 	public int getIdPortfolio() {
 		return IdPortfolio;

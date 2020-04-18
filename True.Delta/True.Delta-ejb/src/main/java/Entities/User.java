@@ -80,22 +80,7 @@ public class User implements Serializable {
 	
 	
 
-	public User() {
-		super();
-	}
-
 	
-
-	public User(String nom, String prenom, String adresseMail, String password, String login, UserType type) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		Type = type;
-	}
-
 
 
 	public AssetManager getAsset_manager() {
@@ -126,37 +111,7 @@ public class User implements Serializable {
 		return prenom;
 	}
 
-	public Set<Feedback> getFeedbacks() {
-		return feedbacks;
-	}
-
-	public void setFeedbacks(Set<Feedback> feedbacks) {
-		this.feedbacks = feedbacks;
-	}
-
-	public Set<Complain> getComplains() {
-		return Complains;
-	}
-
-	public void setComplains(Set<Complain> complains) {
-		Complains = complains;
-	}
-
-	public Set<Contract> getContratcs() {
-		return Contratcs;
-	}
-
-	public void setContratcs(Set<Contract> contratcs) {
-		Contratcs = contratcs;
-	}
-
-	public Portfolio getPortfolio() {
-		return portfolio;
-	}
-
-	public void setPortfolio(Portfolio portfolio) {
-		this.portfolio = portfolio;
-	}
+	
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
@@ -218,28 +173,10 @@ public class User implements Serializable {
 		super();
 	}
 
-	@Override
-	public String toString() {
-		return "User [nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password=" + password
-				+ ", login=" + login + ", customer=" + customer + "]";
-	}
-	
 	
 	
 
 	
-
-
-
-	public Set<Feedback> getFeedbacks() {
-		return Feedbacks;
-	}
-
-
-
-	public void setFeedbacks(Set<Feedback> feedbacks) {
-		Feedbacks = feedbacks;
-	}
 
 
 
@@ -254,16 +191,6 @@ public class User implements Serializable {
 	}
 
 
-
-	public Set<Complain> getArticles() {
-		return Articles;
-	}
-
-
-
-	public void setArticles(Set<Complain> articles) {
-		Articles = articles;
-	}
 
 
 
@@ -289,16 +216,17 @@ public class User implements Serializable {
 		this.portfolio = portfolio;
 	}
 
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
 
-
-	@Override
-	public String toString() {
-		return "User [Id=" + Id + ", nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password="
-				+ password + ", login=" + login + ", customer=" + customer + ", Type=" + Type + "]";
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
 	}
 
 
 
+	
 
 	
 
