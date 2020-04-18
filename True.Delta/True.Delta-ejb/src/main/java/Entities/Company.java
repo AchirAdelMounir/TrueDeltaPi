@@ -6,7 +6,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column; 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +27,8 @@ public class Company implements Serializable {
 	@Column(name="SECTOR")
 	private String Sector;
 
-	
+	@OneToMany(mappedBy="Company",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+private Set<Security> Securities;
 
 	@Column(name="PRICE")
 	private double Price;
@@ -52,11 +52,6 @@ public class Company implements Serializable {
 	private double R_Price_Book;	
 	@Column(name="SEC_Filings")
 	private String SEC_Filings;
-	
-	@OneToMany(mappedBy="Company",cascade = {CascadeType.MERGE},fetch = FetchType.EAGER)
-	private Set<Security> Securities;
-	
-	
 	
 	public Company() {
 		super();
@@ -87,13 +82,13 @@ public class Company implements Serializable {
 	}
 	
 
-	/*public Set<Security> getSecurities() {
+	public Set<Security> getSecurities() {
 		return Securities;
 	}
 
 	public void setSecurities(Set<Security> securities) {
 		Securities = securities;
-	}*/
+	}
 
 	public double getPrice() {
 		return Price;
@@ -193,12 +188,6 @@ public class Company implements Serializable {
 				+ ", R_Earnings_Share=" + R_Earnings_Share + ", Year_Week_Low=" + Year_Week_Low + ", Year_Week_High="
 				+ Year_Week_High + ", Market_Cap_E=" + Market_Cap_E + ", BITDA=" + BITDA + ", R_Price_Sales="
 				+ R_Price_Sales + ", R_Price_Book=" + R_Price_Book + ", SEC_Filings=" + SEC_Filings + "]";
-	}
-	public Set<Security> getSecurities() {
-		return Securities;
-	}
-	public void setSecurities(Set<Security> securities) {
-		Securities = securities;
 	}
 
 	
