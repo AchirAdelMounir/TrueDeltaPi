@@ -122,28 +122,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	}
 
 
-	public double volatilityCalculator(List<Stock> Ls) {
-
-		long ObsNumber=Ls.stream().count();
-		System.out.println("ObsNumber"+ObsNumber);
-		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
-		System.out.println("Mean"+Mean);
-		double PeriodDeviation=0;
-		double Var=0;
-		double Racine=0;
-
-		for(Stock i : Ls)
-		{
-
-			Racine=(i.getAdj_Close()-Mean);
-			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
-
-
-		}
-		Var=(PeriodDeviation/(ObsNumber-1));
-
-		return Var;
-	}
+	
 
 	@Override
 	public float moneyBasdPortfoio(float money, Portfolio p) {
@@ -288,5 +267,3 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 
 
 }
-
-

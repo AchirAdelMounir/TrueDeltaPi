@@ -205,6 +205,7 @@ public class Customer implements Serializable{
 
 	public int getScore() {
 		return score;
+	}
 
 
 

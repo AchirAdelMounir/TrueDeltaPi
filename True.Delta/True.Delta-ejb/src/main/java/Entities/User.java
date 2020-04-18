@@ -1,6 +1,5 @@
 package Entities;
 import java.io.Serializable;
-
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,12 +21,15 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import Enumerations.*;
 
+
 @Entity
 @Table(name="USER")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 	
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -51,7 +53,8 @@ public class User implements Serializable {
 	private String login;
 	
 
-	
+	@Embedded
+	private Administrator admin;
 	
 	
 	@Embedded
@@ -59,7 +62,8 @@ public class User implements Serializable {
 	
 	@Embedded
 	private AssetManager asset_manager;
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) 
+	@Column(name = "USER_TYPE")
 	private UserType Type;
 	
 	
@@ -76,27 +80,6 @@ public class User implements Serializable {
 	private Set<Contract> Contratcs;
 	@OneToOne 
 	private Portfolio portfolio;
-
-	
-	
-
-	public User() {
-		super();
-	}
-
-	
-
-	public User(String nom, String prenom, String adresseMail, String password, String login, UserType type) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		Type = type;
-	}
-
-
 
 	public AssetManager getAsset_manager() {
 		return asset_manager;
@@ -124,38 +107,6 @@ public class User implements Serializable {
 
 	public String getPrenom() {
 		return prenom;
-	}
-
-	public Set<Feedback> getFeedbacks() {
-		return feedbacks;
-	}
-
-	public void setFeedbacks(Set<Feedback> feedbacks) {
-		this.feedbacks = feedbacks;
-	}
-
-	public Set<Complain> getComplains() {
-		return Complains;
-	}
-
-	public void setComplains(Set<Complain> complains) {
-		Complains = complains;
-	}
-
-	public Set<Contract> getContratcs() {
-		return Contratcs;
-	}
-
-	public void setContratcs(Set<Contract> contratcs) {
-		Contratcs = contratcs;
-	}
-
-	public Portfolio getPortfolio() {
-		return portfolio;
-	}
-
-	public void setPortfolio(Portfolio portfolio) {
-		this.portfolio = portfolio;
 	}
 
 	public void setPrenom(String prenom) {
@@ -202,104 +153,47 @@ public class User implements Serializable {
 		this.customer = customer;
 	}
 
-	public User(String nom, String prenom, String adresseMail, String password, String login,
-			UserType type) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		
-		Type = type;
+	public Administrator getAdmin() {
+		return admin;
 	}
 
-	public User() {
-		super();
+	public void setAdmin(Administrator admin) {
+		this.admin = admin;
 	}
-
-	@Override
-	public String toString() {
-		return "User [nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password=" + password
-				+ ", login=" + login + ", customer=" + customer + "]";
-	}
-	
-	
-	
-
-	
-
-
 
 	public Set<Feedback> getFeedbacks() {
-		return Feedbacks;
+		return feedbacks;
 	}
-
-
 
 	public void setFeedbacks(Set<Feedback> feedbacks) {
-		Feedbacks = feedbacks;
+		this.feedbacks = feedbacks;
 	}
-
-
 
 	public Set<Complain> getComplains() {
 		return Complains;
 	}
 
-
-
 	public void setComplains(Set<Complain> complains) {
 		Complains = complains;
 	}
-
-
-
-	public Set<Complain> getArticles() {
-		return Articles;
-	}
-
-
-
-	public void setArticles(Set<Complain> articles) {
-		Articles = articles;
-	}
-
-
 
 	public Set<Contract> getContratcs() {
 		return Contratcs;
 	}
 
-
-
 	public void setContratcs(Set<Contract> contratcs) {
 		Contratcs = contratcs;
 	}
-
-
 
 	public Portfolio getPortfolio() {
 		return portfolio;
 	}
 
-
-
 	public void setPortfolio(Portfolio portfolio) {
 		this.portfolio = portfolio;
 	}
-
-
-
-	@Override
-	public String toString() {
-		return "User [Id=" + Id + ", nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password="
-				+ password + ", login=" + login + ", customer=" + customer + ", Type=" + Type + "]";
-	}
-
-
-
-
+	
+	
 	
 
 	
