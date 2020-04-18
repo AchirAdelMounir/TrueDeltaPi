@@ -205,7 +205,7 @@ public class Customer implements Serializable{
 
 	public int getScore() {
 		return score;
-	}
+
 
 
 	public void setScore(int score) {
@@ -219,8 +219,13 @@ public class Customer implements Serializable{
 				+ ", Seniority=" + Seniority + ", Residency_Status=" + Residency_Status + ", Resource=" + Resource
 				+ ", bank=" + bank + ", Credit=" + Credit + ", NetIncome=" + NetIncome + ", Refund=" + Refund
 				+ ", Repayment=" + Repayment + ", Risk=" + Risk + ", score=" + score + ", active=" + active + "]";
+
 	}
 
+
+
+	
+	
 
 	
 	

@@ -60,6 +60,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			return 0;
 
 	}
+	
 
 	@Override
 	public void DeleteSecurity(int IdSecurity) {
@@ -165,7 +166,9 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		try {
 			URL yhoofin = new URL(url);
 			URLConnection data = yhoofin.openConnection();
+			
 			Scanner input = new Scanner(data.getInputStream()).useDelimiter(",");
+		
 			if (input.hasNext()) {
 				input.nextLine();
 			}
@@ -174,7 +177,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 				String line = input.nextLine().replaceAll("(?m)$", ",");
 				Scanner newinput = new Scanner(line).useDelimiter(",");
 
-				// System.out.println(line);
+			
 				Stock S = new Stock();
 				S.setDATE(Date.valueOf(newinput.next()));
 				S.setOpen(Double.parseDouble(newinput.next()));
@@ -183,9 +186,8 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 				S.setClose(Double.parseDouble(newinput.next()));
 				S.setAdj_Close(Double.parseDouble(newinput.next()));
 				S.setVolume(Integer.parseInt(newinput.next()));
+				
 				Ls.add(S);
-				
-				
 
 			}
 

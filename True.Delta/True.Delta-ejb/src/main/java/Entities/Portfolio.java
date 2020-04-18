@@ -40,9 +40,11 @@ public class Portfolio implements Serializable{
 	
 	@Column (name="Price")
 	private double Price;
+
 	
 	@Column (name="Sharpe_Ratio")
 	private float Ratio;
+
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
@@ -59,8 +61,10 @@ public class Portfolio implements Serializable{
 	
 	
 
+
 	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price,
 			float ratio) {
+
 		super();
 		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
@@ -68,6 +72,7 @@ public class Portfolio implements Serializable{
 		Volatility = volatility;
 		Price = price;
 		Ratio = ratio;
+
 	}
 
 
@@ -77,7 +82,9 @@ public class Portfolio implements Serializable{
 	@Override
 	public String toString() {
 		return "Portfolio [IdPortfolio=" + IdPortfolio + ", TypePortfolio=" + TypePortfolio + ", Returns=" + Returns
+
 				+ ", Volatility=" + Volatility + ", Price=" + Price + ", Ratio=" + Ratio + "]";
+
 	}
 
 
@@ -91,6 +98,7 @@ public class Portfolio implements Serializable{
 	public void setPrice(double price) {
 		Price = price;
 	}
+
 	
 	
 
@@ -101,7 +109,6 @@ public class Portfolio implements Serializable{
 	public void setRatio(float ratio) {
 		Ratio = ratio;
 	}
-
 
 
 

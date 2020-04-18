@@ -51,8 +51,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		em.merge(u);
 		
 	}
-	
-	
+
 	@Override
 	public User DisplayUser(int Id) {
 		User u = new User();
@@ -61,7 +60,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		
 		return u;
 	}
-	
+
 	@Override
 	public List<User> DisplayUsers() {
 		Query query=em.createQuery("select u from User u");
@@ -159,7 +158,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 			score+=30;
 		}
 		
-		
+
 			return score;
 		
 	}
@@ -167,7 +166,7 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 	@Override
 	public void validateProfile(User u) {
 		if(u.getCustomer().getScore()>200)
-		{ 
+		{
 			u.getCustomer().setActive(Active_account_Type.Active);
 			em.merge(u);
 		}

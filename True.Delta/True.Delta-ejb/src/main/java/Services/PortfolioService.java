@@ -1,6 +1,7 @@
 package Services;
 
 import java.util.ArrayList;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,17 +10,20 @@ import java.util.stream.Collectors;
 
 import javax.ejb.FinderException;
 import javax.ejb.Stateless;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import Entities.Portfolio;
 import Entities.Security;
+import Entities.Bond;
 import Entities.Stock;
 import Entities.User;
 import Interfaces.PortfolioServiceLocal;
 import Interfaces.PortfolioServiceRemote;
 import Enumerations.*;
+
 
 @Stateless
 
@@ -49,14 +53,13 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		em.remove(p);
 	}
 
-
 	@Override
 	public Portfolio DisplayPortfolio(int IdPortfolio) {
 		Portfolio p = new Portfolio();
 		p=em.find(Portfolio.class, IdPortfolio);
 		return p;
 	}
-	
+
 	@Override
 	public List<Portfolio> DisplayPortfolios() {
 		Query query=em.createQuery("select p from Portfolio p");
@@ -67,6 +70,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	public void EditPortfolio(Portfolio p) {
 		em.merge(p);
 		//System.out.println(stocks());
+
 	}
 
 	@Override
@@ -89,7 +93,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		u=em.find(User.class, idUser);
 		return u.getCustomer().getRisk();
 	}
-	
+
 	UserService us = new UserService();
 
 	public List<Stock> stocks(){
@@ -104,7 +108,9 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		//return symbols;
 		List<Stock> allStock = new ArrayList<Stock>();
 		for (String symb : symbols) {
+
 			List<Stock> a = ss.StocksDownloader(symb,"1d", Period1, Period2);
+
 			for (Stock stock : a) {
 				System.out.println("symb is ;"+symb+" stock is  "+stock  );
 				allStock.add(stock);
@@ -116,7 +122,28 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	}
 
 
-	
+	public double volatilityCalculator(List<Stock> Ls) {
+
+		long ObsNumber=Ls.stream().count();
+		System.out.println("ObsNumber"+ObsNumber);
+		double Mean=Ls.stream().mapToDouble(e->e.getAdj_Close()).average().getAsDouble();
+		System.out.println("Mean"+Mean);
+		double PeriodDeviation=0;
+		double Var=0;
+		double Racine=0;
+
+		for(Stock i : Ls)
+		{
+
+			Racine=(i.getAdj_Close()-Mean);
+			PeriodDeviation+=Math.pow((i.getAdj_Close()-Mean),2);
+
+
+		}
+		Var=(PeriodDeviation/(ObsNumber-1));
+
+		return Var;
+	}
 
 	@Override
 	public float moneyBasdPortfoio(float money, Portfolio p) {
@@ -182,7 +209,9 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		double sum=stocks().get(0).getClose();
 		chosenStocks.add(stocks().get(0));	
 		int i=1;
+
 		List<Stock> sortedStockList = stocks().stream().sorted(Comparator.comparing(Stock::getClose)).collect(Collectors.toList());
+
 		while ( chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble() <maxVol && i<stocks().size()) {	
 			chosenStocks.add(stocks().get(i));			
 			sum += chosenStocks.get(i).getClose();
@@ -197,6 +226,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		p.setVolatility(Math.round((float) (maxVol-5 + 5*Math.random())));
 		p.setPrice(Math.round(sum));
 		p.setRatio((float)(Mean/(float) (maxVol-5 + 5*Math.random())));
+
 		AddPortfolio(p);
 
 
@@ -219,6 +249,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		float vol = (float) (PeriodDeviation/(chosenStocks.stream().count()-1));
 		return vol;
 	}
+
 
 	@Override
 	public Portfolio OptimalPortfolio() {
@@ -254,6 +285,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 
 		return Var;
 	}
+
 
 }
 
