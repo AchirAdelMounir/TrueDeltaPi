@@ -12,17 +12,17 @@ import java.util.List;
 @Remote
 
 public interface SecuritiesServicesInterfaceRemote {
-	public int AddSecurity(Security S);
+	public void AddSecurity(Security S);
 	public void DeleteSecurity(int IdSecurity);
 	public Security DisplaySecurity(int IdSecurity);
 	public Boolean ifExists(Security S);
 	public List<Security> DisplaySecurities();
 	public void EditSecurity(int IdSecurity,Object o);
 	public List<Security> SearchByMaturityDate(Date d);
-	public List<Bond> DisplayBonds();
-	public List<Stock> DisplayStocks();
+	public List<Security> DisplayBonds();
+	public List<Security> DisplayStocks();
 	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2);
-	public BigDecimal getStockPriceInstantly(String Sym);
+	public double getStockPriceInstantly(String Sym);
 	public double VolatilityCalculator(String Sym,String Period1, String Period2);
 	public List<Company> SearchByInput(String SearchField, String operator, Object o);
 	public List<Security> GetTopByInput(String Input,int TopN);
