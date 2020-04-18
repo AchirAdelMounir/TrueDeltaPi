@@ -10,10 +10,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import Entities.Company;
 import Entities.Complain;
@@ -34,16 +32,7 @@ public class CompaniesController {
     public Response CreateCompany(Company C) {
 		
         String cc = service.AddCompany(C);
-       
         return Response.ok(cc).build();
-    }
-	@POST
-	@Path("CompaniesFInder")
-    public Response CompaniesFInder() {
-		
-        service.CompaniesInfoFinder();
-       
-        return Response.ok(Status.OK).build();
     }
 	@DELETE
 	@Path("delete/{sym}")
@@ -54,8 +43,8 @@ public class CompaniesController {
         return Response.ok().build();
     }
 	@PUT
-    @Path("update/{Sym})")
-    public Response UpdateCompany(@PathParam("Sym") String Sym,Company c) {
+    @Path("update/{Sym}/{c})")
+    public Response UpdateCompany(@PathParam("Sym,c") String Sym, Company c) {
 		Company cc=service.EditCompany(Sym, c);
         return Response.ok(cc).build();
     }
@@ -71,18 +60,17 @@ public class CompaniesController {
     }
 	@GET
 	@Path("Find/{SearchField}/{operator}/{o}")
-    public Response FindCompany(@PathParam("SearchField") String SearchField, @PathParam("operator") String operator,@PathParam("o") String o) {
+    public Response FindCompany(@PathParam("SearchField, operator, o") String SearchField,String operator,Object o) {
         return Response.ok(service.SearchByInput(SearchField, operator, o)).build();
     }
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
 	@Path("Top/{Input}/{TopN}")
-    public Response getopCompanies(@PathParam("Input") String Input,@PathParam("TopN") int TopN)   {
-        return Response.ok(Status.OK).entity(service.GetTopByInput(Input, TopN)).build();
+    public Response getTopNCompanies(@PathParam("Input, TopN") String Input,int TopN) {
+        return Response.ok(service.GetTopByInput(Input, TopN)).build();
     }
 	@GET
 	@Path("Last/{Input}/{TopN}")
-    public Response getLastNCompanies(@PathParam("Input") String Input,@PathParam("TopN") int TopN) {
+    public Response getLastNCompanies(@PathParam("Input, TopN") String Input,int TopN) {
         return Response.ok(service.GetLastByInput(Input, TopN)).build();
     }
 	
