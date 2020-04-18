@@ -11,16 +11,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.Set;
 import Enumerations.*;
 
 @Entity
 @Table(name="PORTFOLIO")
+
 public class Portfolio implements Serializable{
-	/**
-	 * 
-	 */
+	
+	
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -38,6 +40,11 @@ public class Portfolio implements Serializable{
 	
 	@Column (name="Price")
 	private double Price;
+
+	
+	@Column (name="Sharpe_Ratio")
+	private float Ratio;
+
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
@@ -55,13 +62,17 @@ public class Portfolio implements Serializable{
 	
 
 
-	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price) {
+	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price,
+			float ratio) {
+
 		super();
 		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
 		Returns = returns;
 		Volatility = volatility;
 		Price = price;
+		Ratio = ratio;
+
 	}
 
 
@@ -71,7 +82,9 @@ public class Portfolio implements Serializable{
 	@Override
 	public String toString() {
 		return "Portfolio [IdPortfolio=" + IdPortfolio + ", TypePortfolio=" + TypePortfolio + ", Returns=" + Returns
-				+ ", Volatility=" + Volatility + ", Price=" + Price + "]";
+
+				+ ", Volatility=" + Volatility + ", Price=" + Price + ", Ratio=" + Ratio + "]";
+
 	}
 
 
@@ -85,6 +98,20 @@ public class Portfolio implements Serializable{
 	public void setPrice(double price) {
 		Price = price;
 	}
+
+	
+	
+
+	public float getRatio() {
+		return Ratio;
+	}
+	
+	public void setRatio(float ratio) {
+		Ratio = ratio;
+	}
+
+
+
 
 	public Contract getContract() {
 		return Contract;

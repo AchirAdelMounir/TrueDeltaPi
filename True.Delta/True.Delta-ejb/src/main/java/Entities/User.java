@@ -3,32 +3,37 @@ import java.io.Serializable;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+
 import Enumerations.*;
 
 @Entity
 @Table(name="USER")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "Id")
-	private int Id;
+	private int id;
 	
 	@Column(name = "USER_NOM")
 	private String nom;
@@ -61,12 +66,12 @@ public class User implements Serializable {
 	
 	
 	
-	@OneToMany(mappedBy="User")
-	private Set<Feedback> Feedbacks;
-	@OneToMany(mappedBy="User")
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
+	private Set<Feedback> feedbacks;
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Complain> Complains;
-	@OneToMany(mappedBy="User")
-	private Set<Complain> Articles;
+	//@OneToMany(mappedBy="user")
+	//private Set<Complain> Articles;
 	@OneToMany(mappedBy="User")
 	private Set<Contract> Contratcs;
 	@OneToOne 
@@ -102,11 +107,11 @@ public class User implements Serializable {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.Id = id;
+		this.id = id;
 	}
 
 	public String getNom() {
@@ -119,6 +124,38 @@ public class User implements Serializable {
 
 	public String getPrenom() {
 		return prenom;
+	}
+
+	public Set<Feedback> getFeedbacks() {
+		return feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		this.feedbacks = feedbacks;
+	}
+
+	public Set<Complain> getComplains() {
+		return Complains;
+	}
+
+	public void setComplains(Set<Complain> complains) {
+		Complains = complains;
+	}
+
+	public Set<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(Set<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
 	}
 
 	public void setPrenom(String prenom) {
@@ -164,6 +201,31 @@ public class User implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public User(String nom, String prenom, String adresseMail, String password, String login,
+			UserType type) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		
+		Type = type;
+	}
+
+	public User() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "User [nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password=" + password
+				+ ", login=" + login + ", customer=" + customer + "]";
+	}
+	
+	
+	
 
 	
 
