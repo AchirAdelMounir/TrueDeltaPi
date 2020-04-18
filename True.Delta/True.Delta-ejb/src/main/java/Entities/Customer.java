@@ -204,7 +204,8 @@ public class Customer implements Serializable{
 
 
 	public int getScore() {
-		return score;}
+		return score;
+
 
 
 	public void setScore(int score) {
