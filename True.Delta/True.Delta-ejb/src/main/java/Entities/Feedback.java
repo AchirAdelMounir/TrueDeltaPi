@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import Enumerations.LevelRating;
+import Enumerations.Who;
 
 import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -38,7 +39,15 @@ public class Feedback implements Serializable{
 	//Foreign key (id Customer)
 	//@Column(name="FEEDBACK_RATING") 
 	@Enumerated(EnumType.STRING) 
-    Enumerations.LevelRating rating;
+    Who who;
+	@Enumerated(EnumType.STRING) 
+	LevelRating rating;
+	public Who getWho() {
+		return who;
+	}
+	public void setWho(Who who) {
+		this.who = who;
+	}
 	@Column(name="FEEDBACK_NOTICE") 
 	String notice;
 	@Column(name="FEEDBACK_DATE") 
@@ -78,14 +87,16 @@ public class Feedback implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Feedback(int id, User user, LevelRating rating, String notice, Date date) {
+	public Feedback(int id, User user, Who who, LevelRating rating, String notice, Date date) {
 		super();
 		this.id = id;
 		this.user = user;
+		this.who = who;
 		this.rating = rating;
 		this.notice = notice;
 		this.date = date;
 	}
+	
 	
 	
 	

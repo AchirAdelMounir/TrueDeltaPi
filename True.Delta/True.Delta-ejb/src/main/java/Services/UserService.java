@@ -1,5 +1,7 @@
 package Services;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +18,12 @@ import Enumerations.Active_account_Type;
 import Enumerations.Professional_Status_Type;
 import Enumerations.Residency_Status_Type;
 import Enumerations.Type_of_contract_type;
+import Interfaces.UserIServices;
 import Interfaces.UserServiceLocal;
 import Interfaces.UserServiceRemote;
 @Stateful
 
-public class UserService implements  UserServiceRemote,UserServiceLocal {
+public class UserService implements  UserServiceRemote,UserServiceLocal,UserIServices {
 
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
@@ -67,6 +70,41 @@ public class UserService implements  UserServiceRemote,UserServiceLocal {
 		return query.getResultList();
 	}
 
+	@Override 
+	public Boolean authentication(int id_user,String login,String password) {
+		User user=DisplayUser(id_user);
+		if(user.getLogin()!=login) {
+			System.out.println("check your login");
+			return false;
+					}
+		else {
+			if(user.getPassword()!=password) {
+				System.out.println("check your password ");
+				return false;
+			}
+			else {
+				System.out.println("Welcome  "+user.getPrenom()+" "+user.getNom());
+				return true;
+			}
+		}
+	}
+	@Override
+	public String happyBirthday(int id_user) {
+		User user=DisplayUser(id_user);
+		String s="";
+		LocalDateTime localDateTime = LocalDateTime.now();
+		Date today=Date.from( localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+		int age=(today.getYear()+1900)-(user.getCustomer().getDateB().getYear()+1900);
+		if((user.getDate().getMonth()==today.getMonth()) && (user.getDate().getDate()==today.getDate()))
+			 s ="HAPPY BIRTHDAY "+user.getPrenom()+" "+user.getNom()+"\n"+"HAPPY "+Integer.toString(age)+" "+"YEARS";
+		
+			return s;
+	}
+	
+	
+	
+	
+	
 	@Override
 	public int EstimatedScore(User u) {
 		int score =0;
