@@ -21,7 +21,7 @@ public interface SecuritiesServicesInterfaceLocal {
 	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2);
 	public double getStockPriceInstantly(String Sym);
 	public double VolatilityCalculator(String Sym,String Period1, String Period2);
-	public List<Company> SearchByInput(String SearchField, String operator, Object o);
+	public List<Security> SearchByInput(String SearchField, String operator, Object o);
 	public List<Security> GetTopByInput(String Input,int TopN);
 	public List<Security> GetLastByInput(String Input,int TopN);
 	//public void DisplayStockPrices();
