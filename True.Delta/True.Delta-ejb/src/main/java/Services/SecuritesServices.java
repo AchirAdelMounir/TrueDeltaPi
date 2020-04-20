@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,6 +39,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 @Stateless
+@LocalBean
 
 public class SecuritesServices implements SecuritiesServicesInterfaceRemote, SecuritiesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.LongStream;
 
-
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -28,6 +28,7 @@ import Interfaces.CompaniesServicesInterfaceLocal;
 import Interfaces.CompaniesServicesInterfaceRemote;
 
 @Stateless
+@LocalBean
 
 
 public class CompaniesServices implements CompaniesServicesInterfaceRemote, CompaniesServicesInterfaceLocal {
