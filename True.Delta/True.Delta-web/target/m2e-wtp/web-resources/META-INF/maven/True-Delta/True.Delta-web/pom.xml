@@ -64,6 +64,12 @@
          <scope>provided</scope>
       </dependency>
       
+      <dependency>
+<groupId>io.jsonwebtoken</groupId>
+<artifactId>jjwt</artifactId>
+<version>0.9.1</version>
+</dependency>
+      
       
       <!-- Import the JSF API, we use provided scope as the API is included in JBoss WildFly -->
       <dependency>

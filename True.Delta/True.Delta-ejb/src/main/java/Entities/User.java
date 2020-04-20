@@ -61,10 +61,16 @@ public class User implements Serializable {
 	@Column(name = "USER_TYPE")
 	private UserType Type;
 	
-	@Column(name = "USER_Rating")
-	private long rating;
+	@Column(name = "USER_IS_VALID")
+	private boolean isValid;
+	
+	
+	
+	
 
-	@Column(name = "USER_CODE")
+	
+
+	@Column(name = "USER_TOKEN")
 	private String code;
 
 	@Embedded
@@ -88,7 +94,7 @@ public class User implements Serializable {
 	private Set<Complain> Complains;
 	//@OneToMany(mappedBy="user")
 	//private Set<Complain> Articles;
-	@OneToMany(mappedBy="User")
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Contract> Contratcs;
 	@OneToOne 
 	private Portfolio portfolio;
@@ -213,13 +219,7 @@ public class User implements Serializable {
 		this.date = date;
 	}
 
-	public long getRating() {
-		return rating;
-	}
-
-	public void setRating(long rating) {
-		this.rating = rating;
-	}
+	
 
 	public String getCode() {
 		return code;
@@ -228,6 +228,14 @@ public class User implements Serializable {
 	public void setCode(String code) {
 		this.code = code;
 	}
+	
+	public boolean isValid() {
+		return isValid;
+	}
+
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
+	}
 
 	public User() {
 		super();
@@ -235,8 +243,9 @@ public class User implements Serializable {
 	}
 
 	public User(int id, String nom, String prenom, Date date, String adresseMail, String password, String login,
-			UserType type, long rating, String code, Administrator admin, Customer customer, AssetManager asset_manager,
-			Set<Feedback> feedbacks, Set<Complain> complains, Set<Contract> contratcs, Portfolio portfolio) {
+			UserType type, boolean isValid, String code, Administrator admin, Customer customer,
+			AssetManager asset_manager, Set<Feedback> feedbacks, Set<Complain> complains, Set<Contract> contratcs,
+			Portfolio portfolio) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -246,7 +255,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.login = login;
 		Type = type;
-		this.rating = rating;
+		this.isValid = isValid;
 		this.code = code;
 		this.admin = admin;
 		this.customer = customer;
@@ -256,6 +265,8 @@ public class User implements Serializable {
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
 	}
+
+	
 	
 	
 	

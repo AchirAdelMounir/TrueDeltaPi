@@ -2,15 +2,18 @@ package Interfaces;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import Entities.User;
 
+@Local
 public interface UserIServices {
 	int AddUser(User U);
 	void DeleteUser(int Id);
-	void EditUser(User u);
+	int  EditUser(User user, int id_user);
 	User DisplayUser(int Id);
 	List<User> DisplayUsers();
-	Boolean authentication(int id_user, String login, String password);
+	User authentication(String login, String password);
 	String happyBirthday(int id_user);
 	
 

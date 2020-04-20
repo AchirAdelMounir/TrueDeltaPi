@@ -46,14 +46,20 @@ public class UserService implements  UserServiceRemote,UserServiceLocal,UserISer
 
 	
 
-	
-
 	@Override
-	public void EditUser(User u) {
-		// TODO Auto-generated method stub
-		em.merge(u);
-		
-	}
+	public int EditUser(User user, int id_user) {
+		Query query =  em.createQuery("update User u set nom=:nom , prenom=:prenom , date=:date , adresseMail=:adresseMail , Type=:type   where u.id=:id_user ");
+		query.setParameter("nom", user.getNom());
+		query.setParameter("prenom", user.getPrenom());
+		query.setParameter("date", user.getDate());
+		query.setParameter("adresseMail", user.getAdresseMail());
+		query.setParameter("type", user.getType());
+		query.setParameter("id_user", id_user);
+		int m=query.executeUpdate();
+	   return m;
+	    }
+
+	
 
 	@Override
 	public User DisplayUser(int Id) {
@@ -70,24 +76,17 @@ public class UserService implements  UserServiceRemote,UserServiceLocal,UserISer
 		return query.getResultList();
 	}
 
-	@Override 
-	public Boolean authentication(int id_user,String login,String password) {
-		User user=DisplayUser(id_user);
-		if(user.getLogin()!=login) {
-			System.out.println("check your login");
-			return false;
-					}
-		else {
-			if(user.getPassword()!=password) {
-				System.out.println("check your password ");
-				return false;
-			}
-			else {
-				System.out.println("Welcome  "+user.getPrenom()+" "+user.getNom());
-				return true;
-			}
-		}
+	@Override
+	public User authentication(String login, String password) {
+	Query query = em.createQuery("select u from User u where u.login=:login AND u.password=:password").setParameter("login",login).setParameter("password", password);
+	if(!query.getResultList().isEmpty()) {
+		User user = (User) query.getResultList().get(0);
+		System.out.println("from ejb, user found, authenticating user with id :"+user.getId());
+		return user;
 	}
+	System.out.println("user not found...");
+	return null;}
+    
 	@Override
 	public String happyBirthday(int id_user) {
 		User user=DisplayUser(id_user);
@@ -208,6 +207,12 @@ public class UserService implements  UserServiceRemote,UserServiceLocal,UserISer
 			u.getCustomer().setActive(Active_account_Type.Active);
 			em.merge(u);
 		}
+		
+	}
+
+	@Override
+	public void EditUser(User u) {
+		// TODO Auto-generated method stub
 		
 	}
 
