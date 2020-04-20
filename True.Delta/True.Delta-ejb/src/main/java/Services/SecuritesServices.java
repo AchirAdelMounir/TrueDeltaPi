@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,6 +34,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 @Stateless
+@LocalBean
 
 public class SecuritesServices implements SecuritiesServicesInterfaceRemote, SecuritiesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")
@@ -256,33 +258,34 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public List<Company> SearchByInput(String SearchField, String operator, Object o) {
+	public List<Security> SearchByInput(String SearchField, String operator, Object o) {
 		if (o instanceof Integer) {
 			int O = (Integer) o;
+			
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		} else if (o instanceof Double) {
 			Double O = (Double) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		} else if (o instanceof String) {
 			String O = (String) o;
 			return (em
 					.createQuery("select s from Security s where " + SearchField + " " + operator + " " + "'" + O + "'",
-							Company.class)
+							Security.class)
 					.getResultList());
 
 		} else if (o instanceof BigInteger) {
 			BigInteger O = (BigInteger) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		} else if (o instanceof Date) {
 			Date O = (Date) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		}
 		return null;
