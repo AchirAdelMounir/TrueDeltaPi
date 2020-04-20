@@ -77,14 +77,7 @@ public class SecuritiyBean {
 	{
 		return s.SearchByInput(SearchField, operator, o);
 	}
-	public List<Security> DisplayBonds()
-	{
-		return s.DisplayBonds();
-	}
-	public List<Security> DisplayStocks()
-	{
-		return s.DisplayStocks();
-	}
+	
 	
 	
 	

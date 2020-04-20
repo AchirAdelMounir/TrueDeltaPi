@@ -41,11 +41,11 @@ public class Security implements Serializable {
 	double Volatility;
 
 	// Relations
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "COMPANY_SYMBOL", referencedColumnName = "SYMBOL")
 	private Company Company;
-	@ManyToOne
-	private Portfolio Portfolio;
+	@OneToMany(cascade = {CascadeType.MERGE},mappedBy="S")
+	private Set<Flux> F;
 
 	// Constructeurs 
 	public Security()
@@ -103,13 +103,7 @@ public class Security implements Serializable {
 		Company = company;
 	}
 
-	public Portfolio getPortfolio() {
-		return Portfolio;
-	}
-
-	public void setPortfolio(Portfolio portfolio) {
-		Portfolio = portfolio;
-	}
+	
 	public double getVolatility() {
 		return Volatility;
 	}
@@ -121,6 +115,17 @@ public class Security implements Serializable {
 	}
 	public void setPrice(double price) {
 		Price = price;
+	}
+	@Override
+	public String toString() {
+		return "Security [Id=" + Id + ", Type=" + Type + ", Price=" + Price + ", S=" + S + ", B=" + B + ", Volatility="
+				+ Volatility + ", Company=" + Company + ", Portfolio=";
+	}
+	public Set<Flux> getF() {
+		return F;
+	}
+	public void setF(Set<Flux> f) {
+		F = f;
 	}
 
 }

@@ -1,9 +1,14 @@
 package Entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import javax.persistence.FetchType;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -48,8 +53,8 @@ public class Portfolio implements Serializable{
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
-	@OneToMany(mappedBy="Portfolio")
-	private Set<Security> Securities;
+	@OneToMany(cascade = {CascadeType.MERGE},mappedBy="P")
+	Set<Flux> F;
 	@OneToOne(mappedBy="portfolio")
 	private User User;
 
@@ -63,13 +68,17 @@ public class Portfolio implements Serializable{
 
 
 	public Portfolio(int idPortfolio, Portfolio_Type typePortfolio, double returns, float volatility, double price,
-			float ratio) {
+			float ratio,Contract contract,User user) {
 
 		super();
 		IdPortfolio = idPortfolio;
 		TypePortfolio = typePortfolio;
 		Returns = returns;
 		Volatility = volatility;
+		Contract = contract;
+		
+		User = user;
+
 		Price = price;
 		Ratio = ratio;
 
@@ -121,13 +130,7 @@ public class Portfolio implements Serializable{
 		Contract = contract;
 	}
 
-	public Set<Security> getSecurities() {
-		return Securities;
-	}
-
-	public void setSecurities(Set<Security> securities) {
-		Securities = securities;
-	}
+	
 
 	public int getIdPortfolio() {
 		return IdPortfolio;
@@ -168,6 +171,18 @@ public class Portfolio implements Serializable{
 
 	public void setVolatility(float volatility) {
 		Volatility = volatility;
+	}
+
+
+
+	public Set<Flux> getF() {
+		return F;
+	}
+
+
+
+	public void setF(Set<Flux> f) {
+		F = f;
 	}
 
 	
