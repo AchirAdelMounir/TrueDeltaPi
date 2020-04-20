@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import Entities.Complain;
+import Enumerations.StatusTypeOfComplain;
 
 
 @Local
@@ -17,7 +18,7 @@ public interface ComplainIServices {
 	
 	int DeleteComplainByIdUser(int idUser);
 	
-	int DeleteComplainByStatus(Enumerations.StatusTypeOfComplain status);
+	int DeleteComplainByStatus(StatusTypeOfComplain status);
 	
 	int DeleteComplainByDate(String date) ;
 

@@ -32,16 +32,16 @@ public class Feedback implements Serializable{
 	@Id 
 	@GeneratedValue( strategy = GenerationType.IDENTITY ) 
 	@Column(name="FEEDBACK_ID") 
-	int id;
+	private int id;
 	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="User_Id",referencedColumnName="Id")
 	private User user;
 	//Foreign key (id Customer)
 	//@Column(name="FEEDBACK_RATING") 
 	@Enumerated(EnumType.STRING) 
-    Who who;
+	private Who who;
 	@Enumerated(EnumType.STRING) 
-	LevelRating rating;
+	private LevelRating rating;
 	public Who getWho() {
 		return who;
 	}
