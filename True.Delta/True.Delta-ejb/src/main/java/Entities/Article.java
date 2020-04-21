@@ -38,9 +38,9 @@ public class Article implements Serializable {
 	
 	@Column(name = "ARTICLE_PREDICTION")
 	private String prediction;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="User_Id",referencedColumnName="Id")
-	private User User;
+	//@ManyToOne(cascade=CascadeType.ALL)
+//	@JoinColumn(name="User_Id",referencedColumnName="Id")
+//	private User User;
 	
 	
 	
@@ -97,13 +97,13 @@ public class Article implements Serializable {
 		this.prediction = prediction;
 	}
 
-	public User getUser() {
+	/*public User getUser() {
 		return User;
 	}
 
 	public void setUser(User user) {
 		User = user;
-	}
+	}*/
 	
 	
 	

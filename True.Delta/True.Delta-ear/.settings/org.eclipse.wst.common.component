@@ -5,6 +5,9 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
                 
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="javax.ws.rs-api.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/ws/rs/javax.ws.rs-api/2.0-m02/javax.ws.rs-api-2.0-m02.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="True.Delta-web.war" deploy-path="/" handle="module:/resource/True.Delta-web/True.Delta-web">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -33,6 +36,12 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="curvesapi.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/github/virtuald/curvesapi/1.04/curvesapi-1.04.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javax.mail.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/sun/mail/javax.mail/1.5.1/javax.mail-1.5.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="activation.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/javax/activation/activation/1.1.1/activation-1.1.1.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="mysql-connector-java.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/mysql/mysql-connector-java/5.1.36/mysql-connector-java-5.1.36.jar">

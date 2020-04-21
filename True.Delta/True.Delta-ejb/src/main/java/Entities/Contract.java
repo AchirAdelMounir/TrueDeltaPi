@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import Enumerations.ContractType;
 
 
-
+@SuppressWarnings("serial")
 @Entity
 @Table(name="Contract") 
 
@@ -36,14 +36,16 @@ public class Contract implements Serializable {
 	@Column()
 	int IDContract;
 	@Column()
-    int Amount;
+    Double Amount;
 	@Column()
 	Date CreationDate;
 	@Column()
 	Date StartDate;
 	@Column()
 	Date EndDate;
-	
+	@Column()
+	Double Gain;
+
 	@Enumerated(EnumType.STRING)
 	ContractType ContartType;
 	@Enumerated(EnumType.STRING) 
@@ -63,12 +65,12 @@ public class Contract implements Serializable {
 	public void setIDContract(int iDContract) {
 		IDContract = iDContract;
 	}
-	public int getAmount() {
+/*	public int getAmount() {
 		return Amount;
 	}
 	public void setAmount(int amount) {
 		Amount = amount;
-	}
+	}*/
 	public Date getCreationDate() {
 		return CreationDate;
 	}
@@ -100,7 +102,7 @@ public class Contract implements Serializable {
 	public void setFinancialAsset(Enumerations.FinancialAsset financialAsset) {
 		FinancialAsset = financialAsset;
 	}
-	/*public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate,
+/*	public Contract(int iDContract, int amount, Date creationDate, Date startDate, Date endDate,
 			ContractType contartType, Enumerations.FinancialAsset financialAsset) {
 		super();
 		IDContract = iDContract;
@@ -128,7 +130,7 @@ public class Contract implements Serializable {
 	public void setUser(User user) {
 		User = user;
 	}
-	public Contract(int amount, Date creationDate, Date startDate, Date endDate, ContractType contartType,
+	/*public Contract(int amount, Date creationDate, Date startDate, Date endDate, ContractType contartType,
 			Enumerations.FinancialAsset financialAsset) {
 		super();
 		Amount = amount;
@@ -137,8 +139,8 @@ public class Contract implements Serializable {
 		EndDate = endDate;
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
-	}
-	public Contract(int amount, Date creationDate, Date startDate, Date endDate, ContractType contartType,
+	}*/
+	/*public Contract(int amount, Date creationDate, Date startDate, Date endDate, ContractType contartType,
 			Enumerations.FinancialAsset financialAsset, Entities.User user) {
 		super();
 		Amount = amount;
@@ -148,21 +150,78 @@ public class Contract implements Serializable {
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
 		User = user;
-	}
+	}*/
 	@Override
 	public String toString() {
 		return "Contract [IDContract=" + IDContract + ", Amount=" + Amount + ", CreationDate=" + CreationDate
 				+ ", StartDate=" + StartDate + ", EndDate=" + EndDate + ", ContartType=" + ContartType
 				+ ", FinancialAsset=" + FinancialAsset + "]";
 	}
-	public Contract(int amount, Date creationDate, Date startDate, Date endDate, Entities.User user) {
+	/*public Contract(int amount, Date creationDate, Date startDate, Date endDate, Entities.User user) {
 		super();
 		Amount = amount;
 		CreationDate = creationDate;
 		StartDate = startDate;
 		EndDate = endDate;
 		User = user;
+	}*/
+	public Double getGain() {
+		return Gain;
 	}
+	public void setGain(Double gain) {
+		Gain = gain;
+	}
+	
+	
+	public Double getAmount() {
+		return Amount;
+	}
+	public void setAmount(Double amount) {
+		Amount = amount;
+	}
+	public Contract(int iDContract, Double amount, Date creationDate, Date startDate, Date endDate, Double gain,
+			ContractType contartType, Enumerations.FinancialAsset financialAsset, Entities.Portfolio portfolio,
+			Entities.User user) {
+		super();
+		IDContract = iDContract;
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		Gain = gain;
+		ContartType = contartType;
+		FinancialAsset = financialAsset;
+		Portfolio = portfolio;
+		User = user;
+	}
+	public Contract(Double amount, Date creationDate, Date startDate, Date endDate, Double gain,
+			ContractType contartType, Enumerations.FinancialAsset financialAsset, Entities.Portfolio portfolio,
+			Entities.User user) {
+		super();
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		Gain = gain;
+		ContartType = contartType;
+		FinancialAsset = financialAsset;
+		Portfolio = portfolio;
+		User = user;
+	}
+	public Contract(int iDContract, Double amount, Date creationDate, Date startDate, Date endDate, Double gain,
+			ContractType contartType, Enumerations.FinancialAsset financialAsset) {
+		super();
+		IDContract = iDContract;
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		Gain = gain;
+		ContartType = contartType;
+		FinancialAsset = financialAsset;
+	}
+	
+
 	
 
 

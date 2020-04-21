@@ -1,9 +1,10 @@
 package Entities;
 import java.io.Serializable;
-
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -70,6 +72,11 @@ public class User implements Serializable {
 	
 	@Column(name="Account_Number")
 	private int Account_Number;
+	@Column(name = "Refund")
+	private double Refund;
+	
+	@Column()
+    int Amount;
 
 	@Enumerated(EnumType.STRING)
 	TypeDevise Devise;
@@ -99,14 +106,24 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="User")
 	private Set<Complain> Articles;
 	@OneToMany(mappedBy="User")
-	private Set<Contract> Contratcs;
+	private List<Contract> Contratcs;
+
 	@OneToOne 
 	private Portfolio portfolio;
 
 	
 	
 	
+	
 
+
+/*	public List<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(List<Contract> contratcs) {
+		Contratcs = contratcs;
+	}*/
 
 	public AssetManager getAsset_manager() {
 		return asset_manager;
@@ -179,17 +196,27 @@ public class User implements Serializable {
 		this.visitor = visitor;
 	}*/
 
-	public Set<Contract> getContratcs() {
+	/*public Set<Contract> getContratcs() {
 		return Contratcs;
 	}
 
 	public void setContratcs(Set<Contract> contratcs) {
 		Contratcs = contratcs;
-	}
+	}*/
+	
+	
 
 	public Enumerations.UserType getUserType() {
 		return UserType;
 	}
+
+	/*public List<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(List<Contract> contratcs) {
+		Contratcs = contratcs;
+	}*/
 
 	public void setUserType(Enumerations.UserType userType) {
 		UserType = userType;
@@ -296,13 +323,13 @@ public class User implements Serializable {
 		Devise = devise;
 	}
 
-	public Set<Feedback> getFeedbacks() {
+	/*public Set<Feedback> getFeedbacks() {
 		return Feedbacks;
 	}
 
 	public void setFeedbacks(Set<Feedback> feedbacks) {
 		Feedbacks = feedbacks;
-	}
+	}*/
 
 	public Set<Complain> getComplains() {
 		return Complains;
@@ -312,13 +339,13 @@ public class User implements Serializable {
 		Complains = complains;
 	}
 
-	public Set<Complain> getArticles() {
+	/*public Set<Complain> getArticles() {
 		return Articles;
 	}
 
 	public void setArticles(Set<Complain> articles) {
 		Articles = articles;
-	}
+	}*/
 
 	public Portfolio getPortfolio() {
 		return portfolio;
@@ -332,7 +359,7 @@ public class User implements Serializable {
 		return serialVersionUID;
 	}
 
-	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+/*	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
 			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
 			TypeDevise devise, AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
 			Set<Complain> complains, Set<Complain> articles, Set<Contract> contratcs, Portfolio portfolio) {
@@ -358,7 +385,7 @@ public class User implements Serializable {
 		Articles = articles;
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
-	}
+	}*/
 
 	public ContractType getContractType() {
 		return ContractType;
@@ -368,7 +395,110 @@ public class User implements Serializable {
 		ContractType = contractType;
 	}
 
+	public int getAmount() {
+		return Amount;
+	}
+
+	public void setAmount(int amount) {
+		Amount = amount;
+	}
+
+	public Set<Feedback> getFeedbacks() {
+		return Feedbacks;
+	}
+
+	public void setFeedbacks(Set<Feedback> feedbacks) {
+		Feedbacks = feedbacks;
+	}
+
+	public Set<Complain> getArticles() {
+		return Articles;
+	}
+
+	public void setArticles(Set<Complain> articles) {
+		Articles = articles;
+	}
+
+	public List<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(List<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
 	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
+			int amount, TypeDevise devise, Enumerations.ContractType contractType, AssetManager asset_manager,
+			Enumerations.UserType userType, Set<Feedback> feedbacks, Set<Complain> complains, Set<Complain> articles,
+			List<Contract> contratcs, Portfolio portfolio) {
+		super();
+		Id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.id_banque = id_banque;
+		this.age = age;
+		Credit = credit;
+		Civil_Status = civil_Status;
+		Profession = profession;
+		Residence = residence;
+		Account_Number = account_Number;
+		Amount = amount;
+		Devise = devise;
+		ContractType = contractType;
+		this.asset_manager = asset_manager;
+		UserType = userType;
+		Feedbacks = feedbacks;
+		Complains = complains;
+		Articles = articles;
+		Contratcs = contratcs;
+		this.portfolio = portfolio;
+	}
+
+	public double getRefund() {
+		return Refund;
+	}
+
+	public void setRefund(double refund) {
+		Refund = refund;
+	}
+
+	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
+			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
+			AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
+			Set<Complain> complains, Set<Complain> articles, List<Contract> contratcs, Portfolio portfolio) {
+		super();
+		Id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.id_banque = id_banque;
+		this.age = age;
+		Credit = credit;
+		Civil_Status = civil_Status;
+		Profession = profession;
+		Residence = residence;
+		Account_Number = account_Number;
+		Refund = refund;
+		Amount = amount;
+		Devise = devise;
+		ContractType = contractType;
+		this.asset_manager = asset_manager;
+		UserType = userType;
+		Feedbacks = feedbacks;
+		Complains = complains;
+		Articles = articles;
+		Contratcs = contratcs;
+		this.portfolio = portfolio;
+	}
+
+/*	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
 			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
 			TypeDevise devise, Enumerations.ContractType contractType, AssetManager asset_manager,
 			Enumerations.UserType userType, Set<Feedback> feedbacks, Set<Complain> complains, Set<Complain> articles,
@@ -396,8 +526,18 @@ public class User implements Serializable {
 		Articles = articles;
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
-	}
+	}*/
 
+	//@Override
+/*	public String toString() {
+		return "User [Id=" + Id + ", nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password="
+				+ password + ", login=" + login + ", id_banque=" + id_banque + ", age=" + age + ", Credit=" + Credit
+				+ ", Civil_Status=" + Civil_Status + ", Profession=" + Profession + ", Residence=" + Residence
+				+ ", Account_Number=" + Account_Number + ", Devise=" + Devise + ", ContractType=" + ContractType
+				+ ", asset_manager=" + asset_manager + ", UserType=" + UserType + ", Feedbacks=" + Feedbacks
+				+ ", Complains=" + Complains + ", Articles=" + Articles + ", Contratcs=" + Contratcs + ", portfolio="
+				+ portfolio + "]";
+	}*/
 
 
 
