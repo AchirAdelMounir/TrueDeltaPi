@@ -70,7 +70,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 
 	@Override
 	public List<Company> DisplayCompanies() {
-		TypedQuery<Company> query = em.createQuery("Select * from Company", Company.class);
+		TypedQuery<Company> query = em.createQuery("Select c from Company c", Company.class);
 		return query.getResultList();
 
 	}
