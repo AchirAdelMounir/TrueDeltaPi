@@ -3,13 +3,13 @@ package Interfaces;
 import java.text.ParseException;
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import Entities.Complain;
 import Enumerations.StatusTypeOfComplain;
 
 
-@Local
+@Remote
 public interface ComplainIServices {
 
 	int AddComplain(Complain c);

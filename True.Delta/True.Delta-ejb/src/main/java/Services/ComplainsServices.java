@@ -6,7 +6,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +19,7 @@ import Entities.Complain;
 import Interfaces.ComplainIServices;
 
 @Stateless
-@Local
+@LocalBean
 
 public class ComplainsServices implements ComplainIServices {
 	@PersistenceContext(unitName= "primary")

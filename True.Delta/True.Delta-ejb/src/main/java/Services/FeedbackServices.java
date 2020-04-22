@@ -1,7 +1,7 @@
 package Services;
 
 //import javax.ejb.EJB;
-import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 //import java.util.LinkedHashMap;
@@ -34,13 +33,12 @@ import Enumerations.LevelRating;
 //import Enumerations.LevelRating;
 import Interfaces.FeedbackIServices;
 //import Entities.Complain;
-import Interfaces.ComplainIServices;
 @Stateless
-@Local
+@LocalBean
 //@EJB
 public class FeedbackServices implements FeedbackIServices{
 	@Inject
-	ComplainIServices service;
+	ComplainsServices service;
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
 

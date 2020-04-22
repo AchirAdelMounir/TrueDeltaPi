@@ -12,7 +12,7 @@ import javax.faces.bean.ManagedBean;
 import Entities.Complain;
 import Entities.User;
 import Enumerations.StatusTypeOfComplain;
-import Interfaces.ComplainIServices;
+import Services.ComplainsServices;
 
 
 
@@ -23,7 +23,7 @@ public class ComplainBean implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	@EJB
-	ComplainIServices service;
+	ComplainsServices service;
 	
 	private int id; 
 	private String subject;

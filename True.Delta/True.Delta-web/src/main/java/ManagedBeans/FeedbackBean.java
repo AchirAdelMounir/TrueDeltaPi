@@ -13,7 +13,7 @@ import Entities.Feedback;
 import Entities.User;
 import Enumerations.LevelRating;
 import Enumerations.Who;
-import Interfaces.FeedbackIServices;
+import Services.FeedbackServices;
 
 
 
@@ -24,7 +24,7 @@ public class FeedbackBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@EJB
-	FeedbackIServices service;
+	FeedbackServices service;
 	
 	private int id;
 	private User user;

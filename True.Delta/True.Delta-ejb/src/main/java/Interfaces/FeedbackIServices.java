@@ -5,14 +5,14 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import Entities.Feedback;
 import Enumerations.LevelRating;
 
 
 
-@Local
+@Remote
 public interface FeedbackIServices {
 	public int AddFeedback(Feedback f);
 	void DeleteFeddbackById(int idFeddback);
