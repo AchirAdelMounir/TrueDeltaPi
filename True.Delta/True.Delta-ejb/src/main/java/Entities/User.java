@@ -1,5 +1,6 @@
 package Entities;
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -496,6 +497,80 @@ public class User implements Serializable {
 		Articles = articles;
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
+	}
+
+	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
+			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
+			AssetManager asset_manager, Enumerations.UserType userType) {
+		super();
+		Id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.id_banque = id_banque;
+		this.age = age;
+		Credit = credit;
+		Civil_Status = civil_Status;
+		Profession = profession;
+		Residence = residence;
+		Account_Number = account_Number;
+		Refund = refund;
+		Amount = amount;
+		Devise = devise;
+		ContractType = contractType;
+		this.asset_manager = asset_manager;
+		UserType = userType;
+	}
+
+	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
+			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
+			Enumerations.UserType userType) {
+		super();
+		Id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.id_banque = id_banque;
+		this.age = age;
+		Credit = credit;
+		Civil_Status = civil_Status;
+		Profession = profession;
+		Residence = residence;
+		Account_Number = account_Number;
+		Refund = refund;
+		Amount = amount;
+		Devise = devise;
+		ContractType = contractType;
+		UserType = userType;
+	}
+
+	public User(String nom, String prenom, String adresseMail, String password, String login, int id_banque, int age,
+			double credit, String civil_Status, String profession, String residence, int account_Number, double refund,
+			int amount, TypeDevise devise, Enumerations.ContractType contractType, Enumerations.UserType userType) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		this.id_banque = id_banque;
+		this.age = age;
+		Credit = credit;
+		Civil_Status = civil_Status;
+		Profession = profession;
+		Residence = residence;
+		Account_Number = account_Number;
+		Refund = refund;
+		Amount = amount;
+		Devise = devise;
+		ContractType = contractType;
+		UserType = userType;
 	}
 
 /*	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,

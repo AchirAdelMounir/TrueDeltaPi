@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.io.IOException;
+
 import java.util.List;
 import java.util.Set;
 
@@ -9,7 +10,8 @@ import javax.persistence.TypedQuery;
 
 import Entities.Contract;
 import Entities.User;
-import Entities.Visitor;
+import Enumerations.ContractType;
+
 
 
 @Local
@@ -33,6 +35,15 @@ public interface ContractServiceLocal {
 	public double CalculGainAsset(Contract con);
 	public List<String> matchingContract(Double Amount) throws IOException;
 	public void  DeleteUserFromContract(int idUser, int idContract);
+	public List ListContractByType(ContractType type);
+	public List<Contract> getContractPostedByClient(User c);
+	 public int isAproved(Contract c);
+	 public void updateContractDescription(String desc, int ContractId);
+	 public void deleteContract1(int ContractId);
+	 public void affecterPropositionContract(int PropId,int ContractId);
+	 public List<Contract> getContractAproved();
+	 public int Extractyear(int id);
+	 public double Somme(int year);
 
 	Object count();
 

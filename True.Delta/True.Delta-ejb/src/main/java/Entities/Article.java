@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="T_UTILISATEUR")
+@Table(name="Article")
 public class Article implements Serializable {
 	
 	/**

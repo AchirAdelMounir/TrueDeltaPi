@@ -1,8 +1,9 @@
 package Services;
 
 
-
+import java.util.Date;
 import java.io.File;
+
 
 
 
@@ -29,8 +30,9 @@ import org.apache.poi.ss.usermodel.CellType;
 
 import Entities.Banque;
 import Entities.Contract;
+import Entities.Proposition;
 import Entities.User;
-import Entities.Visitor;
+
 import Enumerations.ContractType;
 import Enumerations.TypeDevise;
 import Interfaces.ContractServiceLocal;
@@ -52,16 +54,16 @@ public class ContractService implements  ContractServiceRemote , ContractService
 	@Override
 	public int AddContract(Contract contract) {
 		
-		/*em.persist(contract);
+		em.persist(contract);
 		System.out.println("Contract:"+ contract.getIDContract());
 		
-		return contract.getIDContract();*/
-		return 0;
+		return contract.getIDContract();
+		
 	}
 	
 	@Override
 	public int addContract1(Contract contract, int id_user) {
-		User user = em.find(User.class, id_user); 
+	/*	User user = em.find(User.class, id_user); 
 		if(user!=null)
         {
 			  contract.setUser(user);
@@ -70,7 +72,7 @@ public class ContractService implements  ContractServiceRemote , ContractService
 		em.persist(contract);
 		return contract.getIDContract();
         }
-        else
+        else*/
             return 0;
 	}
 	
@@ -90,7 +92,12 @@ public class ContractService implements  ContractServiceRemote , ContractService
 		Contract contract=new Contract();
 		contract=em.find(Contract.class, IdContract);
 		em.remove(contract);
-
+	
+		//	em.remove(em.find(Contract.class, IdContract));	
+		
+		//int c = em.createQuery("DELETE c FROM Contract c  INNER JOIN User u ON (u.User_Id = c.IDContract)").executeUpdate();
+		//em.remove(query);
+			
 	}
 
 	@Override
@@ -112,6 +119,9 @@ public void EditContractByID(int IdContract , Double Amount) {
 	@Override
 	public void AffecterAMAContrat(int IdAM, int IdCpntract) {
 	
+		User userManagedEntity=em.find(User.class, IdAM);
+    	Contract contractManagedEntity=em.find(Contract.class, IdCpntract);
+        contractManagedEntity.setUser(userManagedEntity);;
 		 
 
 	}
@@ -335,6 +345,7 @@ public void EditContractByID(int IdContract , Double Amount) {
 			System.out.println("Envoyer un mail");
 		}
 		return contract.getIDContract();
+
 		
 		
 	}
@@ -516,11 +527,14 @@ public void EditContractByID(int IdContract , Double Amount) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	///----------------------------------------------------------------
 	
 	@Override
-	public Object count() {
+	public Long count() {
 		
-		return em.createQuery("SELECT count(a) FROM Contract a", Contract.class).getResultList(); 
+	TypedQuery<Long> query = em.createQuery("select COUNT (p) from Contract p",Long.class);
+		
+		return query.getSingleResult();
 	
 	}
 	
@@ -533,11 +547,103 @@ public void EditContractByID(int IdContract , Double Amount) {
 	@Override
 	public void  DeleteUserFromContract(int idUser, int idContract) {
 	   // Query query1 = em.createQuery("DELETE FROM User pp WHERE pp.id.Id= "+idUser+" and pp.id.IDContract ="+idContract);
-		Query query1 = em.createQuery("DELETE FROM Contract pp WHERE pp.id.Id = "+idContract+" and pp.id.IDContract ="+idUser);
+		Query query1 = em.createQuery("DELETE FROM Contract pp WHERE pp.id.Id_User = "+idContract+" and pp.id.IDContract ="+idUser);
 	    query1.executeUpdate();
 	}
 	
+	  @Override
+	    public List ListContractByType( ContractType type) {
+		
+	    	 List <Contract>  contracts = em.createQuery("select c from Contract c where c.ContartType=:type",Contract.class).getResultList();
+	 		
+	 		return contracts ; 
 
+	    }
+	// ------------------------------------------------------------------------------------------------------------
+	  
+	  @Override
+		///tous les contracts des clients 
+		public List<Contract> getContractPostedByClient(User c) {
+			TypedQuery<Contract> query = em.createQuery("select m from Contract m where m.IDContract=:c.Id " , Contract.class);
+			query.setParameter("Id", c.getId());
+			return query.getResultList();
+		}
+	
+	  @Override
+      public int isAproved(Contract c) {
+     	 if(c.getIsApproved()==true) {
+     		 return 1;
+     	 }
+     	 else 
+     		 return 0;
+      }
+	  
+		@Override
+		public void updateContractDescription(String desc, int ContractId) {
+	    	Contract contractManagedEntity=em.find(Contract.class, ContractId);
+			    contractManagedEntity.setDescription(desc);
+		}
+         
+		public void UpAssetContrat(Contract c) {
+			Contract contrat = em.find(Contract.class,c.getIDContract()); 
+	            contrat.setComission(c.getComission());
+		        contrat.setProfit(c.getProfit());
+		        contrat.setIsApproved(true);
+		     
+		}
+		
+		@Override
+	    public void deleteContract1(int ContractId) {
+       int  i=isAproved(ReadContractById (ContractId)) ;  
+			if(i==0) {
+			em.remove(em.find(Contract.class, ContractId));
+		    }
+               else 
+            	   System.out.println("You can't delete it");
+			}
+		
+		@Override
+		public void affecterPropositionContract(int PropId,int ContractId) {
+		    	Proposition propositionManagedEntity=em.find(Proposition.class, PropId);
+		    	Contract contractManagedEntity=em.find(Contract.class, ContractId);
+		        contractManagedEntity.setProposition(propositionManagedEntity);
+		    
+		 }
+		@Override
+		// contract acceepter par l'asset manager  
+		public List<Contract> getContractAproved() {
+			TypedQuery<Contract> query = em.createQuery("select m from Contract m where m.isApproved =:true " , Contract.class);
+			query.setParameter("true", true);
+			return query.getResultList();
+		}
+		
+		 @Override
+	       public int Extractyear(int id) {  
+	   	    Contract c = em.find(Contract.class, id); 
+	    	   Date d= c.getCreationDate() ;
+	        @SuppressWarnings("deprecation")
+			int year=d.getYear();  
+	        System.out.println("Year for date object is :"+year);  
+	             return year;
+	            		 
+	       }
+		 
+			@Override
+			 public double Somme(int year) {
+				 List<Contract> contract =getContractAproved();
+	             double somme = 0;
+		    	    for(Contract c:contract) {
+		    int yar=Extractyear(c.getIDContract());  	    	
+		    	if(yar==year) {
+			    	double s=c.getProfit();
+			    	
+			    	 somme=somme+s;
+		    	}
+		    	   
+		    	    }
+		    	    return  somme;
+	 }
+		
 	
 }
 
