@@ -39,6 +39,7 @@ public class SecuritiyBean {
 	private Bond B;
 	private Company Company;
 	private Set<Flux> F;
+	private List<Stock>Ls;
 	
 	public void AddSecurity(Security S)
 	{	
@@ -50,7 +51,8 @@ public class SecuritiyBean {
 	}
 	public List<Stock> DisplayStockHistory(String Sym, String frequency, String Period1, String Period2)
 	{
-		return s.StocksDownloader(Sym, frequency, Period1, Period2);
+		Ls=s.StocksDownloader(Sym, frequency, Period1, Period2);
+		return Ls;
 	}
 	public double VolatilityCalculated(String Sym, String Period1, String Period2)
 	{

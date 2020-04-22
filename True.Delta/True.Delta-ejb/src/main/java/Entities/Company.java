@@ -56,6 +56,13 @@ private Set<Security> Securities;
 	public Company() {
 		super();
 	}
+	public Company(String symbol2, String market2, String name2, String sector2, String sEC_Filings2) {
+		// TODO Auto-generated constructor stub
+	}
+	public Company(String name2, String market2, String symbol2, String sector2, String sEC_Filings2,
+			BigInteger market_Cap_E2) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getSymbol() {
 		return Symbol;
 	}
