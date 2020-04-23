@@ -76,7 +76,7 @@
 					<!-- Fact Badge Item Starts -->
 					<div class="col-xs-12 col-md-3 col-sm-6 fact fact-clear">
 						<h3>
-						
+
 							<h:outputText value="#{CompanyBean.c.BITDA}">
 								<f:convertNumber type="currency" maxFractionDigits="0" />
 							</h:outputText>
@@ -107,18 +107,21 @@
 					</div>
 					<!-- Fact Badge Item Ends -->
 					<div class="col-xs-12 buttons">
-					<div class="col-xs-12 col-md-6 col-sm-12">
-						<h:form>
-							<h:commandLink class="btn btn-primary btn-pricing"
-								value="Check Stocks"></h:commandLink>
-						</h:form>
-						</div>
-					
 						<div class="col-xs-12 col-md-6 col-sm-12">
-						<h:form>
-							<h:commandLink class="btn btn-primary btn-register"
-								value="Go to Companies" action="DisplayCompanies"></h:commandLink>
-						</h:form>
+							<h:form>
+								<h:commandButton value="Check Stocks"
+									class="btn btn-primary btn-pricing"
+									action="#{SecurityBean.Redirect()}">
+									<f:param name="Symbol" value="#{CompanyBean.c.symbol}" />
+								</h:commandButton>
+							</h:form>
+						</div>
+
+						<div class="col-xs-12 col-md-6 col-sm-12">
+							<h:form>
+								<h:commandLink class="btn btn-primary btn-register"
+									value="Go to Companies" action="DisplayCompanies"></h:commandLink>
+							</h:form>
 						</div>
 					</div>
 				</div>
@@ -150,8 +153,10 @@
 							<div class="team-member-caption social-icons">
 								<h4>Earning per Share</h4>
 								<p>
-									<h:outputText value="#{CompanyBean.c.r_Earnings_Share}" ><f:convertNumber type="currency" maxFractionDigits="8" /></h:outputText>
-									
+									<h:outputText value="#{CompanyBean.c.r_Earnings_Share}">
+										<f:convertNumber type="currency" maxFractionDigits="8" />
+									</h:outputText>
+
 								</p>
 
 							</div>
@@ -169,16 +174,18 @@
 							<div class="team-member-caption social-icons">
 								<h4>Price Per Earnings</h4>
 								<p>
-									<h:outputText value="#{CompanyBean.c.r_Price_Earnings}" >
-									<f:convertNumber type="currency" maxFractionDigits="8" /></h:outputText>
+									<h:outputText value="#{CompanyBean.c.r_Price_Earnings}">
+										<f:convertNumber type="currency" maxFractionDigits="8" />
+									</h:outputText>
 								</p>
 
 							</div>
 							<div class="team-member-caption social-icons">
 								<h4>Highest price Last year</h4>
 								<p>
-									<h:outputText value="#{CompanyBean.c.year_Week_Low}" >
-									<f:convertNumber type="currency" maxFractionDigits="8" /></h:outputText>
+									<h:outputText value="#{CompanyBean.c.year_Week_Low}">
+										<f:convertNumber type="currency" maxFractionDigits="8" />
+									</h:outputText>
 								</p>
 
 							</div>
@@ -197,16 +204,18 @@
 							<div class="team-member-caption social-icons">
 								<h4>Price per Sales</h4>
 								<p>
-									<h:outputText value="#{CompanyBean.c.r_Price_Sales}" >
-									<f:convertNumber type="currency" maxFractionDigits="8" /></h:outputText>
+									<h:outputText value="#{CompanyBean.c.r_Price_Sales}">
+										<f:convertNumber type="currency" maxFractionDigits="8" />
+									</h:outputText>
 								</p>
 
 							</div>
 							<div class="team-member-caption social-icons">
 								<h4>Lowest price Last year</h4>
 								<p>
-									<h:outputText value="#{CompanyBean.c.year_Week_High}" >
-									<f:convertNumber type="currency" maxFractionDigits="8" /></h:outputText>
+									<h:outputText value="#{CompanyBean.c.year_Week_High}">
+										<f:convertNumber type="currency" maxFractionDigits="8" />
+									</h:outputText>
 								</p>
 
 							</div>
@@ -224,12 +233,13 @@
 							<div class="team-member-caption social-icons">
 								<h4>Price per Book</h4>
 								<p>
-									<h:outputText value="#{CompanyBean.c.r_Price_Book}" >
-									<f:convertNumber type="currency" maxFractionDigits="8" /></h:outputText>
+									<h:outputText value="#{CompanyBean.c.r_Price_Book}">
+										<f:convertNumber type="currency" maxFractionDigits="8" />
+									</h:outputText>
 								</p>
 
 							</div>
-							
+
 							<!-- Team Member Details Starts -->
 						</div>
 					</div>

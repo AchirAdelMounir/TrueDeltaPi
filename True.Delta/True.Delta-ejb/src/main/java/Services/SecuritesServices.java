@@ -45,9 +45,9 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		if (ifExists(S) == false) {
 			if(S.getB()==null)
 			{
-				BigDecimal d=getStockPriceInstantly(S.getCompany().getSymbol());
+				double d=getStockPriceInstantly(S.getCompany().getSymbol());
 				S.setType("Stock");
-				S.setPrice(d.doubleValue());
+				S.setPrice(d);
 				
 			}
 			else if (S.getB()!=null)
@@ -202,7 +202,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public BigDecimal getStockPriceInstantly(String Sym) {
+	public double getStockPriceInstantly(String Sym) {
 		yahoofinance.Stock stock = null;
 		try {
 			stock = YahooFinance.get(Sym);
@@ -211,13 +211,13 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			e.printStackTrace();
 		}
 		try {
-			BigDecimal price = stock.getQuote(true).getPrice();
+			double price = stock.getQuote(true).getPrice().doubleValue();
 			return price;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return 0;
 		
 
 	}

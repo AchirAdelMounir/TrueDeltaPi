@@ -149,8 +149,13 @@ public class CompanyBean implements Serializable {
 	}
 
 	public String ajaxListener(AjaxBehaviorEvent event) throws AbortProcessingException {
-		DisplayTopLastNCompanies(Value, 4);
-		return ("DisplayCompanies?faces-redirect=true");
+		Top = new ArrayList<Company>();
+		LastS = new ArrayList<Company>();
+		LastS = c.GetLastByInput(Value, 4);
+		Top = c.GetTopByInput(Value,4 );
+
+		return ("TopLastCompanies?faces-redirect=true");
+		
 
 	}
 

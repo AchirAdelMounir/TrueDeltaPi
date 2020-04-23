@@ -22,7 +22,7 @@ public interface SecuritiesServicesInterfaceRemote {
 	public List<Bond> DisplayBonds();
 	public List<Stock> DisplayStocks();
 	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2);
-	public BigDecimal getStockPriceInstantly(String Sym);
+	public double getStockPriceInstantly(String Sym);
 	public double VolatilityCalculator(String Sym,String Period1, String Period2);
 	public List<Security> SearchByInput(String SearchField, String operator, Object o);
 	public List<Security> GetTopByInput(String Input,int TopN);
