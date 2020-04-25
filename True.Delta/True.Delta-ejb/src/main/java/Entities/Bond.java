@@ -18,10 +18,10 @@ public class Bond implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="COUPON")
+	@Column(nullable=true,name="COUPON")
 	private double Coupon;
 	
-	@Column(name="YIELD")
+	@Column(nullable=true,name="YIELD")
 	private double Yield;
 	@Column(name="MATURITYDATE")
 	private Date MaturityDate;

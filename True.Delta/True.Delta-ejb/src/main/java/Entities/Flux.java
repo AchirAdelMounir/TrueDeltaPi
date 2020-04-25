@@ -20,14 +20,14 @@ public class Flux implements Serializable {
  
     @ManyToOne
     @MapsId("PortfolioId")
-    @JoinColumn(name = "Portfolio_id")
+    @JoinColumn(name = "Id_Portfolio")
     Portfolio P;
  
     @ManyToOne
     @MapsId("SecurityId")
-    @JoinColumn(name = "Security_id")
+    @JoinColumn(name = "Id_Security")
     Security S;
-    @Column(name="volume")
+    @Column(name="NbrOfStock")
     int volume;
     @Column(name="poids")
     float poids;

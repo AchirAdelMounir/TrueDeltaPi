@@ -3,6 +3,8 @@ package Interfaces;
 import java.util.List;
 import javax.ejb.Local;
 import Entities.Portfolio;
+import Entities.Security;
+import Entities.Stock;
 import Entities.User;
 
 @Local
@@ -14,8 +16,10 @@ public interface PortfolioServiceLocal {
 	public void EditPortfolio(Portfolio p);
 	public void AffectedPortfolio(int idPortfolio,int idUser);
 	public float getRisk(int idUser);
-	public float moneyBasdPortfoio(float money,Portfolio p);
+	public List<Stock> Type1Portfolio(float money,List<Stock> ls);
 	public void volatilityBasedPortfolio(float maxVol, Portfolio p);
 	public Portfolio OptimalPortfolio ();
+	public List<Stock> Type2VolPortfolio(float vol,List<Stock> ls);
+	public List<Stock> Type2ReturnsPortfolio(float returns,List<Stock> ls);
 
 }
