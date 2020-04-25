@@ -1,6 +1,6 @@
 package Entities;
 import java.io.Serializable;
-
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,12 +22,15 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import Enumerations.*;
 
+
 @Entity
 @Table(name="USER")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Serializable {
 	
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -41,6 +44,10 @@ public class User implements Serializable {
 	@Column(name = "USER_PRENOM")
 	private String prenom;
 	
+	@Column(name = "USER_DATE_OF_BIRTH")
+	private Date date;
+	
+	
 	@Column(name = "USER_ADRESS_MAIL")
 	private String adresseMail;
 	
@@ -50,8 +57,24 @@ public class User implements Serializable {
 	@Column(name = "USER_LOGIN")
 	private String login;
 	
+	@Enumerated(EnumType.STRING) 
+	@Column(name = "USER_TYPE")
+	private UserType Type;
+	
+	@Column(name = "USER_IS_VALID")
+	private boolean isValid;
+	
+	
+	
+	
 
 	
+
+	@Column(name = "USER_TOKEN")
+	private String code;
+
+	@Embedded
+	private Administrator admin;
 	
 	
 	@Embedded
@@ -59,8 +82,7 @@ public class User implements Serializable {
 	
 	@Embedded
 	private AssetManager asset_manager;
-	@Enumerated(EnumType.STRING)
-	private UserType Type;
+	
 	
 	
 	
@@ -72,16 +94,10 @@ public class User implements Serializable {
 	private Set<Complain> Complains;
 	//@OneToMany(mappedBy="user")
 	//private Set<Complain> Articles;
-	@OneToMany(mappedBy="User")
+	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Contract> Contratcs;
 	@OneToOne 
 	private Portfolio portfolio;
-
-	
-	
-
-	
-
 
 	public AssetManager getAsset_manager() {
 		return asset_manager;
@@ -110,8 +126,6 @@ public class User implements Serializable {
 	public String getPrenom() {
 		return prenom;
 	}
-
-	
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
@@ -157,63 +171,12 @@ public class User implements Serializable {
 		this.customer = customer;
 	}
 
-	public User(String nom, String prenom, String adresseMail, String password, String login,
-			UserType type) {
-		super();
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		
-		Type = type;
+	public Administrator getAdmin() {
+		return admin;
 	}
 
-	public User() {
-		super();
-	}
-
-	
-	
-
-	
-
-
-
-	public Set<Complain> getComplains() {
-		return Complains;
-	}
-
-
-
-	public void setComplains(Set<Complain> complains) {
-		Complains = complains;
-	}
-
-
-
-
-
-	public Set<Contract> getContratcs() {
-		return Contratcs;
-	}
-
-
-
-	public void setContratcs(Set<Contract> contratcs) {
-		Contratcs = contratcs;
-	}
-
-
-
-	public Portfolio getPortfolio() {
-		return portfolio;
-	}
-
-
-
-	public void setPortfolio(Portfolio portfolio) {
-		this.portfolio = portfolio;
+	public void setAdmin(Administrator admin) {
+		this.admin = admin;
 	}
 
 	public Set<Feedback> getFeedbacks() {
@@ -224,10 +187,88 @@ public class User implements Serializable {
 		this.feedbacks = feedbacks;
 	}
 
+	public Set<Complain> getComplains() {
+		return Complains;
+	}
 
+	public void setComplains(Set<Complain> complains) {
+		Complains = complains;
+	}
+
+	public Set<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(Set<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
 	
 
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+	
+	public boolean isValid() {
+		return isValid;
+	}
+
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
+	}
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public User(int id, String nom, String prenom, Date date, String adresseMail, String password, String login,
+			UserType type, boolean isValid, String code, Administrator admin, Customer customer,
+			AssetManager asset_manager, Set<Feedback> feedbacks, Set<Complain> complains, Set<Contract> contratcs,
+			Portfolio portfolio) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.date = date;
+		this.adresseMail = adresseMail;
+		this.password = password;
+		this.login = login;
+		Type = type;
+		this.isValid = isValid;
+		this.code = code;
+		this.admin = admin;
+		this.customer = customer;
+		this.asset_manager = asset_manager;
+		this.feedbacks = feedbacks;
+		Complains = complains;
+		Contratcs = contratcs;
+		this.portfolio = portfolio;
+	}
+
+	
+	
+	
 	
 
 	

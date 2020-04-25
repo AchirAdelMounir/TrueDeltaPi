@@ -1,5 +1,6 @@
 package Entities;
 import java.io.Serializable;
+
 import java.sql.Date;
 import java.util.Comparator;
 
@@ -20,8 +21,11 @@ public class Bond implements Serializable{
 
 	@Column(nullable=true,name="COUPON")
 	private double Coupon;
-	
-	@Column(nullable=true,name="YIELD")
+
+	@Column(name="PRICE")
+	private double Price;
+	@Column(name="YIELD")
+
 	private double Yield;
 	@Column(name="MATURITYDATE")
 	private Date MaturityDate;
@@ -30,7 +34,7 @@ public class Bond implements Serializable{
 		super();
 		
 		Coupon = coupon;
-		
+		Price = price;
 		Yield = yield;
 		MaturityDate = maturityDate;
 	}
@@ -47,7 +51,12 @@ public class Bond implements Serializable{
 	public void setCoupon(double coupon) {
 		Coupon = coupon;
 	}
-	
+	public double getPrice() {
+		return Price;
+	}
+	public void setPrice(double price) {
+		Price = price;
+	}
 	public double getYield() {
 		return Yield;
 	}
@@ -63,7 +72,7 @@ public class Bond implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Bond [ Coupon=" + Coupon + ", Price=" +  ", Yield=" + Yield + ", MaturityDate="
+		return "Bond [ Coupon=" + Coupon + ", Price=" + Price + ", Yield=" + Yield + ", MaturityDate="
 				+ MaturityDate + "]";
 	}
 

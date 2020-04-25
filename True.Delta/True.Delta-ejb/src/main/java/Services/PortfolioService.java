@@ -2,9 +2,11 @@ package Services;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+
 import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -16,6 +18,7 @@ import javax.ejb.EJB;
 import javax.ejb.FinderException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -106,18 +109,20 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		
 		//return symbols;
 		List<Stock> allStock = new ArrayList<Stock>();
+
 	
 			List<Security> a = ss.DisplayStock();
 
 			for (Security security : a) {
 				System.out.println(" stock is  "+security.getS());
-				allStock.add(security.getS());
+
 			}
 				
 		
 			
 			return allStock;
 		}
+
 		
 	
 		public List<Security> security(){
@@ -157,6 +162,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 				
 			}
 			
+
 		}
 	
 		
@@ -169,6 +175,7 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	@Override
 	public List<Stock> Type2ReturnsPortfolio(float returns, List<Stock> ls) {
 List<Stock> chosenStock = new ArrayList<Stock>();
+
 
 
 	Set<Stock> set = new LinkedHashSet<>();

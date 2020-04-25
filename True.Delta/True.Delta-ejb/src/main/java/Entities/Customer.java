@@ -101,7 +101,7 @@ public class Customer implements Serializable{
 
 
 	public String getRepayment() {
-		return Repayment;
+		return Repayment ;
 	}
 
 
@@ -204,7 +204,9 @@ public class Customer implements Serializable{
 
 
 	public int getScore() {
-		return score;}
+		return score;
+	}
+
 
 
 	public void setScore(int score) {
