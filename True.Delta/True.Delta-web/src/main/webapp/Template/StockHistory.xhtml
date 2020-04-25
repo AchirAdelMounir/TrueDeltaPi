@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="Template.xhtml">	 
+	template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
 		<div id="main-slide" class="carousel slide carousel-fade"
@@ -30,7 +30,8 @@
 								<h:form>
 
 									<h:commandButton class="slider btn btn-primary"
-										value="Show More About Companies" action="#{CompanyBean.DisplayTopLastNCompanies('Market_Cap_E',4)}"></h:commandButton>
+										value="Show More About Companies"
+										action="#{CompanyBean.DisplayTopLastNCompanies('Market_Cap_E',4)}"></h:commandButton>
 
 								</h:form>
 							</div>
@@ -46,7 +47,7 @@
 							<div class="container">
 								<div class="slider-text text-center">
 									<h3 class="slide-title">
-										<span>CHOOSE </span> US <br/> TO MANAGE <span> YOUR
+										<span>CHOOSE </span> US <br /> TO MANAGE <span> YOUR
 											PORTFOLIO</span>
 									</h3>
 									<p>
@@ -74,74 +75,37 @@
 			<div class="container">
 				<div class="row">
 
-
-					<center>
-						<h:form>
-
-							<h:commandButton class="slider btn btn-primary"
-								value="Did you find a raising star?" action="AddCompany"></h:commandButton>
-
-						</h:form>
-					</center>
-
-
-
-
-
-
-
 					<!-- Purchased Products Starts -->
 					<div class="col-xs-12 table-responsive">
 
 						<h:form>
 
 							<h:dataTable binding="#{table}"
-								value="#{CompanyBean.DisplayCompanies()}" var="u"
+								value="#{CompanyBean.DisplayWeeklyHistory()}" var="u"
 								class="table order text-center">
 								<h:column>
-									<f:facet name="header">   SYMBOL</f:facet>
-									<h:outputText value="#{u.getSymbol()}" />
+									<f:facet name="header">OPEN</f:facet>
+									<h:outputText value="#{u.open)}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Name</f:facet>
-									<h:outputText value="#{u.getName()}" />
+									<f:facet name="header">CLOSE</f:facet>
+									<h:outputText value="#{u.close)}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Market</f:facet>
-									<h:outputText value="#{u.getMarket()}" />
+									<f:facet name="header">HIGH</f:facet>
+									<h:outputText value="#{u.high}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Sector</f:facet>
-									<h:outputText value="#{u.getSector()}" />
+									<f:facet name="header">LOW</f:facet>
+									<h:outputText value="#{u.low}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Price</f:facet>
-									<h:outputText value="#{u.getPrice()}" />
+									<f:facet name="header">ADJ CLOSED</f:facet>
+									<h:outputText value="#{u.adj_closed}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Show More</f:facet>
-									<h:commandLink
-										action="#{CompanyBean.DisplayCompany(u.getSymbol())}">
-										<i class="fa fa-info-circle" aria-hidden="true"></i>
-										<f:param name="Sym" value="#{u.getSymbol()}" />
-
-									</h:commandLink>
-								</h:column>
-								<h:column>
-									<f:facet name="header">Update</f:facet>
-									<h:commandLink>
-										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-										<f:param name="Sym" value="#{u.getSymbol()}" />
-									</h:commandLink>
-
-								</h:column>
-								<h:column>
-									<f:facet name="header">Delete</f:facet>
-									<h:commandLink
-										action="#{CompanyBean.DeleteCompany(u.getSymbol())}">
-										<i class="fa fa-trash" aria-hidden="true"></i>
-									</h:commandLink>
-
+									<f:facet name="header">VOLUME</f:facet>
+									<h:outputText value="#{u.volume}" />
 								</h:column>
 							</h:dataTable>
 						</h:form>

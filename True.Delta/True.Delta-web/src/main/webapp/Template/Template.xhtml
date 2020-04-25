@@ -1,54 +1,53 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" lang="en"
 	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+	xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+
 <h:head>
 
-    <meta charset="utf-8" />
-    <title>#{page_name}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="Assets/images/favicon.png"/>
+	<meta charset="utf-8" />
+	<title>#{page_name}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="images/favicon.png" />
 
-    <!-- Template CSS Files -->
-    <link rel="stylesheet" href="Assets/css/font-awesome.min.css"/>
-    <link rel="stylesheet" href="Assets/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="Assets/css/magnific-popup.css"/>
-    <link rel="stylesheet" href="Assets/css/select2.min.css"/>
-    <link rel="stylesheet" href="Assets/css/style.css"/>
-	<link rel="stylesheet" href="Assets/css/skins/orange.css"/>
+	<!-- Template CSS Files -->
+	<link rel="stylesheet" href="Assets/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="Assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="Assets/css/magnific-popup.css" />
+	<link rel="stylesheet" href="Assets/css/select2.min.css" />
+	<link rel="stylesheet" href="Assets/css/style.css" />
+	<link rel="stylesheet" href="Assets/css/skins/orange.css" />
 
-    <!-- Template JS Files -->
-    <script src="Assets/js/modernizr.js"></script>
+	<!-- Template JS Files -->
+	<script src="Assets/js/modernizr.js"></script>
 
 </h:head>
-	
-<body>
-<div class="wrapper">
+
+<h:body>
+	<div class="wrapper">
 		<ui:include src="header.xhtml" />
 		<ui:insert name="content" />
-		
-		
-   
-       
-        
-        <a href="#" id="back-to-top" class="back-to-top fa fa-arrow-up"></a>
-		<!-- Back To Top Ends  -->
-		
-        <!-- Template JS Files -->
-        <script src="Assets/js/jquery-2.2.4.min.js"></script>
-        <script src="Assets/js/bootstrap.min.js"></script>
-        <script src="Assets/js/select2.min.js"></script>
-        <script src="Assets/js/jquery.magnific-popup.min.js"></script>
-        <script src="Assets/js/custom.js"></script>
 
-    </div>
-    
-    <!-- Wrapper Ends -->
-</body>
+
+
+
+
+		<a href="#" id="back-to-top" class="back-to-top fa fa-arrow-up"></a>
+		<!-- Back To Top Ends  -->
+
+		<!-- Template JS Files -->
+		<script src="Assets/js/jquery-2.2.4.min.js"></script>
+		<script src="Assets/js/bootstrap.min.js"></script>
+		<script src="Assets/js/select2.min.js"></script>
+		<script src="Assets/js/jquery.magnific-popup.min.js"></script>
+		<script src="Assets/js/custom.js"></script>
+
+	</div>
+
+	<!-- Wrapper Ends -->
+</h:body>
 <ui:include src="footer.xhtml" />
-</html>
+</ui:composition>

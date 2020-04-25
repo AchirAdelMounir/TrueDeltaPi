@@ -25,7 +25,12 @@
 								<!-- Title Ends -->
 
 								<!-- Breadcrumb Starts -->
+								<h:form>
 
+									<h:commandButton class="slider btn btn-primary"
+										value="Go to Companies" action="DisplayCompanies"></h:commandButton>
+
+								</h:form>
 								<!-- Breadcrumb Ends -->
 							</div>
 						</div>
@@ -36,47 +41,77 @@
 		</section>
 
 		<section class="contact">
+				<div class="container-fluid">
+				 
+					<div class="row" style="background-color: #232323">
+					
+					<div class="main-logo col-xs-8 col-md-1 col-md-2 col-lg-2 hidden-xs">
+                        <h4 style="color:white">#{SecurityBean.symStock} <span style="color:orange">FROM NASDAQ</span></h4>
+                    </div>
+                    <div class="col-md-7 col-lg-7">
+						<ul class="unstyled bitcoin-stats text-center">
 
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.priceDifference}">
+										<f:convertNumber type="currency" maxFractionDigits="5" />
+									</h:outputText>
+								</h6> <span>Last price difference</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.priceDifferencePercentage}">
 
-			<ul class="unstyled bitcoin-stats text-center">
-				<li>
-					<h6><h:outputText class="price" data-bw-theme="light"
-								value="#{SecurityBean.priceDifference}">
-								<f:convertNumber type="currency" maxFractionDigits="8" />
-							</h:outputText></h6> <span>Last price difference</span>
-				</li>
-				<li>
-					<h6><h:outputText  class="price" data-bw-theme="light"
-								value="#{SecurityBean.priceDifferencePercentage}">
-								
-							</h:outputText>%</h6> <span>24 Hour price</span>
-				</li>
-				<li>
-					<h6><h:outputText  class="price" data-bw-theme="light"
-								value="#{SecurityBean.yesterdaystock.volume}">
-								<f:convertNumber type="currency" maxFractionDigits="8" />
-							</h:outputText></h6> <span>24 hour volume</span>
-				</li>
-				
-				<li>
-					<h6>
-						 <h:form>
-							<h:outputText style="color:orange" id="txt_count" class="price" data-bw-theme="light"
-								value="#{SecurityBean.price}">
-								<f:convertNumber type="currency" maxFractionDigits="8" />
-							</h:outputText>
-							<p:poll interval="3"
+									</h:outputText>
+									%
+								</h6> <span>24 Hour price</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.yesterdaystock.volume}">
+										<f:convertNumber type="currency" maxFractionDigits="5" />
+									</h:outputText>
+								</h6> <span>24 hour volume</span>
+							</li>
+
+							<li>
+								<h6>
+									<h:form>
+										<h:outputText style="color:orange" id="txt_count"
+											class="price" data-bw-theme="light"
+											value="#{SecurityBean.price}">
+											<f:convertNumber type="currency" maxFractionDigits="5" />
+										</h:outputText>
+										<!--  <p:poll interval="3"
 								listener="#{SecurityBean.GetPriceInstantanly()}"
-								update="txt_count" />
-						</h:form>
-						
-					</h6>
-					<span>Live price</span>
-				</li>
-			</ul>
+								update="txt_count" />-->
+									</h:form>
+								</h6> <span>Live price</span>
+							</li>
+						</ul>
+						</div>
+						<div class="col-md-3 col-lg-3">
+                        <ul class="unstyled user">
+                            <li class="sign-in"><a href="login.html" class="btn btn-primary"><i class="fa fa-eye"></i> + To Watch List</a></li>
+                            <li class="sign-up"><h:form>
+
+							<h:commandButton class="btn btn-primary"
+								value="See History" action="AddCompany"><i class="fa fa-history"></i></h:commandButton>
+
+						</h:form></li>
+                        </ul>
+                    </div>
+					</div>
+				</div>
+				
+			
 
 
 			<div class="container-fluid">
+
 
 				<ui:repeat value="#{SecurityBean.DisplayInfosStocks()}" var="item">
 					<!-- Quote Starts -->
@@ -109,7 +144,7 @@
 										<h4>Open Price</h4>
 
 										<h:outputText value="#{item.open}">
-											<f:convertNumber type="currency" maxFractionDigits="0" />
+											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
 
 
@@ -124,7 +159,7 @@
 										<h4>Close Price:</h4>
 
 										<h:outputText value="#{item.close}">
-											<f:convertNumber type="currency" maxFractionDigits="0" />
+											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
 									</div>
 								</div>
@@ -136,7 +171,7 @@
 										<h4>Highest Price</h4>
 
 										<h:outputText value="#{item.high}">
-											<f:convertNumber type="currency" maxFractionDigits="0" />
+											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
 
 
@@ -150,7 +185,7 @@
 										<h4>LowestPrice</h4>
 
 										<h:outputText value="#{item.low}">
-											<f:convertNumber type="currency" maxFractionDigits="0" />
+											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
 
 
@@ -164,7 +199,7 @@
 										<h4>Adjusted close</h4>
 
 										<h:outputText value="#{item.adj_Close}">
-											<f:convertNumber type="currency" maxFractionDigits="0" />
+											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
 
 

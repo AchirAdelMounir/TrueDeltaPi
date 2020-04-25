@@ -140,10 +140,26 @@ public class SecuritiyBean {
 
 	
 		List<Stock>Ls1 = s.StocksDownloader(SymStock, "1d", tod, tod);
-		Yesterdaystock=Ls1.get(1);
+		Yesterdaystock=Ls1.get(0);
 		PriceDifference=price-Yesterdaystock.getAdj_Close();
 		PriceDifferencePercentage=(PriceDifference/price)*100;
 		return ("StockDisplay?faces-redirect=true");
+	}
+
+	public List<Stock> DisplayWeeklyHistory()
+	{
+		final Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -7);
+		final Calendar cal1 = Calendar.getInstance();
+		cal1.add(Calendar.DATE, 0);
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		String yes = dateFormat.format(cal.getTime());
+		String tod = dateFormat.format(cal1.getTime());
+		Ls = s.StocksDownloader(SymStock, "1d", yes, tod);
+		return Ls;
+		
 	}
 
 	private int number = 100;
