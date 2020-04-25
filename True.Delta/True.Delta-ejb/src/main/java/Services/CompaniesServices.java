@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.LongStream;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,6 +28,8 @@ import Interfaces.CompaniesServicesInterfaceLocal;
 import Interfaces.CompaniesServicesInterfaceRemote;
 
 @Stateless
+@LocalBean
+
 
 public class CompaniesServices implements CompaniesServicesInterfaceRemote, CompaniesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")
@@ -67,7 +70,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 
 	@Override
 	public List<Company> DisplayCompanies() {
-		TypedQuery<Company> query = em.createQuery("Select C from Company C", Company.class);
+		TypedQuery<Company> query = em.createQuery("Select c from Company c", Company.class);
 		return query.getResultList();
 
 	}
@@ -77,7 +80,7 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 		if (ifExists(C)) {
 			Company OldC = em.find(Company.class, sym);
 
-			/*OldC.setMarket(C.getMarket());
+			OldC.setMarket(C.getMarket());
 			OldC.setName(C.getName());
 			OldC.setSector(C.getSector());
 			OldC.setBITDA(C.getBITDA());
@@ -91,10 +94,10 @@ public class CompaniesServices implements CompaniesServicesInterfaceRemote, Comp
 			OldC.setR_Price_Sales(C.getR_Price_Sales());
 			OldC.setYear_Week_High(C.getYear_Week_High());
 			OldC.setYear_Week_Low(C.getYear_Week_Low());
-			OldC.setSEC_Filings("http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + OldC.getSymbol());*/
+			OldC.setSEC_Filings("http://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=" + OldC.getSymbol());
 
-			//OldC.setSecurities(C.getSecurities());
-em.merge(OldC);
+			OldC.setSecurities(C.getSecurities());
+
 			return OldC;
 
 		} else
@@ -214,7 +217,7 @@ em.merge(OldC);
 		}
 		else if (o instanceof String) {
 			String O = (String) o;
-			return (em.createQuery("select c from Company c where c.Symbol like'"+o+"'"+"or c.Name like'%"+o+"%'"+"or c.Market like'%"+o+"%' or c.Sector like'%"+o+"%'",
+			return (em.createQuery("select c from Company c where c.symbol like'%"+o+"%'"+"or c.name like'%"+o+"%'"+"or c.market like'%"+o+"%'",
 					Company.class).getResultList());
 			/*CriteriaBuilder cb = em.getCriteriaBuilder();
 			CriteriaQuery<Company> criteriaQuery = cb.createQuery(Company.class);	

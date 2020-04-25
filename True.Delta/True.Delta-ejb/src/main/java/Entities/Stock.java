@@ -19,6 +19,7 @@ public class Stock implements Serializable, Comparator<Stock>{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Column(name="Date")
 	private Date DATE;
 	@Column(name="OPEN")
     private double Open;

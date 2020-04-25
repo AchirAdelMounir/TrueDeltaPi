@@ -1,7 +1,6 @@
 package Services;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -15,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,10 +27,6 @@ import Entities.Security;
 import Entities.Stock;
 import Interfaces.SecuritiesServicesInterfaceLocal;
 import Interfaces.SecuritiesServicesInterfaceRemote;
-import weka.classifiers.bayes.NaiveBayesUpdateable;
-import weka.core.Instance;
-import weka.core.Instances;
-import weka.core.converters.ArffLoader;
 import yahoofinance.YahooFinance;
 
 import org.jsoup.Jsoup;
@@ -38,24 +34,32 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 @Stateless
+@LocalBean
 
 public class SecuritesServices implements SecuritiesServicesInterfaceRemote, SecuritiesServicesInterfaceLocal {
 	@PersistenceContext(unitName = "primary")
 	EntityManager em;
 
 	@Override
-	public void AddSecurity(Security S) {
-		System.out.println("Avant set type");
-		 System.out.println("Avant set type");
-				
+	public int AddSecurity(Security S) {
+		if (ifExists(S) == false) {
+			if(S.getB()==null)
+			{
+				double d=getStockPriceInstantly(S.getCompany().getSymbol());
 				S.setType("Stock");
-				S.setPrice(getStockPriceInstantly(S.getCompany().getSymbol()));
-				System.out.println("apres set type");
-				//S.setPrice(getStockPriceInstantly("NFLX"));
-				//System.out.println(S.getPrice());
+				S.setPrice(d);
+				
+			}
+			else if (S.getB()!=null)
+			{
+				S.setType("Bond");
+			}
+		
 			em.persist(S);
-			
-	
+			System.out.println("Bond:" + S.getId());
+			return S.getId();
+		} else
+			return 0;
 
 	}
 	
@@ -83,7 +87,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 
 	@Override
 	public List<Security> DisplaySecurities() {
-		TypedQuery<Security> query = em.createQuery("Select s from Security s", Security.class);
+		TypedQuery<Security> query = em.createQuery("Select * from Security", Security.class);
 		return query.getResultList();
 
 	}
@@ -111,21 +115,41 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public List<Security> DisplayBonds(){
-		List<Security> LS = em.createQuery("select s from Security s where Type=='Bond'", Security.class)
+	public List<Bond> DisplayBonds() {
+		List<Security> LS = em.createQuery("select s from Security s where Yield!=null", Security.class)
 				.getResultList();
-		
-		return LS;
+		List<Bond> Lb = new ArrayList<>();
+		for (Security s : LS) {
+			Bond B = new Bond();
+			B.setCoupon(s.getB().getCoupon());
+			B.setMaturityDate(s.getB().getMaturityDate());
+			B.setPrice(s.getB().getPrice());
+			B.setYield(s.getB().getYield());
+			Lb.add(B);
+
+		}
+		return Lb;
 
 	}
 
 	@Override
-	public List<Security> DisplayStocks() {
-		String st="Stock";
-		List<Security> LS = em.createQuery("select s from Security s where Type='Stock'", Security.class)
+	public List<Stock> DisplayStocks() {
+		List<Security> LS = em.createQuery("select s from Security s where Yield!=null", Security.class)
 				.getResultList();
-			
-		return LS;
+		List<Stock> Ls = new ArrayList<>();
+		for (Security s : LS) {
+			Stock n = new Stock();
+			n.setAdj_Close(s.getS().getAdj_Close());
+			n.setClose(s.getS().getClose());
+			n.setDATE(s.getS().getDATE());
+			n.setHigh(s.getS().getHigh());
+			n.setLow(s.getS().getLow());
+			n.setOpen(s.getS().getOpen());
+			n.setVolume(s.getS().getVolume());
+			Ls.add(n);
+
+		}
+		return Ls;
 	}
 
 	@Override
@@ -180,30 +204,27 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	@Override
 	public double getStockPriceInstantly(String Sym) {
 		yahoofinance.Stock stock = null;
-		
-			try {
-				stock = YahooFinance.get(Sym);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-			try {
-				return stock.getQuote(true).getPrice().doubleValue();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return 0.0;
-			
-	
+		try {
+			stock = YahooFinance.get(Sym);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			double price = stock.getQuote(true).getPrice().doubleValue();
+			return price;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 		
 
 	}
 
 	@Override
 	public Boolean ifExists(Security S) {
-		if (em.find(Security.class, S.getId()) == null)
+		if (em.find(Company.class, S.getId()) == null)
 			return false;
 		else
 			return true;
@@ -237,33 +258,34 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	}
 
 	@Override
-	public List<Company> SearchByInput(String SearchField, String operator, Object o) {
+	public List<Security> SearchByInput(String SearchField, String operator, Object o) {
 		if (o instanceof Integer) {
 			int O = (Integer) o;
+			
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		} else if (o instanceof Double) {
 			Double O = (Double) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		} else if (o instanceof String) {
 			String O = (String) o;
 			return (em
 					.createQuery("select s from Security s where " + SearchField + " " + operator + " " + "'" + O + "'",
-							Company.class)
+							Security.class)
 					.getResultList());
 
 		} else if (o instanceof BigInteger) {
 			BigInteger O = (BigInteger) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		} else if (o instanceof Date) {
 			Date O = (Date) o;
 			return (em.createQuery("select s from Security s where " + SearchField + " " + operator + " " + O,
-					Company.class).getResultList());
+					Security.class).getResultList());
 
 		}
 		return null;
@@ -311,24 +333,6 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	
 		
 	}
-	public void TreeClassifier(String[] args) throws Exception {
-	    // load data
-	    ArffLoader loader = new ArffLoader();
-	    loader.setFile(new File(args[0]));
-	    Instances structure = loader.getStructure();
-	    structure.setClassIndex(structure.numAttributes() - 1);
-
-	    // train NaiveBayes
-	    NaiveBayesUpdateable nb = new NaiveBayesUpdateable();
-	    nb.buildClassifier(structure);
-	    Instance current;
-	    while ((current = loader.getNextInstance(structure)) != null)
-	      nb.updateClassifier(current);
-
-	    // output generated model
-	    System.out.println(nb);
-	  }
-	
 	
 
 }

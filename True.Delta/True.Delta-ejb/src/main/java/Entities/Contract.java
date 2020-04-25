@@ -48,9 +48,9 @@ public class Contract implements Serializable {
     Enumerations.FinancialAsset FinancialAsset;
 	@OneToOne
 	private Portfolio Portfolio;
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="User_Id",referencedColumnName="Id")
-	private User User;
+	private User user;
 	
 	public int getIDContract() {
 		return IDContract;
@@ -118,10 +118,10 @@ public class Contract implements Serializable {
 		Portfolio = portfolio;
 	}
 	public User getUser() {
-		return User;
+		return user;
 	}
 	public void setUser(User user) {
-		User = user;
+		user = user;
 	}
 	public Contract(int amount, Date creationDate, Date startDate, Date endDate, ContractType contartType,
 			Enumerations.FinancialAsset financialAsset) {
