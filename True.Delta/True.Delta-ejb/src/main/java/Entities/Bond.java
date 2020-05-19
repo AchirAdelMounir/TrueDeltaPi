@@ -20,13 +20,13 @@ public class Bond implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Column(nullable=true,name="COUPON")
-	private double Coupon;
+	private double Coupon ;
 
 	@Column(name="PRICE")
-	private double Price;
+	private double Price ;
 	@Column(name="YIELD")
 
-	private double Yield;
+	private double Yield ;
 	@Column(name="MATURITYDATE")
 	private Date MaturityDate;
 	
