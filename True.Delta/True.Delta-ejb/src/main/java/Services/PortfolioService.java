@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 import javax.ejb.EJB;
 import javax.ejb.FinderException;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -35,7 +36,7 @@ import Enumerations.*;
 
 @Stateless
 
-
+@LocalBean
 public class PortfolioService implements PortfolioServiceLocal, PortfolioServiceRemote {
 
 

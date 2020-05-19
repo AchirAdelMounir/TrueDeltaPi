@@ -5,13 +5,14 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-
-
-
+import javax.ejb.Local;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import Entities.*;
 import Enumerations.Active_account_Type;
@@ -21,7 +22,8 @@ import Enumerations.Type_of_contract_type;
 import Interfaces.UserIServices;
 import Interfaces.UserServiceLocal;
 import Interfaces.UserServiceRemote;
-@Stateful
+@Stateless
+@LocalBean
 
 public class UserService implements  UserServiceRemote,UserServiceLocal,UserIServices {
 
@@ -213,8 +215,11 @@ public class UserService implements  UserServiceRemote,UserServiceLocal,UserISer
 	@Override
 	public void EditUser(User u) {
 		// TODO Auto-generated method stub
+		em.merge(u);
 		
 	}
+	
+	
 
 
 

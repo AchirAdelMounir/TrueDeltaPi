@@ -20,15 +20,17 @@
 	<link rel="stylesheet" href="Assets/css/select2.min.css" />
 	<link rel="stylesheet" href="Assets/css/style.css" />
 	<link rel="stylesheet" href="Assets/css/skins/orange.css" />
-
+	
 	<!-- Template JS Files -->
 	<script src="Assets/js/modernizr.js"></script>
+	
+
 
 </h:head>
 
 <h:body>
 	<div class="wrapper">
-		<ui:include src="header.xhtml" />
+		
 		<ui:insert name="content" />
 
 
@@ -44,33 +46,10 @@
 		<script src="Assets/js/select2.min.js"></script>
 		<script src="Assets/js/jquery.magnific-popup.min.js"></script>
 		<script src="Assets/js/custom.js"></script>
-		<script>
-		$('#MyCheckBox').click(function() {
-		    if ($(this).is(':checked')) {
-		        $("#ShowMeDIV").show();
-		    } else {
-		        $("#ShowMeDIV").hide();
-		    }
-		});
-		$('#MyCheckBox2').click(function() {
-		    if ($(this).is(':checked')) {
-		        $("#ShowMeDIV2").show();
-		    } else {
-		        $("#ShowMeDIV2").hide();
-		    }
-		});
-		$('#MyCheckBox3').click(function() {
-		    if ($(this).is(':checked')) {
-		        $("#ShowMeDIV3").show();
-		    } else {
-		        $("#ShowMeDIV3").hide();
-		    }
-		});
-		</script>
 
 	</div>
 
 	<!-- Wrapper Ends -->
 </h:body>
-<ui:include src="footer.xhtml" />
+
 </ui:composition>

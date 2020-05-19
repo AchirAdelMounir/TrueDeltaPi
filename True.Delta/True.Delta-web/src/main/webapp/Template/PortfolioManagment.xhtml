@@ -1,0 +1,458 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:param name="page_name" value="Portfolio Management" />
+	
+
+
+	<ui:define name="content">
+	
+	<section class="banner-area">
+            <div class="banner-overlay">
+                <div class="banner-text text-center">
+                            
+                    
+                    <div class="container">
+                        <!-- Section Title Starts -->
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <!-- Title Starts -->
+                                <img class="img-responsive mobile-logo"  src="images/portfolo.jpg" alt="logo"/>
+                                <h2 class="title-head">All <span>Portfolios</span></h2>
+														
+                                <!-- Title Ends -->
+                              
+                                <!-- Breadcrumb Starts -->
+                                
+                                <!-- Breadcrumb Ends -->
+                            </div>
+                        </div>
+                        <!-- Section Title Ends -->
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </section>
+        
+        <div class="title-head-subtitle">
+                        <center><p>Portfolios Managment</p></center>
+                    </div>
+        
+        <section class="shop-cart">
+            <!--Start section-->
+            <div class="container">
+                <div class="row">
+					<!-- Purchased Products Starts -->
+                    <div class="col-xs-12 table-responsive">
+                    <ul class="nav nav-tabs" style="width: 75%;
+    margin: auto;">
+                            <li class="active"><a data-toggle="tab" href="#menu1" aria-expanded="true">All</a></li>
+                            <li class=""><a data-toggle="tab" href="#menu2" aria-expanded="true">Affected Portfolios</a></li>
+                            <li class=""><a data-toggle="tab" href="#menu3" aria-expanded="false">Unaffected Portfolio</a></li>
+                            <li class=""><a data-toggle="tab" href="#menu4" aria-expanded="false">Validate Portfolios</a></li>
+                            <li class=""><a data-toggle="tab" href="" aria-expanded="false"><i class="fa fa-street-view" aria-hidden="true" data-toggle="modal" data-target="#myModal"></i></a></li>
+                            
+                        </ul>
+                        <h:form>
+                              <h:outputLabel value="#{PorfolioBean.test}"></h:outputLabel>
+                        <div class="tab-content">
+                            
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper" style=" display:table;
+    height: 100%;
+    width: 100%;">
+        <div class="modal-dialog vertical-align-center" style="display: table-cell;
+    vertical-align: middle;">
+            <div class="modal-content" style=" width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">;</span><span class="sr-only">Close</span>
+
+                    </button>
+                     <h4 class="modal-title" id="myModalLabel">Choose Customer </h4>
+                   
+								
+    																	
+									
+									
+								
+
+                </div>
+                <div class="modal-body">
+    								
+    								   <h:selectOneMenu  value="#{PorfolioBean.selecteduser}" style="padding: 10px 20px !important;"> 
+                                   		
+                                   		<f:selectItems var ="u" value="#{PorfolioBean.allUsers}" itemValue="#{u.getId()}" itemLabel="#{u.getNom()} #{u.getPrenom()}"/>
+   									
+									</h:selectOneMenu> </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Validate</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+							<div id="menu1" class="tab-pane fade active in">
+                                <h:dataTable 
+								value="#{PorfolioBean.DisplayAllPortfolio()}" var="u"
+								class="table order text-center">
+								<h:column>
+									<f:facet name="header" class="col-xs-1"></f:facet>
+									<h:outputText value="" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-5">Type Portfolio</f:facet>
+									<h:outputText value="#{u.getTypePortfolio()}" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2">Price</f:facet>
+									<h:outputText value="#{u.getPrice()}" class="col-xs-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-1 col-sm-2">Returns</f:facet>
+									<h:outputText value="#{u.getReturns()}" class="col-xs-1 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Volatility</f:facet>
+									<h:outputText value="#{u.getVolatility()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Sharpe Ratio</f:facet>
+									<h:outputText value="#{u.getRatio()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+									<h:commandLink
+										action="#{PorfolioBean.Deleteportfolio(u.getIdPortfolio())}">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+									<h:commandLink
+										action="#{PorfolioBean.validatePort(u.getIdPortfolio())}">
+										<i class="fa fa-check" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</h:column>
+							</h:dataTable>
+                            </div>
+                            <div id="menu2" class="tab-pane fade">
+                                <h:dataTable 
+								value="#{PorfolioBean.DisplayAffectedPortfolio()}" var="u"
+								class="table order text-center">
+								<h:column>
+									<f:facet name="header" class="col-xs-1"></f:facet>
+									<h:outputText value="" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-5">Type Portfolio</f:facet>
+									<h:outputText value="#{u.getTypePortfolio()}" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								<h:column>
+								
+    								<f:facet name="header" class="col-xs-2 col-sm-5">Customer</f:facet>
+									<h:outputText value="#{u.getUser().getNom()} #{u.getUser().getPrenom()}" class="col-xs-2 col-sm-5"/>
+								
+									
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2">Price</f:facet>
+									<h:outputText value="#{u.getPrice()}" class="col-xs-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-1 col-sm-2">Returns</f:facet>
+									<h:outputText value="#{u.getReturns()}" class="col-xs-1 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Volatility</f:facet>
+									<h:outputText value="#{u.getVolatility()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Sharpe Ratio</f:facet>
+									<h:outputText value="#{u.getRatio()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+									<h:commandLink
+										action="#{CompanyBean.DeleteCompany(u.getSymbol())}">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</h:column>
+								
+							</h:dataTable>
+                            </div>
+                            
+                            <div id="menu3" class="tab-pane fade">
+                                <h:dataTable 
+								value="#{PorfolioBean.DisplayUnAffectedPortfolio()}" var="u"
+								class="table order text-center">
+								<h:column>
+									<f:facet name="header" class="col-xs-1"></f:facet>
+									<h:outputText value="" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-5">Type Portfolio</f:facet>
+									<h:outputText value="#{u.getTypePortfolio()}" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2">Price</f:facet>
+									<h:outputText value="#{u.getPrice()}" class="col-xs-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-1 col-sm-2">Returns</f:facet>
+									<h:outputText value="#{u.getReturns()}" class="col-xs-1 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Volatility</f:facet>
+									<h:outputText value="#{u.getVolatility()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Sharpe Ratio</f:facet>
+									<h:outputText value="#{u.getRatio()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+									<h:commandLink
+										action="#{CompanyBean.DeleteCompany(u.getSymbol())}">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</h:column>
+								
+							</h:dataTable>
+                            </div>
+                            <div id="menu4" class="tab-pane fade">
+                                <h:dataTable 
+								value="#{PorfolioBean.DisplayValidatePortfolio()}" var="u"
+								class="table order text-center">
+								<h:column>
+									<f:facet name="header" class="col-xs-1"></f:facet>
+									<h:outputText value="" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-5">Type Portfolio</f:facet>
+									<h:outputText value="#{u.getTypePortfolio()}" class="col-xs-2 col-sm-5"/>
+								</h:column>
+								<h:column>
+								
+    								<f:facet name="header" class="col-xs-2 col-sm-5">Customer</f:facet>
+									<h:outputText value="#{u.getUser().getNom()} #{u.getUser().getPrenom()}" class="col-xs-2 col-sm-5"/>
+								
+									
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2">Price</f:facet>
+									<h:outputText value="#{u.getPrice()}" class="col-xs-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-1 col-sm-2">Returns</f:facet>
+									<h:outputText value="#{u.getReturns()}" class="col-xs-1 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Volatility</f:facet>
+									<h:outputText value="#{u.getVolatility()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header" class="col-xs-2 col-sm-2">Sharpe Ratio</f:facet>
+									<h:outputText value="#{u.getRatio()}" class="col-xs-2 col-sm-2"/>
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+									<h:commandLink
+										action="#{PorfolioBean.Type1Portfolio()}">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+										
+										<i class="fa fa-suitcase" style="color: orange;" aria-hidden="true" data-toggle="modal" data-target="#myModal2"></i>
+									
+
+								</h:column>
+								<h:column>
+									<f:facet name="header"></f:facet>
+									<h:commandLink
+										action="#{PorfolioBean.Type1Portfolio(u)}">
+										<i class="fa fa-check" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</h:column>
+								
+							</h:dataTable>
+                            </div>
+                            </div>
+							<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="vertical-alignment-helper" style=" display:table;
+    height: 100%;
+    width: 100%;">
+        <div class="modal-dialog vertical-align-center" style="display: table-cell;
+    vertical-align: middle;">
+            <div class="modal-content" style=" width:inherit;
+    height:inherit;
+    /* To center horizontally */
+    margin: 0 auto;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">;</span><span class="sr-only">Close</span>
+
+                    </button>
+                     <h3 class="modal-title" id="myModalLabel">Affectation methods to portfolios</h3>
+                   
+								
+    																	
+									
+									
+								
+
+                </div>
+                <h:form>
+                <div class="modal-body">
+                <div class="modal-header">
+                <h4 class="modal-title">Risk averse method <input type="checkbox" name="MyCheckBox" id="MyCheckBox" style=" margin: 5px 0px;
+    width: 300px;"/></h4>
+                
+                </div>
+                <div class="modal-header">
+                <h4 class="modal-title">Risk neutral method  <input type="checkbox" name="MyCheckBox2" id="MyCheckBox2" style=" margin: 5px 0px;
+    width: 290px;"/></h4>
+               
+                </div>
+                <div class="modal-header">
+                <h4 class="modal-title">Risk seeking method <input type="checkbox" name="MyCheckBox3" id="MyCheckBox3" style=" margin: 5px 0px;
+    width: 283px;" /></h4>
+               
+                </div>
+    								
+    			 
+    			<br /><br />
+											<div id="ShowMeDIV" style="display: none;">
+    										<p><h:inputText style="width: 300px;
+border: 1px solid orange;
+background: white;
+margin: 0 0 5px;
+padding: 8px;
+border-radius: 5px;
+font-size: 12px;
+padding-right: 30px;
+color: black;
+ 
+ "  a:placeholder="RETURNS" value="#{PorfolioBean.returns}" />
+    										</p>
+  											</div>
+  				
+    								
+											<div id="ShowMeDIV2" style="display: none;">
+    										<p><h:inputText style="width: 300px;
+border: 1px solid orange;
+background: white;
+margin: 0 0 5px;
+padding: 8px;
+border-radius: 5px;
+font-size: 12px;
+padding-right: 30px;
+color: black;
+ 
+ "  a:placeholder="PRICE" value="#{PorfolioBean.price}" /></p>
+  											</div>
+  				
+    								
+											<div id="ShowMeDIV3" style="display: none;">
+    										<p><h:inputText style="width: 300px;
+border: 1px solid orange;
+background: white;
+margin: 0 0 5px;
+padding: 8px;
+border-radius: 5px;
+font-size: 12px;
+padding-right: 30px;
+color: black;
+ 
+ "  a:placeholder="VOLATILITY" value="#{PorfolioBean.volatility}" /> </p>
+  											</div>														
+    								   </div>
+    								   </h:form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Validate</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+						</h:form>
+						
+                    </div>
+                    
+					<!-- Purchased Products Ends -->
+					<!-- Coupon Input Starts -->
+                  
+					<!-- Coupon Input Ends -->
+					<!-- Update Cart Starts -->
+					<!-- Update Cart Ends -->
+					<!-- Cart Totals Starts -->
+                    <div class="col-xs-12 offset-5">
+                        <h4 class="title-totals">Number of Portfolios</h4>
+                        <table class="table cart-total">
+                            <colgroup>
+                                <col class="col-xs-6"/>
+                                <col class="col-xs-6"/>
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>Total price</th>
+                                    <th class="text-right"><span class="price">$589,31</span></th>
+                                    
+                                </tr>
+                                   <tr class="section-border">
+                                    <th>Total Returns</th>
+                                    <th class="text-right"><span class="price">$589,31</span></th>
+                                    
+                                </tr>
+                                <tr>
+                                    <th>Gains</th>
+                                    <th class="total text-right"><span class="price">$607,31</span></th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <div><a href="shopping-checkout.html" class="btn btn-primary pull-right btn-proceed">Get Optimals Portfolios</a></div>
+                   	<div class="container">
+
+  <!-- Trigger the modal with a button -->
+ 
+<!-- Modal -->
+
+  
+</div>
+                   	
+                    </div>
+					<!-- Cart Totals Ends -->
+                </div>
+            </div>
+            
+            
+        </section>
+	</ui:define>
+	
+	
+	</ui:composition>

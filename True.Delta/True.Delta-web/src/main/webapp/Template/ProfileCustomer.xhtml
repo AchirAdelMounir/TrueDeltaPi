@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:param name="page_name" value="Profile Customer" />
+	
+
+
+	<ui:define name="content">
+	<h:form>
+	<section class="facts">
+			<!-- Container Starts -->
+			<div class="container">
+				<!-- Fact Badges Starts -->
+				<div class="row text-center facts-content">
+					<div class="text-center heading-facts">
+						<h2>#{UserBean.nom}<span> #{UserBean.prenom}</span></h2>
+						<p>Welcome to your profile ! you can find here all information about your portfolio</p>
+					</div>
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact">
+						<h3>$ #{UserBean.retu}</h3>
+						<h4>Returns</h4>
+					</div>
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact fact-clear">
+						<h3>#{UserBean.nbact}</h3>
+						<h4>Number of actions</h4>
+					</div>
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact">
+						<h3>$ #{UserBean.price}</h3>
+						<h4>Price</h4>
+					</div>
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6">
+						<h3>#{UserBean.typeport}</h3>
+						<h4>Type of portfolio</h4>
+					</div>
+					<!-- Fact Badge Item Ends -->
+					<div class="col-xs-12 buttons">
+						
+						<h:commandButton value="Edit your profile" class="btn btn-primary btn-pricing" action="#{UserBean.editProfile()}"></h:commandButton>
+						<span class="or"> or </span>
+						<h:commandButton value="Give Up" class="btn btn-primary btn-register" action="#{UserBean.giveup()}"></h:commandButton>
+
+					</div>
+				</div>
+				<!-- Fact Badges Ends -->
+			</div>
+			<!-- Container Ends -->
+        </section>
+	</h:form>
+	
+	</ui:define>
+	
+	
+	</ui:composition>

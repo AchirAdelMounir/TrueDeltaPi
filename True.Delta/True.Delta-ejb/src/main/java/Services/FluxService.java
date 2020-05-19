@@ -1,5 +1,6 @@
 package Services;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
 
@@ -15,6 +16,7 @@ import Interfaces.FluxServiceRemote;
 
 
 @Stateful
+@LocalBean
 public class FluxService implements FluxServiceRemote,FluxServiceLocal{
 
 	
