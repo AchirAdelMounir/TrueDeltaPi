@@ -1,6 +1,7 @@
 package Interfaces;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import java.util.List;
 import java.util.Set;
@@ -11,6 +12,7 @@ import javax.persistence.TypedQuery;
 import Entities.Contract;
 import Entities.User;
 import Enumerations.ContractType;
+import Enumerations.Etat_Contract;
 
 
 
@@ -24,7 +26,8 @@ public interface ContractServiceLocal {
 	public void EditContractByID(int IdContract , Double Amount);
 	void AffecterAMAContrat(int IdAM, int IdCpntract);
 	public Contract ReadContractById( int contractId );
-	public  List ListContract( );
+	public Contract ReadContractByEtat( String EtatContract );
+	public  List<Contract> ListContract();
 	public void  VerificationBanque(int idBanque , int idUser);
 	public int  ScoreVisitor  (int IdVisitor);
 	public int ScoreContract(int IdUser);
@@ -39,15 +42,51 @@ public interface ContractServiceLocal {
 	public List<Contract> getContractPostedByClient(User c);
 	 public int isAproved(Contract c);
 	 public void updateContractDescription(String desc, int ContractId);
-	 public void deleteContract1(int ContractId);
+	   public int deleteContract1(int ContractId);
 	 public void affecterPropositionContract(int PropId,int ContractId);
 	 public List<Contract> getContractAproved();
 	 public int Extractyear(int id);
 	 public double Somme(int year);
-
+	 public void UpdateContract(Contract contract);
+	 public void SelectUser (User user);
+	
+		double RisqueClient(int IDContract);
 	Object count();
 
 	List<Integer> findPackProductsdid();
+
+	List listontractByType(ContractType type);
+
+	void AffectedPortfolio(int idPortfolio, int idUser);
+
+	void AffectedContract(int idPortfolio, int idUser);
+
+	double CalculGainAsset(int Idcon);
+
+	double CalculGainClient(int Idcon);
+
+	double RisqueAsset(int IDContract);
+
+	List<Contract> getAllContractByIdUser(int idUser);
+
+	List<Contract> getContractByDate(String date) throws ParseException;
+	List<Contract> getAllContractByType(ContractType ContartType);
+	Long getNbContractByIdUser(int idUser);
+	public Long NbrContractByDate(String date) throws ParseException;
+
+	public Long getNbContractByContractType(Enumerations.ContractType ContractType);
+	double getAvgOfContractType(ContractType ContractType);
+	Long NbUser();
+
+	Contract findById(int id);
+
+	void UpdateContract1(Contract c);
+	List<Contract> getAllContract();
+	int DeleteContractByIdUser(int idUser);
+
+	int DeleteContractByDate(String date);
+
+
 
 	//User VerificationBanque(int IdUser);
 	

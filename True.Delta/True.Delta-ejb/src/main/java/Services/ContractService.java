@@ -2,18 +2,28 @@ package Services;
 
 
 import java.util.Date;
+import java.text.ParseException;
+
+
 import java.io.File;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,13 +37,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 
-
+import Entities.AssetManager;
 import Entities.Banque;
 import Entities.Contract;
 import Entities.Proposition;
 import Entities.User;
 
 import Enumerations.ContractType;
+import Enumerations.Etat_Contract;
 import Enumerations.TypeDevise;
 import Interfaces.ContractServiceLocal;
 import Interfaces.ContractServiceRemote;
@@ -42,6 +53,7 @@ import Interfaces.ContractServiceRemote;
 
 
 @Stateless
+@LocalBean
 public class ContractService implements  ContractServiceRemote , ContractServiceLocal {
 	
 	ArrayList<Integer>scoreFree= new ArrayList<Integer>();
@@ -59,11 +71,12 @@ public class ContractService implements  ContractServiceRemote , ContractService
 		
 		return contract.getIDContract();
 		
+		
 	}
 	
 	@Override
 	public int addContract1(Contract contract, int id_user) {
-	/*	User user = em.find(User.class, id_user); 
+		User user = em.find(User.class, id_user); 
 		if(user!=null)
         {
 			  contract.setUser(user);
@@ -72,8 +85,10 @@ public class ContractService implements  ContractServiceRemote , ContractService
 		em.persist(contract);
 		return contract.getIDContract();
         }
-        else*/
+        else
             return 0;
+
+    	
 	}
 	
 	@Override
@@ -121,23 +136,25 @@ public void EditContractByID(int IdContract , Double Amount) {
 	
 		User userManagedEntity=em.find(User.class, IdAM);
     	Contract contractManagedEntity=em.find(Contract.class, IdCpntract);
-        contractManagedEntity.setUser(userManagedEntity);;
+        contractManagedEntity.setUser(userManagedEntity);
+    	
 		 
 
 	}
 
 	@Override
 	public Contract ReadContractById ( int contractId ) {
+	
 		Contract contracts = em.find(Contract.class, contractId);
 			return contracts;
 	}
 
     @Override
-    public List ListContract() {
+    public  List<Contract> ListContract() {
     	
-    	 List <Contract>  contracts = em.createQuery("select c from Contract c",Contract.class).getResultList();
+    	 List <Contract>  c = em.createQuery("select c from Contract c",Contract.class).getResultList();
  		
- 		return contracts ; 
+ 		return c ; 
 
     }
     
@@ -243,39 +260,44 @@ public void EditContractByID(int IdContract , Double Amount) {
     	}
 
     	return score;
+    	
     	}
     
     @Override
     public int ScoreContract(int IdUser)
     {
     	
-    	int score1 =0;
+    	int score1 ;
+    	int score ;
     	//score=ScoreVisitor( IdUser);
     	//Contract contract = em.find(Contract.class, IdContract);
     	User contract = em.find(User.class, IdUser);
+    	score1 =ScoreVisitor(IdUser);
+    	
     	if (contract.getContractType()==ContractType.Free)
-    	{
-    	score1 +=30;
-    	}
-    	else if (contract.getContractType()==ContractType.With_Condition)
     	{
     	score1 +=50;
     	}
-    	else if (contract.getContractType()==ContractType.With_Proposal)
+    	else if (contract.getContractType()==ContractType.With_Condition)
     	{
     	score1 +=100;
+    	}
+    	else if (contract.getContractType()==ContractType.With_Proposal)
+    	{
+    	score1 +=150;
     	}
     	else {
     	score1 +=0;
     	}
 
     	return score1 ;
+    	
 
     	}
 
 	@Override
 	public void VerificationBanque(int idBanque , int idUser) {
-		User u = em.find(User.class, idUser);
+	/*	User u = em.find(User.class, idUser);
 		Banque b = em.find(Banque.class, idBanque);
 
 	// if (c.getAmount() == u.getAmount() && c.getCredit() == u.getCredit() && c.getRefund() == u.getRefund()   )
@@ -318,7 +340,8 @@ public void EditContractByID(int IdContract , Double Amount) {
 		 else if (!(b.getIDClient() == u.getId_banque())   ) {
 			 System.out.println("check the data entered"  );
 			
-		}
+		}*/
+		
 	  
 	}
 	
@@ -351,65 +374,83 @@ public void EditContractByID(int IdContract , Double Amount) {
 	}
 	
 	@Override
-	public double CalculGainAsset(Contract con) {
+	public double CalculGainAsset(int Idcon) {
 		
 		ContractType f= ContractType.Free;
     	ContractType p= ContractType.With_Proposal;
     	ContractType c= ContractType.With_Condition;
-    	double TotalPortefeuille=10.5;
-        double	GainAsset1=0;
-        		if(con.getContartType().equals(c))
+    	ContractType type = null;
+    	Contract contract = em.find(Contract.class, Idcon);
+    	double TotalPortefeuille =	contract.getAmount();
+        double	GainAsset=0;
+     	if (contract.getContartType()==ContractType.Free)
+        	
         		{
-        			double GainAsset=TotalPortefeuille*0.4;
-        			return GainAsset;
+        			 GainAsset=TotalPortefeuille*0.4;
+        			
         		}	
-        	    if(con.getContartType().equals(p))
+     	if (contract.getContartType()==ContractType.With_Proposal)
         	    {
-    	           double GainAsset=TotalPortefeuille*0.3;
-    	    	   return GainAsset;
+    	            GainAsset=TotalPortefeuille*0.3;
+    	    	  
              	}	
-            	else if(con.getContartType().equals(f) )            		
+     	if (contract.getContartType()==ContractType.With_Condition)          		
             	{
-                	double GainAsset=TotalPortefeuille*0.2;
-                    return GainAsset;
+                	 GainAsset=TotalPortefeuille*0.2;
+                   
             	}
-       return GainAsset1; }
+       return GainAsset; }
 		
 	@Override
-	public double CalculGainClient(Contract con) {
+	public double CalculGainClient(int Idcon) {
 		
-		ContractType free= ContractType.Free;
-    	ContractType condition= ContractType.With_Condition;
-    	ContractType propo= ContractType.With_Proposal;
+		int nbre;
+    	int nbrecompte;
+    	int GainClient=0;
+    	int  idVisitor;
+    	int score = ScoreVisitor(Idcon);
+    	//idVisitor=IdVisitor.geUser();
+    	User Visitor = em.find(User.class, Idcon);
+    	if (Visitor.getCredit()<1000)
+    	{    
+    		 GainClient += score*0.1;
+    	}
+    	else if (Visitor.getCredit()>=1000 && Visitor.getCredit()<=3000)
+    	{
+    		 GainClient += score*0.2;
+    	}
+    	else if (Visitor.getCredit()>3000 && Visitor.getCredit()<10000)
+    	{
+    		 GainClient += score*0.3;
+    	}
+    	else
+    	{
+    	 GainClient += score/100;
+    	}
     	
-    	double TotalPortefeuille=10.5;
-        double	GainClientF=0;   
-        double	GainClienC=0; 
-        double	GainClientP=0;
-        	    if(con.getContartType().equals(condition))
-        	    {
-    	           double GainClient=TotalPortefeuille*0.7;
-    	    	   return GainClient;
-             	}	
-            	else if(con.getContartType().equals(propo) )            		
-            	{
-                	double GainClient=TotalPortefeuille*0.6;
-                    return GainClient;
-            	}
-            	else if(con.getContartType().equals(free) )            		
-            	{
-                	double GainClient=TotalPortefeuille*0.5;
-                    return GainClient;
-            	}
-        	   
-        	    if(con.getContartType().equals(condition))
-        	    {
-                   return GainClienC; }
-        	    else if(con.getContartType().equals(propo))
-        	    {
-                    return GainClientP; }
-                   else 
-                   return GainClientF;
+    	
+    	if(Visitor.getAccount_Number() <=2)
+    	{
+    		 GainClient += score*0.2;
+    	}
+    	else
+    	{
+    		 GainClient += score*0.3;
+    	}
+
+    	if (Visitor.getDevise()== TypeDevise.Dollar || Visitor.getDevise()==TypeDevise.Euro) {
+    		 GainClient += score*0.4;
+    	}
+    	else
+    	{
+    		 GainClient += score;
+    	}
+    	
+    	
+    	return (GainClient*10)/100 ;
+        	    
+        	  
+        	    
 		
 	}
 	
@@ -551,12 +592,13 @@ public void EditContractByID(int IdContract , Double Amount) {
 	    query1.executeUpdate();
 	}
 	
-	  @Override
-	    public List ListContractByType( ContractType type) {
+	@Override
+	    public List listontractByType( ContractType type) {
 		
-	    	 List <Contract>  contracts = em.createQuery("select c from Contract c where c.ContartType=:type",Contract.class).getResultList();
+	    	// List <Contract>  contracts = em.createQuery("select c from Contract c where c.ContartType=:type",Contract.class).getResultList();
 	 		
-	 		return contracts ; 
+	 		//return contracts ; 
+		return null ;
 
 	    }
 	// ------------------------------------------------------------------------------------------------------------
@@ -587,19 +629,17 @@ public void EditContractByID(int IdContract , Double Amount) {
 		public void UpAssetContrat(Contract c) {
 			Contract contrat = em.find(Contract.class,c.getIDContract()); 
 	            contrat.setComission(c.getComission());
-		        contrat.setProfit(c.getProfit());
+		        contrat.setRisque(c.getRisque());
 		        contrat.setIsApproved(true);
 		     
 		}
 		
 		@Override
-	    public void deleteContract1(int ContractId) {
-       int  i=isAproved(ReadContractById (ContractId)) ;  
-			if(i==0) {
-			em.remove(em.find(Contract.class, ContractId));
-		    }
-               else 
-            	   System.out.println("You can't delete it");
+	    public int deleteContract1(int ContractId) {
+	
+				em.remove(em.find(Contract.class,ContractId));	
+				return ContractId;
+			
 			}
 		
 		@Override
@@ -635,7 +675,8 @@ public void EditContractByID(int IdContract , Double Amount) {
 		    	    for(Contract c:contract) {
 		    int yar=Extractyear(c.getIDContract());  	    	
 		    	if(yar==year) {
-			    	double s=c.getProfit();
+			    
+			    	double s = c.getRisque();
 			    	
 			    	 somme=somme+s;
 		    	}
@@ -643,6 +684,267 @@ public void EditContractByID(int IdContract , Double Amount) {
 		    	    }
 		    	    return  somme;
 	 }
+
+	public static final String ACCOUNT_SID = "";
+	public static final String AUTH_TOKEN = "";
+
+	@Override
+	public List ListContractByType(ContractType type) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void UpdateContract(Contract contract) {
+		Contract cont = em.find(Contract.class, contract.getIDContract()); 
+		cont.setAmount(contract.getAmount());
+		cont.setComission(contract.getComission());
+		cont.setCreationDate(contract.getCreationDate());
+		cont.setDescription(contract.getDescription());
+		cont.setEndDate(contract.getEndDate());
+		cont.setStartDate(contract.getStartDate());
+		cont.setEtatContract(contract.getEtatContract());
+		cont.setContartType(contract.getContartType());
+		cont.setFinancialAsset(contract.getFinancialAsset());
+		cont.setGain(contract.getGain());
+		cont.setRisque(contract.getRisque());
+		cont.setScore(contract.getScore());
+
+		
+	}
+	
+	
+	@Override
+	public void AffectedPortfolio(int idPortfolio,int idUser) {
+		User u = new User();
+		Contract p = new Contract();
+		u=em.find(User.class, idUser);
+		p=em.find(Contract.class, idPortfolio);
+		p.setUser(u);
+		em.merge(u);
+		em.merge(p);
+
+
+	}
+
+	@Override
+	public void AffectedContract(int idPortfolio, int idUser) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void SelectUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Contract ReadContractByEtat(String EtatContract) {
+		Contract contracts = em.find(Contract.class, EtatContract);
+		return contracts;
+	}
+
+	@Override
+	public double CalculGainAsset(Contract con) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double CalculGainClient(Contract con) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override 
+	public double RisqueClient (int IDContract)
+	{
+		
+		int nbre;
+    	int nbrecompte;
+    	int GainClient=0;
+    	int  idVisitor;
+    	int score = ScoreVisitor(IDContract);
+    	//idVisitor=IdVisitor.geUser();
+    	User Visitor = em.find(User.class, IDContract);
+    	if (Visitor.getCredit()<1000)
+    	{    
+    		 GainClient += score*0.09;
+    	}
+    	else if (Visitor.getCredit()>=1000 && Visitor.getCredit()<=3000)
+    	{
+    		 GainClient += score*0.02;
+    	}
+    	else if (Visitor.getCredit()>3000 && Visitor.getCredit()<10000)
+    	{
+    		 GainClient += score*0.03;
+    	}
+    	else
+    	{
+    	 GainClient += score*0.01;
+    	}
+    	
+    	
+    	if(Visitor.getAccount_Number() <=2)
+    	{
+    		 GainClient += score*0.02;
+    	}
+    	else
+    	{
+    		 GainClient += score*0.03;
+    	}
+
+    	if (Visitor.getDevise()== TypeDevise.Dollar || Visitor.getDevise()==TypeDevise.Euro) {
+    		 GainClient += score*0.04;
+    	}
+    	else
+    	{
+    		 GainClient += score;
+    	}
+    	
+    	
+    	return (GainClient*10)/100 ;
+        	    		
+	}
+	
+	@Override 
+	public double RisqueAsset (int IDContract)
+	
+	{
+    	Contract contract = em.find(Contract.class, IDContract);
+    	double TotalPortefeuille =	contract.getAmount();
+        double	RisqueAsset=0;
+     	if (contract.getContartType()==ContractType.Free)
+        	
+        		{
+     		RisqueAsset=TotalPortefeuille*0.6;
+        			
+        		}	
+     	if (contract.getContartType()==ContractType.With_Proposal)
+        	    {
+     		RisqueAsset=TotalPortefeuille*0.7;
+    	    	  
+             	}	
+     	if (contract.getContartType()==ContractType.With_Condition)          		
+            	{
+     		RisqueAsset=TotalPortefeuille*0.8;
+                   
+            	}
+       return RisqueAsset; 
+		
+		
+	}
+
+	
+	@Override
+	 public List<Contract> getAllContractByIdUser(int idUser) {
+	
+		 TypedQuery<Contract> query= em.createQuery("Select c from Contract c where c.User.Id=:idUser",Contract.class);
+			query.setParameter("idUser",idUser);
+			return query.getResultList();
+		}
+	
+	@Override
+	public List<Contract> getContractByDate(String date) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+			Date datec = dateFormat.parse(date);
+			TypedQuery<Contract> query = em.createQuery("select c from Contract as c where DATEDIFF (DATE_FORMAT(c.CreationDate,\'%d%m%y\'),DATE_FORMAT(:datec,\'%d%m%y\'))=0", Contract.class);
+			query.setParameter("datec", datec);
+			return query.getResultList();
+	}
+	
+	@Override
+	 public List<Contract> getAllContractByType(Enumerations.ContractType ContartType) {
+		 TypedQuery<Contract> query= em.createQuery("Select c from Contract c where c.ContartType=:ContartType ",Contract.class);
+			query.setParameter("ContartType",ContartType);
+			return query.getResultList();
+		}
+	
+	@Override
+	public Long getNbContractByIdUser(int idUser) {
+		TypedQuery<Long> query = em.createQuery("select COUNT (c) from Contract c where c.User.Id=:idUser", Long.class);
+		query.setParameter("idUser", idUser);
+		return query.getSingleResult();
+
+	}
+	
+	@Override
+	public Long NbrContractByDate(String date) throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date datec = dateFormat.parse(date);
+		TypedQuery<Long> query = em.createQuery("select COUNT (c) from Contract c where DATEDIFF (DATE_FORMAT(c.CreationDate,\'%d%m%y\'),DATE_FORMAT(:datec,\'%d%m%y\'))=0", Long.class);
+		query.setParameter("datec", datec);
+		return query.getSingleResult();
+	}
+	
+	@Override
+	public Long getNbContractByContractType(Enumerations.ContractType ContartType) {
+		TypedQuery<Long> query = em.createQuery("select COUNT (c) from Contract c where c.ContartType=:ContartType", Long.class);
+		query.setParameter("ContartType", ContartType);
+		return query.getSingleResult();
+
+	}
+	
+	@Override
+	public double getAvgOfContractType(Enumerations.ContractType ContractType ) {
+		double Avg;
+		Avg=((double)getNbContractByContractType(ContractType)/(double)count())*100;
+		return Avg;
+	}
+	
+	@Override
+	public Long NbUser() {
+		TypedQuery<Long> query = em.createQuery("select COUNT(*) from User ", Long.class);
+		return query.getSingleResult();
+	}
+	
+	@Override
+	public Contract findById(int id) {
+        return em.find(Contract.class, id);
+    }
+	
+	@Override
+	public void UpdateContract1(Contract c) {
+		 em.merge(c);
+	 }
+	
+	@Override
+	public List<Contract> getAllContract() {
+			List<Contract> C = em.createQuery("Select c from Contract c ", Contract.class).getResultList();
+			System.out.println(C);
+			return C;
+		}
+	
+	 @Override
+	 public int DeleteContractByIdUser(int idUser) {
+		Query query = em.createQuery("delete  from Contract as c  where c.User.Id=:idUser").setParameter("idUser", idUser);
+		int result=query.executeUpdate();
+		return result;
+		 }
+	 
+	 @Override
+	 public int DeleteContractByDate(String date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date datec = dateFormat.parse(date);
+			Query query = em.createQuery("delete from Contract as c where DATEDIFF (DATE_FORMAT(c.CreationDate,\'%d%m%y\'),DATE_FORMAT(:datec,\'%d%m%y\'))=0").setParameter("datec", datec);
+			int result=query.executeUpdate();
+			return result;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return -1;
+		}
+		
+		
+		 }
+	
+
+	
+
 		
 	
 }

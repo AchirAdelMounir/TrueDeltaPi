@@ -41,6 +41,14 @@
 
     <dependencies>
     
+    <!-- Message -->
+    
+     <dependency>
+  <groupId>com.twilio.sdk</groupId>
+  <artifactId>twilio</artifactId>
+  <version>7.42.0</version>
+</dependency>
+    
   <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
 <dependency>
     <groupId>javax.ws.rs</groupId>

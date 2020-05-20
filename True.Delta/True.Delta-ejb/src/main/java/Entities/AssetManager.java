@@ -9,8 +9,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import Enumerations.ContractType;
+import Enumerations.DisponibiliteAM;
+import Enumerations.FinancialAsset;
 
 
 @Embeddable
@@ -27,13 +33,22 @@ public class AssetManager implements Serializable{
 	String experience;
 	
 	@Column(name="AM_SCORE")
-	double score ;
+	double scoreAM ;
 	
 	@Column(name="AM_RATING") 
 	double rating;
 	
 	@Column(name="AM_RISK")
 	String risk;
+	
+	@Column()
+	int ScoreCont;
+	
+	@Enumerated(EnumType.STRING) 
+	private  DisponibiliteAM  Disponibilite ;
+
+	
+	
 	
 	public String getDescription() {
 		return description;
@@ -52,11 +67,11 @@ public class AssetManager implements Serializable{
 	}
 	
 	public double getScore() {
-		return score;
+		return scoreAM;
 	}
 	
 	public void setScore(double score) {
-		this.score = score;
+		this.scoreAM = score;
 	}
 	
 	public double getRating() {
@@ -74,6 +89,16 @@ public class AssetManager implements Serializable{
 	public void setRisk(String risk) {
 		this.risk = risk;
 	}
+
+	public DisponibiliteAM getDisponibilite() {
+		return Disponibilite;
+	}
+
+	public void setDisponibilite(DisponibiliteAM disponibilite) {
+		Disponibilite = disponibilite;
+	}
+
+	
 
 
 

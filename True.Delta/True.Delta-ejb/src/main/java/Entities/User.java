@@ -11,6 +11,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -100,13 +101,13 @@ public class User implements Serializable {
 	
 	
 	
-	@OneToMany(mappedBy="User")
-	private Set<Feedback> Feedbacks;
-	@OneToMany(mappedBy="User")
-	private Set<Complain> Complains;
-	@OneToMany(mappedBy="User")
-	private Set<Complain> Articles;
-	@OneToMany(mappedBy="User")
+	/*@OneToMany(mappedBy="User")
+	private Set<Feedback> Feedbacks;*/
+//	@OneToMany(mappedBy="User")
+	/*private Set<Complain> Complains;
+	@OneToMany(mappedBy="User")*/
+	/*private Set<Complain> Articles;*/
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="User" , cascade = CascadeType.ALL)
 	private List<Contract> Contratcs;
 
 	@OneToOne 
@@ -332,13 +333,13 @@ public class User implements Serializable {
 		Feedbacks = feedbacks;
 	}*/
 
-	public Set<Complain> getComplains() {
+	/*public Set<Complain> getComplains() {
 		return Complains;
 	}
 
 	public void setComplains(Set<Complain> complains) {
 		Complains = complains;
-	}
+	}*/
 
 	/*public Set<Complain> getArticles() {
 		return Articles;
@@ -404,21 +405,21 @@ public class User implements Serializable {
 		Amount = amount;
 	}
 
-	public Set<Feedback> getFeedbacks() {
+	/*public Set<Feedback> getFeedbacks() {
 		return Feedbacks;
 	}
 
 	public void setFeedbacks(Set<Feedback> feedbacks) {
 		Feedbacks = feedbacks;
-	}
+	}*/
 
-	public Set<Complain> getArticles() {
+	/*public Set<Complain> getArticles() {
 		return Articles;
 	}
 
 	public void setArticles(Set<Complain> articles) {
 		Articles = articles;
-	}
+	}*/
 
 	public List<Contract> getContratcs() {
 		return Contratcs;
@@ -428,7 +429,7 @@ public class User implements Serializable {
 		Contratcs = contratcs;
 	}
 
-	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+	/*public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
 			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
 			int amount, TypeDevise devise, Enumerations.ContractType contractType, AssetManager asset_manager,
 			Enumerations.UserType userType, Set<Feedback> feedbacks, Set<Complain> complains, Set<Complain> articles,
@@ -457,7 +458,7 @@ public class User implements Serializable {
 		Articles = articles;
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
-	}
+	}*/
 
 	public double getRefund() {
 		return Refund;
@@ -467,7 +468,7 @@ public class User implements Serializable {
 		Refund = refund;
 	}
 
-	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+	/*public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
 			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
 			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
 			AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
@@ -497,7 +498,7 @@ public class User implements Serializable {
 		Articles = articles;
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
-	}
+	}*/
 
 	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
 			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
