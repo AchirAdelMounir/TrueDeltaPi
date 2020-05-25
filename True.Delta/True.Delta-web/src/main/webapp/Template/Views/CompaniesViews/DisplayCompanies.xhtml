@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="/Template/Template.xhtml">	 
+	template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
 		<div id="main-slide" class="carousel slide carousel-fade"
@@ -20,7 +20,7 @@
 			<div class="carousel-inner">
 				<!-- Carousel Item Starts -->
 				<div class="item active bg-parallax item-1">
-					<img src="Assets/images/nasdaq.jpg" />
+					<img src="../../Assets/images/nasdaq.jpg" />
 					<div class="slider-content">
 						<div class="container">
 							<div class="slider-text text-center">
@@ -30,7 +30,8 @@
 								<h:form>
 
 									<h:commandButton class="slider btn btn-primary"
-										value="Show More About Companies" action="#{CompanyBean.DisplayTopLastNCompanies('Market_Cap_E',4)}"></h:commandButton>
+										value="Show More About Companies"
+										action="#{CompanyBean.DisplayTopLastNCompaniesFirst('Market_Cap_E',4)}"></h:commandButton>
 
 								</h:form>
 							</div>
@@ -40,7 +41,7 @@
 				<!-- Carousel Item Ends -->
 				<!-- Carousel Item Starts -->
 				<div class="item bg-parallax item-2">
-					<img src="Assets/images/nasdaq2.jpg" />
+					<img src="../../Assets/images/nasdaq2.jpg" />
 					<div class="slider-content">
 						<div class="col-md-12">
 							<div class="container">
@@ -95,12 +96,13 @@
 
 						<h:form>
 
-							<h:dataTable binding="#{table}"
+							<h:dataTable binding="#{table}" 
+								rowsPerPageTemplate="5,10,15"
 								value="#{CompanyBean.DisplayCompanies()}" var="u"
 								class="table order text-center">
-								<h:column>
-									<f:facet name="header">   SYMBOL</f:facet>
-									<h:outputText value="#{u.getSymbol()}" />
+								<h:column style="color:orange">
+									<f:facet  name="header">   SYMBOL</f:facet>
+									<h:outputText style="color:orange" value="#{u.getSymbol()}" />
 								</h:column>
 								<h:column>
 									<f:facet name="header">Name</f:facet>

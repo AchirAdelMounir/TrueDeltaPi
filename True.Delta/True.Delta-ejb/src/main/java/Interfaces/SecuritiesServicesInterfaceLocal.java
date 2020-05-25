@@ -28,6 +28,7 @@ public interface SecuritiesServicesInterfaceLocal {
 	public List<Security> SecuritiesFinder(int Number,String operator,double value);
 	public double StandardDev(String Sym, String Period1, String Period2);
 	public double CoefOfDeviation(String Sym, String Period1, String Period2);
+	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2);
 	
 	
 

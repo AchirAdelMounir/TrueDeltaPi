@@ -12,7 +12,7 @@
 		<section class="banner-area">
 			<div class="banner-overlay">
 				<div class="banner-text text-center">
-					<img src="Assets/images/c.jpg" />
+					<img src="../../Assets/images/c.jpg" />
 					<div class="container">
 						<!-- Section Title Starts -->
 						<div class="row text-center">
@@ -28,7 +28,7 @@
 								<h:form>
 
 									<h:commandButton class="slider btn btn-primary"
-										value="Go to Companies" action="DisplayCompanies"></h:commandButton>
+										value="Go to Companies" action="/Template/Views/CompaniesViews/DisplayCompanies"></h:commandButton>
 
 								</h:form>
 								<!-- Breadcrumb Ends -->
@@ -63,6 +63,7 @@
 								<h6>
 									<h:outputText class="price" data-bw-theme="light"
 										value="#{SecurityBean.priceDifferencePercentage}">
+										<f:convertNumber  maxFractionDigits="5" />
 
 									</h:outputText>
 									%
@@ -95,11 +96,11 @@
 						</div>
 						<div class="col-md-3 col-lg-3">
                         <ul class="unstyled user">
-                            <li class="sign-in"><a href="login.html" class="btn btn-primary"><i class="fa fa-eye"></i> + To Watch List</a></li>
+                            <li class="sign-in"><h:form><h:commandLink><i class="fa fa-eye"></i>  To Watch List</h:commandLink></h:form></li>
                             <li class="sign-up"><h:form>
 
-							<h:commandButton class="btn btn-primary"
-								value="See History" action="AddCompany"><i class="fa fa-history"></i></h:commandButton>
+							<h:commandLink class="btn btn-primary"
+								 action="#{SecurityBean.DisplayWeeklyHistory()}"><i class="fa fa-history"></i> See History</h:commandLink>
 
 						</h:form></li>
                         </ul>

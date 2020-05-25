@@ -1,0 +1,234 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+		<script name="jquery/jquery.js" library="primefaces"></script>
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<img src="../../Assets/images/c.jpg" />
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title-head">
+									<h:outputText value="#{SecurityBean.symStock}" />
+									<span> Stocks Info</span>
+								</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	
+					<div class="col-md-7 col-lg-4">
+						<ul class="unstyled bitcoin-stats text-center">
+
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.coef}">
+										<f:convertNumber type="currency" maxFractionDigits="3" />
+									</h:outputText>
+								</h6> <span>Coef Of Deviation</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light" style="color:orange"
+										value="#{SecurityBean.volatility}">
+										<f:convertNumber type="currency" maxFractionDigits="3" />
+
+									</h:outputText>
+									
+								</h6> <span style="color:orange">Volatility</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText  class="price" data-bw-theme="light"
+										value="#{SecurityBean.sigma}">
+										<f:convertNumber type="currency" maxFractionDigits="3" />
+									</h:outputText>
+								</h6> <span>Standard Deviation</span>
+							</li>
+						</ul>
+				</div>
+			
+		<section class="faq">
+		
+
+			<div class="sidebar col-xs-12 col-md-4">
+				<!-- Latest Posts Widget Ends -->
+				<div class="widget recent-posts">
+					<h3 style="color: orange" class="widget-title">Customize your
+						search</h3>
+					<ul class="unstyled clearfix">
+						<!-- Recent Post Widget Starts -->
+						<li>
+							<div class="posts-thumb pull-left">
+								<a href="blog-post.html"> </a>
+							</div>
+							<div class="post-info">
+								<h4 class="entry-title">
+									<h:outputLink styleClass="outputText" id="fades" value="#">
+										<h:outputText value="Frequency" />
+										<p:tooltip id="toolTipFades" for="fades"
+											value="The text for tooltip" />
+									</h:outputLink>
+
+								</h4>
+								<h:form>
+									<li><h:selectOneMenu class="form-control"
+											value="#{SecurityBean.frequency}"
+											onselect="#{SecurityBean.DisplayCustomHistory()}">
+											<f:selectItem itemValue="1d" itemLabel="Daily" />
+
+											<f:selectItem itemValue="1wk" itemLabel="Weekly" />
+
+											<f:selectItem itemValue="1mo" itemLabel="Monthly" />
+
+
+											<p:ajax event="change" update="@this,s" />
+
+
+
+										</h:selectOneMenu></li>
+								</h:form>
+							</div>
+							<div class="clearfix"></div>
+
+
+
+
+							<div class="post-info">
+
+								<p class="post-meta">
+									<h:form>
+										<li>
+											<h4 class="entry-title">
+												<a href="blog-post-light.html">Start-Date </a>
+											</h4> <h:inputText t:type="date" class="form-control"
+												value="#{SecurityBean.d1}">
+												<f:convertDateTime style="backgroundcolor:black"
+													pattern="yyyy-MM-dd" />
+											</h:inputText>
+										</li>
+										<li>
+											<h4 class="entry-title">
+
+
+
+												<a href="blog-post-light.html">End-Date </a>
+											</h4> <h:inputText t:type="date" class="form-control"
+												value="#{SecurityBean.d2}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:inputText>
+										</li>
+										<h:commandLink class="slider btn btn-primary" value="Search "
+											action="#{SecurityBean.DisplayCustomHistory()}"><i class="fa fa-search" aria-hidden="true"></i>
+											</h:commandLink>
+											<h:commandLink class="slider btn btn-primary" value="Export To Excel " action="#{SecurityBean.DownloadExcel()}"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+</h:commandLink>
+									</h:form>
+								</p>
+							</div>
+
+
+						</li>
+						<!-- Recent Post Widget Ends -->
+						<!-- Recent Post Widget Starts -->
+
+						<!-- Recent Post Widget Ends -->
+					</ul>
+				</div>
+				<!-- Latest Posts Widget Ends -->
+				<!-- Tags Widget Starts -->
+				
+				<!-- Tags Widget Ends -->
+			</div>
+			<!-- Sidebar Ends -->
+
+
+
+			<!--Start section-->
+			<div class="container">
+				<div class="col-xs-12 col-md-8">
+
+					<!-- Purchased Products Starts -->
+					<div class="col-xs-12 table-responsive">
+						<h:panelGrid id="s">
+
+							<h:form>
+
+								<h:dataTable binding="#{table}" value="#{SecurityBean.ls}"
+									var="u" class="table order text-center">
+									<h:column>
+										<f:facet name="header">Date</f:facet>
+										<h:outputText style="color:orange" value="#{u.DATE}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">OPEN</f:facet>
+										<h:outputText value="#{u.open}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column>
+										<f:facet name="header">CLOSE</f:facet>
+										<h:outputText value="#{u.close}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column>
+										<f:facet name="header">HIGH</f:facet>
+										<h:outputText value="#{u.high}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column>
+										<f:facet style="text-align: center" name="header">LOW</f:facet>
+										<h:outputText value="#{u.low}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column>
+										<f:facet name="header">ADJ CLOSED</f:facet>
+										<h:outputText value="#{u.adj_Close}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column>
+										<f:facet name="header">VOLUME</f:facet>
+										<h:outputText value="#{u.volume}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+								</h:dataTable>
+							</h:form>
+						</h:panelGrid>
+
+					</div>
+					<!-- Cart Totals Ends -->
+				</div>
+				
+			</div>
+			
+		</section>
+		<!-- Section Shopping Cart Ends -->
+		<!-- Call To Action Section Starts -->
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

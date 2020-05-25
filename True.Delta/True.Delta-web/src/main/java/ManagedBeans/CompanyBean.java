@@ -5,30 +5,24 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+
 import java.util.Set;
 
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlInputText;
-import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.component.html.HtmlSelectManyCheckbox;
-import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.context.FacesContext;
+
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.ejb.EJB;
+import javax.faces.bean.SessionScoped;
 
 import Entities.*;
 import Services.*;
 
 @ManagedBean(name = "CompanyBean")
-@ApplicationScoped
+@SessionScoped
 
 public class CompanyBean implements Serializable {
 
@@ -83,7 +77,7 @@ public class CompanyBean implements Serializable {
 	private List<Company> Co;
 	private List<Company> Top;
 	private List<Company> LastS;
-	private String Value;
+	private String input;
 
 	public void Initialize() {
 		c.CompaniesInfoFinder();
@@ -135,29 +129,30 @@ public class CompanyBean implements Serializable {
 
 	}
 
-	public String DisplayTopLastNCompanies(String Input, int TopN) {
+	public String DisplayTopLastNCompaniesFirst(String Input, int TopN) {
 		Top = new ArrayList<Company>();
 		LastS = new ArrayList<Company>();
 		LastS = c.GetLastByInput(Input, TopN);
 		Top = c.GetTopByInput(Input, TopN);
-
 		return ("TopLastCompanies?faces-redirect=true");
+
+		
+	}
+	public void DisplayTopLastNCompanies() {
+		System.out.println(input);
+		Top = new ArrayList<Company>();
+		LastS = new ArrayList<Company>();
+		LastS = c.GetLastByInput(input, 4);
+		Top = c.GetTopByInput(input,4 );
+
+		
 	}
 
 	public List<Company> FindBy(String SearchField, String operator, Object o) {
 		return c.SearchByInput(SearchField, operator, o);
 	}
 
-	public String ajaxListener(AjaxBehaviorEvent event) throws AbortProcessingException {
-		Top = new ArrayList<Company>();
-		LastS = new ArrayList<Company>();
-		LastS = c.GetLastByInput(Value, 4);
-		Top = c.GetTopByInput(Value,4 );
-
-		return ("TopLastCompanies?faces-redirect=true");
-		
-
-	}
+	
 
 	public void clear() {
 		Symbol = "";
@@ -325,12 +320,13 @@ public class CompanyBean implements Serializable {
 		LastS = lastS;
 	}
 
-	public String getValue() {
-		return Value;
+
+	public String getInput() {
+		return input;
 	}
 
-	public void setValue(String value) {
-		Value = value;
+	public void setInput(String input) {
+		this.input = input;
 	}
 
 }

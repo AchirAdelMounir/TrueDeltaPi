@@ -3070,26 +3070,26 @@ section.shop-cart {
 }
 
 .shop-cart table.order thead tr {
-  background: #222;
-  color: #fff;
-  text-transform: uppercase;
+  background: #222 !important;
+  color: #fff !important;
+  text-transform: uppercase !important;
 }
 
 .shop-cart .table thead > tr > th {
-  padding: 20px 0;
-  font-size: 15px;
+  padding: 20px 0 !important;
+  font-size: 15px !important;
 }
 
 .shop-cart .table-responsive .table.order tr td {
-  vertical-align: middle;
+  vertical-align: middle !important;
   padding-top: 29px;
   padding-bottom: 29px;
   padding-left: 0;
 }
 
 .shop-cart .table h6 {
-  font-size: 18px;
-  color: #fff;
+  font-size: 18px !important;
+  color: #fff !important;
 }
 
 .shop-cart .table .icon-delete-product {

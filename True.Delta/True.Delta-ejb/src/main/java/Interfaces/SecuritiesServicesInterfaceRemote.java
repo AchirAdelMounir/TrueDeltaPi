@@ -31,6 +31,7 @@ public interface SecuritiesServicesInterfaceRemote {
 	public double StandardDev(String Sym, String Period1, String Period2);
 	public double CoefOfDeviation(String Sym, String Period1, String Period2);
 	public List<Security> GetLastByInput(String Input,int TopN);
+	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2);
 	
 
 }

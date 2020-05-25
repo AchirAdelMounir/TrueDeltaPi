@@ -1,9 +1,11 @@
 package ManagedBeans;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -14,6 +16,7 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,8 +54,12 @@ public class SecuritiyBean {
 	private Set<Flux> F;
 	private List<Stock> Ls;
 	private Stock Yesterdaystock;
-	double PriceDifference;
-	double PriceDifferencePercentage;
+	private double PriceDifference;
+	private double PriceDifferencePercentage;
+	private String Sym;
+	private String frequency;
+	private Date d1, d2;
+	private double volatility,sigma,coef;
 
 	public void AddSecurity(Security S) {
 		s.AddSecurity(S);
@@ -93,18 +100,17 @@ public class SecuritiyBean {
 	}
 
 	public void GetPriceInstantanly() {
-		
 
 		System.out.println(SymStock);
 		Price = s.getStockPriceInstantly(SymStock);
-		
+
 		final Calendar cal1 = Calendar.getInstance();
-		
+
 	}
-	public List<Stock> DisplayInfosStocks()
-	{
+
+	public List<Stock> DisplayInfosStocks() {
 		final Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -1);
+		cal.add(Calendar.DATE, -3);
 		final Calendar cal1 = Calendar.getInstance();
 		cal1.add(Calendar.DATE, 0);
 
@@ -116,38 +122,36 @@ public class SecuritiyBean {
 		Ls = s.StocksDownloader(SymStock, "1d", yes, tod);
 		cal1.add(Calendar.DATE, 0);
 
-	
-
 		return Ls;
 	}
 
 	public String Redirect() {
+
 		FacesContext fc = FacesContext.getCurrentInstance();
 		Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
 		SymStock = params.get("Symbol");
 		System.out.println(SymStock);
+
+		final Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -3);
 		final Calendar cal1 = Calendar.getInstance();
 		cal1.add(Calendar.DATE, 0);
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-
+		String yes = dateFormat.format(cal.getTime());
 		String tod = dateFormat.format(cal1.getTime());
-		List<Stock> ns = new ArrayList<Stock>();
-
-
-		cal1.add(Calendar.DATE, 0);
 		double price = s.getStockPriceInstantly(SymStock);
 
-	
-		List<Stock>Ls1 = s.StocksDownloader(SymStock, "1d", tod, tod);
-		Yesterdaystock=Ls1.get(0);
-		PriceDifference=price-Yesterdaystock.getAdj_Close();
-		PriceDifferencePercentage=(PriceDifference/price)*100;
-		return ("StockDisplay?faces-redirect=true");
+		List<Stock> Ls1 = s.StocksDownloader(SymStock, "1d", yes, tod);
+		Yesterdaystock = Ls1.get(0);
+
+		PriceDifference = price - Yesterdaystock.getAdj_Close();
+		PriceDifferencePercentage = (PriceDifference / price) * 100;
+		return ("/Template/Views/SecuritiesViews/StockDisplay?faces-redirect=true");
 	}
 
-	public List<Stock> DisplayWeeklyHistory()
-	{
+	public String DisplayWeeklyHistory() {
 		final Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DATE, -7);
 		final Calendar cal1 = Calendar.getInstance();
@@ -157,9 +161,106 @@ public class SecuritiyBean {
 
 		String yes = dateFormat.format(cal.getTime());
 		String tod = dateFormat.format(cal1.getTime());
+		System.out.println(SymStock);
 		Ls = s.StocksDownloader(SymStock, "1d", yes, tod);
-		return Ls;
+		return ("/Template/Views/SecuritiesViews/StockHistory?faces-redirect=true");
+
+	}
+
+	public String DisplayCustomHistory() {
+		if ((d1 == null) || (d2 == null)) {
+			String yes, tod;
+			if (frequency != "1mo") {
+				final Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, -7);
+				final Calendar cal1 = Calendar.getInstance();
+				cal1.add(Calendar.DATE, 0);
+
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				yes = dateFormat.format(cal.getTime());
+				tod = dateFormat.format(cal1.getTime());
+
+			} else {
+				final Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, -15);
+				final Calendar cal1 = Calendar.getInstance();
+				cal1.add(Calendar.DATE, 0);
+
+				DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				yes = dateFormat.format(cal.getTime());
+				tod = dateFormat.format(cal1.getTime());
+			}
+
+			Ls = s.StocksDownloader(SymStock, frequency, yes, tod);
+			sigma=s.StandardDev(SymStock, yes, tod);
+			volatility=s.VolatilityCalculator(SymStock, yes, tod);
+			coef=s.CoefOfDeviation(SymStock, yes, tod);
+			return ("/Template/Views/SecuritiesViews/StockHistory?faces-redirect=true");
+		} else {
+			String yes, tod;
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			yes = dateFormat.format(d1);
+			tod = dateFormat.format(d2);
+			System.out.println(yes + "pl" + tod);
+
+			if (frequency == null) {
+				Ls = s.StocksDownloader(SymStock, "1d", yes, tod);
+				sigma=s.StandardDev(SymStock, yes, tod);
+				volatility=s.VolatilityCalculator(SymStock, yes, tod);
+				coef=s.CoefOfDeviation(SymStock, yes, tod);
+			} else {
+				Ls = s.StocksDownloader(SymStock, frequency, yes, tod);
+				sigma=s.StandardDev(SymStock, yes, tod);
+				volatility=s.VolatilityCalculator(SymStock, yes, tod);
+				coef=s.CoefOfDeviation(SymStock, yes, tod);
+			}
+
+			return ("/Template/Views/SecuritiesViews/StockHistory?faces-redirect=true");
+		}
+
+	}
+
+	public String DisplayByDate() {
+		String yes, tod;
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		yes = dateFormat.format(d1);
+		tod = dateFormat.format(d2);
+		System.out.println(yes + "pl" + tod);
+
+		Ls = s.StocksDownloader(SymStock, "1d", yes, tod);
+		return ("/Template/Views/SecuritiesViews/StockHistory?faces-redirect=true");
+
+	}
+
+	public void DownloadExcel() throws IOException {
+		String yes, tod;
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		if((d1==null)||(d2==null))
+		{
+			final Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, -7);
+			final Calendar cal1 = Calendar.getInstance();
+			cal1.add(Calendar.DATE, 0);
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			yes = dateFormat.format(cal.getTime());
+			tod = dateFormat.format(cal1.getTime());
+			externalContext.redirect(s.StockExcelFinder(SymStock, frequency, yes, tod));
+		}
+		else
+		{
+			
 		
+		
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		yes = dateFormat.format(d1);
+		tod = dateFormat.format(d2);
+		
+		externalContext.redirect(s.StockExcelFinder(SymStock, frequency, yes, tod));
+		}
 	}
 
 	private int number = 100;
@@ -267,6 +368,58 @@ public class SecuritiyBean {
 
 	public void setPriceDifferencePercentage(double priceDifferencePercentage) {
 		PriceDifferencePercentage = priceDifferencePercentage;
+	}
+
+	public String getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(String frequency) {
+		this.frequency = frequency;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public Date getD1() {
+		return d1;
+	}
+
+	public void setD1(Date d1) {
+		this.d1 = d1;
+	}
+
+	public Date getD2() {
+		return d2;
+	}
+
+	public void setD2(Date d2) {
+		this.d2 = d2;
+	}
+
+	public double getVolatility() {
+		return volatility;
+	}
+
+	public void setVolatility(double volatility) {
+		this.volatility = volatility;
+	}
+
+	public double getSigma() {
+		return sigma;
+	}
+
+	public void setSigma(double sigma) {
+		this.sigma = sigma;
+	}
+
+	public double getCoef() {
+		return coef;
+	}
+
+	public void setCoef(double coef) {
+		this.coef = coef;
 	}
 
 }

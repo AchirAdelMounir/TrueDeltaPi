@@ -11,7 +11,7 @@
 		<section class="banner-area">
 			<div class="banner-overlay">
 				<div class="banner-text text-center">
-					<img src="Assets/images/c.jpg" />
+					<img src="../../Assets/images/c.jpg" />
 					<div class="container">
 						<!-- Section Title Starts -->
 						<div class="row text-center">
@@ -28,8 +28,8 @@
 									<br />
 									<h:form>
 									<li><h:selectOneMenu class="form-control"
-											value="#{CompanyBean.value}"  onchange="submit()">
-											<f:selectItem itemValue="Market_Cap_E"
+											value="#{CompanyBean.input}"  onselect="#{CompanyBean.DisplayTopLastNCompanies()}">
+											<f:selectItem itemValue="Market_Cap_E" 
 												itemLabel="Market Cap" />
 											
 											<f:selectItem itemValue="BITDA"
@@ -43,7 +43,8 @@
 												
 												<f:selectItem itemValue="Year_Week_High"
 												itemLabel="52_Weeks_High" />
-												<f:ajax event="click" listener="#{CompanyBean.ajaxListener}"/>
+												<p:ajax event="change" update="@this,p1,p2" />
+												
 												
 											
 										</h:selectOneMenu></li></h:form>
@@ -70,6 +71,7 @@
 					<div class="pricing-container">
 						<!-- Pricing Tables Starts -->
 						<ul class="pricing-list bounce-invert">
+						<h:panelGroup id="p1">
 							<ui:repeat value="#{CompanyBean.top}" var="item">
 								<li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 									<ul class="pricing-wrapper">
@@ -101,6 +103,7 @@
 									</ul>
 								</li>
 							</ui:repeat>
+							</h:panelGroup>
 
 						</ul>
 					</div>
@@ -111,6 +114,7 @@
 					<div class="pricing-container">
 						<!-- Pricing Tables Starts -->
 						<ul class="pricing-list bounce-invert">
+						<h:panelGroup id="p2">
 							<ui:repeat value="#{CompanyBean.lastS}" var="item">
 								<li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
 									<ul class="pricing-wrapper">
@@ -142,6 +146,7 @@
 									</ul>
 								</li>
 							</ui:repeat>
+							</h:panelGroup>
 						</ul>
 					</div>
 				</div>

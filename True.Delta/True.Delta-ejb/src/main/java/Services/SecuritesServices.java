@@ -151,6 +151,23 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		}
 		return Ls;
 	}
+	@Override
+	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2)
+	{
+			
+			/*
+			 * Period1 = "2019-05-05"; Period2 = "2020-02-05";
+			 */
+			List<Stock> Ls = new ArrayList<>();
+			Date localDate1 = Date.valueOf(Period1);
+			Date localDate2 = Date.valueOf(Period2);
+			long p1 = localDate1.getTime() / 1000;
+
+			long p2 = localDate2.getTime() / 1000;
+			String url = "https://query1.finance.yahoo.com/v7/finance/download/" + Sym + "?period1=" + p1 + "&period2=" + p2
+					+ "&interval="+frequency+"&events=history";
+			return url;
+	}
 
 	@Override
 	public List<Stock> StocksDownloader(String Sym,String frequency, String Period1, String Period2) {		
