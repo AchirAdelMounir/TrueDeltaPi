@@ -1,6 +1,7 @@
 package Services;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
@@ -19,10 +20,12 @@ import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import Entities.Bond;
 import Entities.Company;
+import Entities.Portfolio;
 import Entities.Security;
 import Entities.Stock;
 import Interfaces.SecuritiesServicesInterfaceLocal;
@@ -62,6 +65,23 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 			return 0;
 
 	}
+	@Override
+	public void AddStock(Company c,Stock s) {
+
+				
+			Security st = new Security();
+			st.setCompany(c);
+			st.setS(s);
+			
+			System.out.println(c.getSecurities());
+			
+			em.persist(st);
+			
+			
+	
+
+	}
+	
 	
 
 	@Override
@@ -350,6 +370,41 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	
 		
 	}
+
+//	public void TreeClassifier(String[] args) throws Exception {
+//	    // load data
+//	    ArffLoader loader = new ArffLoader();
+//	    loader.setFile(new File(args[0]));
+//	    Instances structure = loader.getStructure();
+//	    structure.setClassIndex(structure.numAttributes() - 1);
+//
+//	    // train NaiveBayes
+//	    NaiveBayesUpdateable nb = new NaiveBayesUpdateable();
+//	    nb.buildClassifier(structure);
+//	    Instance current;
+//	    while ((current = loader.getNextInstance(structure)) != null)
+//	      nb.updateClassifier(current);
+//
+//	    // output generated model
+//	    System.out.println(nb);
+//	  }
+
+
+
+	@Override
+	public List<Security> DisplayStock() {
+		
+		Query query=em.createQuery("select s from Security s");
+		return query.getResultList();
+		
+	}
+	
+	@Override
+	public int getIdSecurities(Stock s) {
+	return 0;
+	}
+	
+
 	
 
 }

@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Null;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -96,7 +97,7 @@ public class User implements Serializable {
 	//private Set<Complain> Articles;
 	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Contract> Contratcs;
-	@OneToOne 
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}) 
 	private Portfolio portfolio;
 
 	public AssetManager getAsset_manager() {

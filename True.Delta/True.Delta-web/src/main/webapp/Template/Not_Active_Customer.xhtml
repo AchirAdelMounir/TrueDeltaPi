@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="TemplateReg.xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:param name="page_name" value="Not_Active_Customer" />
+	
+
+
+	<ui:define name="content">
+	
+	<body>
+    <!-- SVG Preloader Starts -->
+    
+    <!-- SVG Preloader Ends -->
+    <!-- Wrapper Starts -->
+    <div class="wrapper">
+        <div class="container-fluid error">
+			<div>
+				<div class="text-center">
+					<!-- Logo Starts -->
+				
+					<!-- Logo Ends -->
+					<!-- Error 503 Content Starts -->
+					<div class="big-404" style="    font-size: 220px;
+    line-height: 220px;
+    color: #999;
+    font-weight: 300;
+    margin-top: 150px;">503</div>
+					<h3 style="font-size: 36px;
+    line-height: 36px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}">Oh no ! ... Account not active</h3>
+                    <p style="    color: #999;
+    font-size: 15px;
+    padding: 20px 0;
+    text-transform: uppercase;
+    margin: 0 auto;
+    max-width: 530px;">Your Account is not active , Please contact the administrator to get more information</p>
+    <h:form>
+					
+	<h:commandButton value="Go back" class="btn btn-primary" action="#{UserBean.gobacktoregister()}"></h:commandButton>
+					
+					<!-- Error 503 Content Starts -->
+			</h:form>
+				</div>
+			</div>
+		</div>
+        <!-- Template JS Files -->
+        
+
+    </div>
+    <!-- Wrapper Ends -->
+
+
+</body>
+	</ui:define>
+	
+	
+	</ui:composition>

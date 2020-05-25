@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:param name="page_name" value="Profile Customer" />
+	
+
+
+	<ui:define name="content">
+
+	<div  style="margin: auto;
+  width: 60%;
+
+  padding: 10px;">
+				<!-- Logo Starts -->
+				
+				<!-- Logo Ends -->
+				<div class="form-container">
+					<div>
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<h2 class="title-head hidden-xs">Update Your <span>Account</span></h2>
+							 <p class="info-form">Here you can update your Email or Password !</p>
+							 
+						</div>
+						<!-- Section Title Ends -->
+						<!-- Form Starts -->
+						<h:form>
+						<h:outputLabel value="#{UserBean.t}"></h:outputLabel>
+							<!-- Input Field Starts -->
+							<div class="form-group">
+								 
+								<h:inputText id="firstname" class="form-control" style="color: Black;" a:placeholder="FIRST NAME"  disabled="true" value="#{UserBean.firstname}" required="true" requiredMessage="Firstname Is Required"/>
+								<h:messages for="firstname" styleClass="errorBlock"/>
+								
+							</div>
+
+							<div class="form-group">
+								<h:inputText id="last" class="form-control" style="color: Black;" a:placeholder="LAST NAME" disabled="true" value="#{UserBean.lastname}" required="true" requiredMessage="Lastname Is Required"></h:inputText>
+								<h:messages for="last" styleClass="errorBlock"/>
+							</div>
+					<div class="form-group">
+							 <h:inputText id = "dateInput" style="color: Black;" value = "#{UserBean.birthdate}" disabled="true" class="form-control" a:placeholder="BIRTHDATE (dd-mm-yyyy)"
+           						 label = "Date"  requiredMessage="Date of Birth Is Required (dd-mm-yyyy)" required="true">
+          					  <f:convertDateTime pattern = "dd-mm-yyyy"/>
+         					</h:inputText>
+         					<h:messages for="dateInput" styleClass="errorBlock"/>
+							</div>	
+							
+							<div class="form-group">
+								<h:inputText id="log" style="color: Black;" class="form-control" a:placeholder="USER LOGIN" disabled="true" value="#{UserBean.login}" required="true" requiredMessage="Login Is Required">
+									
+								
+								</h:inputText>
+								<h:messages for="log" styleClass="errorBlock"/>
+							</div>
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group">
+								<h:inputText id="mail"  requiredMessage="Email Is Required" class="form-control" a:placeholder="EMAIL" value="#{UserBean.mail}" required="true" >
+								 <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+								</h:inputText>
+								<h:messages for="mail" styleClass="errorBlock"/>
+							</div>
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group">
+									<h:inputSecret id="pass" requiredMessage="Password Is Required" class="form-control" a:placeholder="PASSWORD" value="#{UserBean.pass}" required="true"></h:inputSecret>
+									<h:messages for="pass" styleClass="errorBlock"/>
+							</div>
+							<div class="form-group">
+								
+							</div>
+							<!-- Input Field Ends -->
+							<!-- Submit Form Button Starts -->
+							<div class="form-group">
+								
+								<h:commandButton value="Update Account" class="btn btn-primary" action="#{UserBean.editUpdate()}"></h:commandButton>
+								</div>
+								
+							<!-- Submit Form Button Ends -->
+						
+								
+							
+						</h:form>
+						<!-- Form Ends -->
+					</div>
+				</div>
+				<!-- Copyright Text Starts -->
+				
+				<!-- Copyright Text Ends -->
+			</div>	
+	
+	
+	</ui:define>
+	
+	
+	</ui:composition>

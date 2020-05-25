@@ -1,5 +1,6 @@
 package Entities;
 import java.io.Serializable;
+
 import java.sql.Date;
 import java.util.Comparator;
 
@@ -18,12 +19,14 @@ public class Bond implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="COUPON")
-	private double Coupon;
+	@Column(nullable=true,name="COUPON")
+	private double Coupon ;
+
 	@Column(name="PRICE")
-	private double Price;
+	private double Price ;
 	@Column(name="YIELD")
-	private double Yield;
+
+	private double Yield ;
 	@Column(name="MATURITYDATE")
 	private Date MaturityDate;
 	

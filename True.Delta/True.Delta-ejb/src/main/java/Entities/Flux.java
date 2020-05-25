@@ -2,6 +2,7 @@ package Entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
@@ -18,16 +19,16 @@ public class Flux implements Serializable {
 	@EmbeddedId
 	PortfolioSecurityKey id;
  
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @MapsId("PortfolioId")
-    @JoinColumn(name = "Portfolio_id")
+    @JoinColumn(name = "Id_Portfolio")
     Portfolio P;
  
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @MapsId("SecurityId")
-    @JoinColumn(name = "Security_id")
+    @JoinColumn(name = "Id_Security")
     Security S;
-    @Column(name="volume")
+    @Column(name="NbrOfStock")
     int volume;
     @Column(name="poids")
     float poids;

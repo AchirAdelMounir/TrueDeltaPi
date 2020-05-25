@@ -45,6 +45,24 @@ public class PortfolioController {
         return Response.ok(service.DisplayPortfolio(id)).build();
     }
 	
+	
+	@GET
+	@Path("DisplaySecurities")
+    public Response DisplayPortfolios() {
+        return Response.ok(service.DisplayPortfolios()).build();
+    }
+	
+	
+	
+	@DELETE
+	@Path("deletePortfolio/{id}")
+    public Response delete(@PathParam("id") int id) {
+        
+        service.DeletePortfolio(id);
+
+        return Response.ok().build();
+    }
+	
 	@POST
 	@Path("create")
     public Response CreatePortfolio(Portfolio p) {
@@ -57,20 +75,13 @@ public class PortfolioController {
 	
 	@PUT
     @Path("update")
-    public Response UpdateSecurity(Portfolio p) {
+    public Response UpdatePortfolio(Portfolio p) {
 		service.EditPortfolio(p);
         return Response.ok().build();
     }
 	
 	
-	@DELETE
-	@Path("deletePortfolio/{id}")
-    public Response delete(@PathParam("id") int id) {
-        
-        service.DeletePortfolio(id);
-
-        return Response.ok().build();
-    }
+	
 	
 	
 	

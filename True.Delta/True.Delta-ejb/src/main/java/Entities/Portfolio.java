@@ -51,11 +51,11 @@ public class Portfolio implements Serializable{
 	private float Ratio;
 
 	
-	@OneToOne(mappedBy="Portfolio")
+	@OneToOne(cascade = {CascadeType.MERGE},mappedBy="Portfolio")
 	private Contract Contract;
 	@OneToMany(cascade = {CascadeType.MERGE},mappedBy="P")
 	Set<Flux> F;
-	@OneToOne(mappedBy="portfolio")
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},mappedBy="portfolio")
 	private User User;
 
 	

@@ -1,7 +1,6 @@
 package Entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import Enumerations.*;
@@ -18,6 +17,11 @@ import javax.persistence.Enumerated;
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
+
+	
+	@Column(name = "Date_Of_Birth")
+	private Date DateB;
+
 
 
 
@@ -60,6 +64,21 @@ public class Customer implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private Active_account_Type active; // 1 s'il est actif, 0 s'il ne l'est pas
 	
+
+
+	
+	
+	
+
+	public Date getDateB() {
+		return DateB;
+	}
+
+
+	public void setDateB(Date dateB) {
+		DateB = dateB;
+	}
+
 
 	public int getSeniority() {
 		return Seniority;
@@ -197,17 +216,11 @@ public class Customer implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Customer [ Profession=" + Profession + ", typeofcontract=" + typeofcontract
+		return "Customer [DateB=" + DateB + ", Profession=" + Profession + ", typeofcontract=" + typeofcontract
 				+ ", Seniority=" + Seniority + ", Residency_Status=" + Residency_Status + ", Resource=" + Resource
 				+ ", bank=" + bank + ", Credit=" + Credit + ", NetIncome=" + NetIncome + ", Refund=" + Refund
 				+ ", Repayment=" + Repayment + ", Risk=" + Risk + ", score=" + score + ", active=" + active + "]";
 
-	}
-
-
-	public LocalDateTime getDateB() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

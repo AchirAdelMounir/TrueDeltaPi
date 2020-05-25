@@ -1,5 +1,6 @@
 package Interfaces;
 import javax.ejb.Local;
+import javax.persistence.Query;
 
 import Entities.*;
 
@@ -30,6 +31,8 @@ public interface SecuritiesServicesInterfaceLocal {
 	public double CoefOfDeviation(String Sym, String Period1, String Period2);
 	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2);
 	
-	
+	public List<Security> DisplayStock();
+	public void AddStock(Company c,Stock s);
+	public int getIdSecurities(Stock s);
 
 }

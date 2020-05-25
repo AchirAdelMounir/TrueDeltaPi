@@ -1,8 +1,10 @@
 package Interfaces;
 import javax.ejb.Remote;
+import javax.persistence.Query;
 
 import Entities.Bond;
 import Entities.Company;
+import Entities.Portfolio;
 import Entities.Security;
 import Entities.Stock;
 
@@ -33,5 +35,8 @@ public interface SecuritiesServicesInterfaceRemote {
 	public List<Security> GetLastByInput(String Input,int TopN);
 	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2);
 	
+	public List<Security> DisplayStock();
+	public void AddStock(Company c,Stock s);
+	public int getIdSecurities(Stock s);
 
 }

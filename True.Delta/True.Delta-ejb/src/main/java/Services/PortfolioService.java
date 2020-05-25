@@ -1,15 +1,24 @@
 package Services;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+
 import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.ejb.EJB;
 import javax.ejb.FinderException;
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,14 +36,15 @@ import Enumerations.*;
 
 @Stateless
 
-
+@LocalBean
 public class PortfolioService implements PortfolioServiceLocal, PortfolioServiceRemote {
 
 
 
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
-
+	
+	
 	SecuritesServices ss = new SecuritesServices();
 	String Period1= "2019-01-02";
 	String Period2 = "2019-01-04";
@@ -97,88 +107,118 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 	UserService us = new UserService();
 
 	public List<Stock> stocks(){
-		List<String> symbols = new ArrayList<String>();
-
-		symbols.add("AAPL");
-		symbols.add("NFLX");
-		symbols.add("GILD");
-		symbols.add("BBY");
-		symbols.add("MSFT");
-
+		
 		//return symbols;
 		List<Stock> allStock = new ArrayList<Stock>();
-		for (String symb : symbols) {
 
-			List<Stock> a = ss.StocksDownloader(symb,"1d", Period1, Period2);
+	
+			List<Security> a = ss.DisplayStock();
 
-			for (Stock stock : a) {
-				System.out.println("symb is ;"+symb+" stock is  "+stock  );
-				allStock.add(stock);
+			for (Security security : a) {
+				System.out.println(" stock is  "+security.getS());
+
 			}
+				
+		
 			
-			
+			return allStock;
 		}
-		return allStock;
-	}
 
+		
+	
+		public List<Security> security(){
+		
+			List<Security> a = ss.DisplayStock();
+		
+			return a;
+		}
+		
 
 	
 
 	@Override
-	public float moneyBasdPortfoio(float money, Portfolio p) {
+	public List<Stock> Type1Portfolio(float money,List<Stock> ls) {
 
-
-		List<Stock> chosenStocks = new ArrayList<Stock>();
-		float sum =money;
+		List<Stock> chosenStock = new ArrayList<Stock>();
+		
+		boolean verif=true;
+		while(verif)
 		{
-			//float vol=0;
-
-			int i=0;
-			while (sum>=money && i<stocks().size()) 
-			{	
-				if(stocks().get(i).getClose()>=money)
+			
+			for (Stock stock : ls) {
+				
+				if(stock.getClose()<=money) {
+				if(stock.getVolume()>0)
 				{
-					chosenStocks.add(stocks().get(i));
-	                sum+= stocks().get(i).getClose();
+					money-=stock.getClose();
+					chosenStock.add(stock);
+					stock.setVolume(stock.getVolume()-1);
 					
 				}
-				i++;
+				}
+				else
+				{
+					verif=false;
+				}
+				
 			}
-
-			System.out.println("size == " +chosenStocks.size());
-			System.out.println("sum == " +sum);
-
-            double Mean=chosenStocks.stream().mapToDouble(e->e.getClose()).average().getAsDouble();
-			System.out.println("Mean"+Mean);
-			double PeriodDeviation=0;
-			double Var=0;
-			double Racine=0;
-
-			for(Stock i1 : chosenStocks)
-			{
-
-				Racine=(i1.getClose()-Mean);
-				PeriodDeviation+=Math.pow((i1.getClose()-Mean),2);
-
-
-			}
-			float vol =(float) (PeriodDeviation/(chosenStocks.stream().count()-1));
-
 			
-			p.setReturns(Math.round(Mean));
-			p.setVolatility(Math.round(vol));
-			p.setPrice(Math.round(sum));
-			p.setRatio((float)(Mean/vol));
-			AddPortfolio(p);
-			return  vol;
-
-
-
 
 		}
-
-
+	
+		
+		
+		
+		return chosenStock;
+		
 	}
+	
+	@Override
+	public List<Stock> Type2ReturnsPortfolio(float returns, List<Stock> ls) {
+List<Stock> chosenStock = new ArrayList<Stock>();
+
+
+
+	Set<Stock> set = new LinkedHashSet<>();
+	set.addAll(ls);
+	
+		
+
+		return chosenStock;
+	}
+	
+	
+	@Override
+	public List<Stock> Type2VolPortfolio(float vol,List<Stock> ls) {
+		
+		List<Stock> chosenStock = new ArrayList<Stock>();
+		
+		
+		
+		
+			
+			for (Stock stock : ls) {
+				
+					for (int i = 0; i < stock.getVolume(); i++) {
+						
+						chosenStock.add(stock);
+					}
+				}
+			
+			
+			
+			return chosenStock;
+				
+		}
+			
+		
+
+		
+		
+		
+		
+	
+
 
 	@Override
 	public void volatilityBasedPortfolio(float maxVol,Portfolio p) {
@@ -265,5 +305,10 @@ public class PortfolioService implements PortfolioServiceLocal, PortfolioService
 		return Var;
 	}
 
+	
+
+	
 
 }
+
+
