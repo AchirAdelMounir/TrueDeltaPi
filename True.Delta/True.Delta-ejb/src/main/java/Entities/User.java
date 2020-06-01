@@ -91,6 +91,8 @@ public class User implements Serializable {
 	
 	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Feedback> feedbacks;
+	@OneToOne
+	private Watchlist w;
 	@OneToMany(cascade = {CascadeType.MERGE},fetch = FetchType.EAGER,mappedBy="user")
 	private Set<Complain> Complains;
 	//@OneToMany(mappedBy="user")

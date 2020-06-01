@@ -4,7 +4,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="Template.xhtml">
+	xmlns:ct="http://www.chartistjsf.org/charts"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" template="Template.xhtml">
 
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
@@ -12,10 +13,12 @@
 		<section class="banner-area">
 			<div class="banner-overlay">
 				<div class="banner-text text-center">
-					<img src="../../Assets/images/c.jpg" />
+					<img width="1920" height="320" src="../../Assets/images/c.jpg" />
 					<div class="container">
 						<!-- Section Title Starts -->
 						<div class="row text-center">
+
+
 							<div class="col-xs-12">
 								<!-- Title Starts -->
 								<h2 class="title-head">
@@ -28,7 +31,8 @@
 								<h:form>
 
 									<h:commandButton class="slider btn btn-primary"
-										value="Go to Companies" action="/Template/Views/CompaniesViews/DisplayCompanies"></h:commandButton>
+										value="Go to Companies"
+										action="/Template/Views/CompaniesViews/DisplayCompanies"></h:commandButton>
 
 								</h:form>
 								<!-- Breadcrumb Ends -->
@@ -41,14 +45,18 @@
 		</section>
 
 		<section class="contact">
-				<div class="container-fluid">
-				 
-					<div class="row" style="background-color: #232323">
-					
-					<div class="main-logo col-xs-8 col-md-1 col-md-2 col-lg-2 hidden-xs">
-                        <h4 style="color:white">#{SecurityBean.symStock} <span style="color:orange">FROM NASDAQ</span></h4>
-                    </div>
-                    <div class="col-md-7 col-lg-7">
+			<div class="container-fluid">
+
+				<div class="row" style="background-color: #232323">
+
+					<div
+						class="main-logo col-xs-8 col-md-1 col-md-2 col-lg-2 hidden-xs">
+						<h4 style="color: white">
+							#{SecurityBean.symStock} <span style="color: orange">FROM
+								NASDAQ</span>
+						</h4>
+					</div>
+					<div class="col-md-7 col-lg-7">
 						<ul class="unstyled bitcoin-stats text-center">
 
 							<li>
@@ -63,7 +71,7 @@
 								<h6>
 									<h:outputText class="price" data-bw-theme="light"
 										value="#{SecurityBean.priceDifferencePercentage}">
-										<f:convertNumber  maxFractionDigits="5" />
+										<f:convertNumber maxFractionDigits="5" />
 
 									</h:outputText>
 									%
@@ -93,22 +101,43 @@
 								</h6> <span>Live price</span>
 							</li>
 						</ul>
-						</div>
-						<div class="col-md-3 col-lg-3">
-                        <ul class="unstyled user">
-                            <li class="sign-in"><h:form><h:commandLink><i class="fa fa-eye"></i>  To Watch List</h:commandLink></h:form></li>
-                            <li class="sign-up"><h:form>
+					</div>
+					<div class="col-md-3 col-lg-3">
+						<ul class="unstyled user">
+							<c:if test="#{UserBean.u==null}">
+							</c:if>
+							<c:if test="#{UserBean.u!=null}">
+								<c:if test="#{SecurityBean.inWishlist}">
+									<li class="sign-in"><h:form>
+											<h:commandLink action="#{SecurityBean.SeeWatchList()}">
+												<i class="fa fa-eye"></i> Already in your WL </h:commandLink>
+										</h:form></li>
 
-							<h:commandLink class="btn btn-primary"
-								 action="#{SecurityBean.DisplayWeeklyHistory()}"><i class="fa fa-history"></i> See History</h:commandLink>
+								</c:if>
+								<c:if test="#{not SecurityBean.inWishlist}">
+									<li class="sign-in"><h:form>
+											<h:commandLink action="#{SecurityBean.AddToWatchList()}">
+												<i class="fa fa-eye"></i>  To Watch List</h:commandLink>
+										</h:form></li>
 
-						</h:form></li>
-                        </ul>
-                    </div>
+
+
+								</c:if>
+							</c:if>
+
+							<li class="sign-up"><h:form>
+
+									<h:commandLink class="btn btn-primary"
+										action="#{SecurityBean.DisplayWeeklyHistory()}">
+										<i class="fa fa-history"></i> See History</h:commandLink>
+
+								</h:form></li>
+						</ul>
 					</div>
 				</div>
-				
-			
+			</div>
+
+
 
 
 			<div class="container-fluid">
@@ -240,16 +269,20 @@
 				<!-- Quote Ends -->
 				<!-- Chart Starts -->
 				<br /> <br /> <br /> <br /> <br />
-				<div class="col-md-6 bg-grey-chart">
-					<div class="chart-widget dark-chart chart-1">
-						<div>
-							<div class="btcwdgt-chart" data-bw-theme="dark"></div>
-
-						</div>
+				<div class="col-md-6 bg-grey-chart" style="background-color: orange">
+					<div class="col-md-6 bg-grey-chart"
+						style="width: 800px; height: 800px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+						<ct:chart id="lineChart" type="line"
+							model="#{SecurityBean.lineModel}" style="width: 800px; height: 600px;">
+							<p:ajax event="itemSelect" listener="#{SecurityBean.itemSelect}"
+								update="lineChartMessage" />
+						</ct:chart>
 					</div>
+					<h:message id="lineChartMessage" for="lineChart" showDetail="true" />
 				</div>
-				<!-- Chart Ends -->
 			</div>
+			<!-- Chart Ends -->
+
 
 		</section>
 

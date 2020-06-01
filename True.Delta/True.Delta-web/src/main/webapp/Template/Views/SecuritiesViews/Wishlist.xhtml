@@ -1,0 +1,194 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+
+		
+        <!-- Banner Area Ends -->
+        <!-- Section FAQ Starts -->
+        <section class="faq">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-8">
+                        <!-- Panel Group Starts -->
+                        <div class="panel-group" id="accordion">
+                        <ui:repeat value="#{SecurityBean.w}" var="item">
+                            <!-- Panel Starts -->
+                            <div class="panel panel-default">
+                                <!-- Panel Heading Starts -->
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse#{item.id}">
+							#{item.companies[0].symbol}</a>
+                                    </h4>
+                                </div>
+                                <!-- Panel Heading Ends -->
+                                <!-- Panel Content Starts -->
+                                <div id="collapse#{item.id}" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                    <ul class="unstyled bitcoin-stats text-center">
+
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{item.companies[0].name}">
+										
+									</h:outputText>
+								</h6> <span>Full  Name</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{item.companies[0].price}">
+										<f:convertNumber type="currency"  maxFractionDigits="5" />
+
+									</h:outputText>
+									
+								</h6> <span>Price Average</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{item.companies[0].year_Week_Low}">
+										<f:convertNumber type="currency" maxFractionDigits="5" />
+									</h:outputText>
+								</h6> <span>Highest price</span>
+							</li>
+
+							<li>
+								<h6>
+									<h:form>
+										<h:outputText style="color:orange" id="txt_count"
+											class="price" data-bw-theme="light"
+											value="#{item.companies[0].year_Week_High}">
+											<f:convertNumber type="currency" maxFractionDigits="5" />
+										</h:outputText>
+										<!--  <p:poll interval="3"
+								listener="#{SecurityBean.GetPriceInstantanly()}"
+								update="txt_count" />-->
+									</h:form>
+								</h6> <span>Lowest price</span>
+							</li>
+							<li>
+							<h:form>
+
+									<h:commandLink class="slider btn btn-primary"
+										action="#{SecurityBean.DisplayWeeklyHistory(item.companies[0].symbol)}">
+										<i class="fa fa-history"></i> See History</h:commandLink>
+
+								</h:form>
+								</li>
+						</ul>
+						
+						
+							
+						
+					
+						</div>
+						
+                                </div>
+                                <!-- Panel Content Starts -->
+                            </div>
+                            </ui:repeat>
+                            <!-- Panel Ends -->
+                            <!-- Panel Starts -->
+               
+                            <!-- Panel Ends -->
+                        </div>
+                        <!-- Panel Group Ends -->
+                    </div>
+					<!-- Sidebar Starts -->
+				<div class="sidebar col-xs-12 col-md-4">
+					<!-- Latest Posts Widget Ends -->
+					<div class="widget recent-posts">
+						<h3 class="widget-title">Recent Blog Posts</h3>
+						<ul class="unstyled clearfix">
+						<!-- Recent Post Widget Starts -->
+						<li>
+							<div class="posts-thumb pull-left"> 
+								<a href="blog-post.html">
+									<img alt="img" src="images/blog/blog-post-small-1.jpg"/>
+								</a>
+							</div>
+							<div class="post-info">
+								<h4 class="entry-title">
+									<a href="blog-post.html">Risks  Rewards Of Investing In Bitcoin</a>
+								</h4>
+								<p class="post-meta">
+									<span class="post-date"><i class="fa fa-clock-o"></i> January 19, 2017</span>
+								</p>
+							</div>
+							<div class="clearfix"></div>
+						</li>
+						<!-- Recent Post Widget Ends -->
+						<!-- Recent Post Widget Starts -->
+						<li>
+							<div class="posts-thumb pull-left"> 
+								<a href="blog-post-light.html">
+									<img alt="img" src="images/blog/blog-post-small-2.jpg"/>
+								</a>
+							</div>
+							<div class="post-info">
+								<h4 class="entry-title">
+									<a href="blog-post-light.html">Cryptocurrency - Who Are Involved With It?</a>
+								</h4>
+								<p class="post-meta">
+									<span class="post-date"> August 03, 2017</span>
+								</p>
+							</div>
+							<div class="clearfix"></div>
+						</li>
+						<!-- Recent Post Widget Ends -->
+						<!-- Recent Post Widget Starts -->
+						<li>
+							<div class="posts-thumb pull-left"> 
+								<a href="blog-post-light.html">
+									<img alt="img" src="images/blog/blog-post-small-3.jpg"/>
+								</a>
+							</div>
+							<div class="post-info">
+								<h4 class="entry-title">
+									<a href="blog-post-light.html">How Cryptocurrency Begun and Its Impact</a>
+								</h4>
+								<p class="post-meta">
+									<span class="post-date"> March 27, 2017</span>
+								</p>
+							</div>
+							<div class="clearfix"></div>
+						</li>
+						<!-- Recent Post Widget Ends -->
+						</ul>
+					</div>
+					<!-- Latest Posts Widget Ends -->
+					<!-- Tags Widget Starts -->
+					<div class="widget widget-tags">
+						<h3 class="widget-title">Popular Tags </h3>
+						<ul class="unstyled clearfix">
+							<li><a href="#">currency</a></li>
+							<li><a href="#">crypto</a></li>
+							<li><a href="#">trading</a></li>
+							<li><a href="#">wallet</a></li>
+							<li><a href="#">mining</a></li>
+							<li><a href="#">transaction</a></li>
+							<li><a href="#">financial</a></li>
+							<li><a href="#">security</a></li>
+			            </ul>
+					</div>
+					<!-- Tags Widget Ends -->
+				</div>
+				<!-- Sidebar Ends -->
+                </div>
+            </div>
+        </section>
+
+
+
+
+	</ui:define>
+</ui:composition>

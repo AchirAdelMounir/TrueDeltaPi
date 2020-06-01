@@ -11,11 +11,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.context.RequestContext;
+
+
 import org.primefaces.event.SelectEvent;
 
 import Entities.Customer;
@@ -30,6 +32,7 @@ import Enumerations.Type_of_contract_type;
 import Enumerations.UserType;
 import Services.PortfolioService;
 import Services.UserService;
+import Utilities.CryptPasswordMD5;
 
 @ManagedBean(name = "UserBean")
 @SessionScoped
@@ -39,6 +42,7 @@ public class UserBean {
 	UserService us ;
 	@EJB
 	PortfolioService up ;
+	private CryptPasswordMD5 cryptPasswordMD5 = new CryptPasswordMD5();
 	
 	public User u;
 	public String mail;
@@ -307,7 +311,7 @@ public class UserBean {
 		u.setDate(birthdate);
 		u.setLogin(login);
 		u.setAdresseMail(mail);
-		u.setPassword(pass);
+		u.setPassword(CryptPasswordMD5.cryptWithMD5(pass));
 		u.setType(UserType.Customer);
 		Customer c = new Customer();
 		c.setDateB(birthdate);
@@ -474,6 +478,7 @@ public class UserBean {
 		externalContext.redirect("VerificationCustomer.xhtml");
 	}
 	
+	
 	public void clear(){
 	    setFirstname(null);
 	    setLastname(null);
@@ -567,7 +572,35 @@ public class UserBean {
 		
 	externalContext.redirect("RegisterCustomer.xhtml");
 	}
-	
+	public String redirectToRegister()
+	{return ("/Template/RegisterCustomer.xhtml?faces-redirect=true");
+		
+	}
+	public String redirecToLogin()
+	{
+		return ("/Template/login.xhtml?faces-redirect=true");
+	}
+	public String log_in()
+	{ u=us.authentication(login, CryptPasswordMD5.cryptWithMD5(pass));
+		if(u==null)
+		{
+			return "No user";
+		}
+		else {
+			 externalContext = FacesContext.getCurrentInstance().getExternalContext();
+				sessionMap = externalContext.getSessionMap();
+				sessionMap.put("user", u);
+				return ("/Template/Views/CompaniesViews/DisplayCompanies?faces-redirect=true");
+				
+		}
+		
+	}
+	public String logout()
+	{
+		u=null;
+		return ("/Template/login.xhtml?faces-redirect=true");
+		
+	}
 	public void editProfile() throws IOException
 	{
 		

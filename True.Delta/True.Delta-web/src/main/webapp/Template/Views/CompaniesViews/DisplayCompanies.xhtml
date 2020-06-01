@@ -2,11 +2,25 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
+	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
+	
+	<script type="text/javascript" >
+	
+	$('#mytable').DataTable( {
+	    buttons: {
+	        buttons: [
+	            { extend: 'copy', className: 'slider btn btn-primary' },
+	            { extend: 'excel', className: 'slider btn btn-primary' }
+	        ]
+	    }
+	} );
+	</script>
+
 		<div id="main-slide" class="carousel slide carousel-fade"
 			data-ride="carousel">
 			<!-- Indicators Starts -->
@@ -71,6 +85,9 @@
 			<!-- Carousel Controlers Ends -->
 		</div>
 		<section class="shop-cart">
+		<div id="countdown"></div>
+
+		<p id="note"></p>
 			<!--Start section-->
 			<div class="container">
 				<div class="row">
@@ -92,35 +109,40 @@
 
 
 					<!-- Purchased Products Starts -->
-					<div class="col-xs-12 table-responsive">
+					<div class="col-xs-12 table-responsive" style="background: orange">
 
 						<h:form>
 
-							<h:dataTable binding="#{table}" 
-								rowsPerPageTemplate="5,10,15"
-								value="#{CompanyBean.DisplayCompanies()}" var="u"
-								class="table order text-center">
-								<h:column style="color:orange">
-									<f:facet  name="header">   SYMBOL</f:facet>
+							<b:dataTable binding="#{table}" excel="true" csv="true" border="true"
+								style="background-color:black; color:white;" pdf="true" 
+								id="mytable"
+								 copy="true" print="true"
+								value="#{CompanyBean.DisplayCompanies()}" var="u">
+								<h:column style="color:orange;background-color:black">
+									<f:facet name="header">   SYMBOL</f:facet>
 									<h:outputText style="color:orange" value="#{u.getSymbol()}" />
 								</h:column>
-								<h:column>
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Name</f:facet>
 									<h:outputText value="#{u.getName()}" />
 								</h:column>
-								<h:column>
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Market</f:facet>
 									<h:outputText value="#{u.getMarket()}" />
 								</h:column>
-								<h:column>
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Sector</f:facet>
 									<h:outputText value="#{u.getSector()}" />
 								</h:column>
-								<h:column>
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Price</f:facet>
-									<h:outputText value="#{u.getPrice()}" />
+							
+
+									<h:outputText value="#{u.getPrice()}" >
+									<f:convertNumber type="currency" maxFractionDigits="3" />
+									</h:outputText>
 								</h:column>
-								<h:column>
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Show More</f:facet>
 									<h:commandLink
 										action="#{CompanyBean.DisplayCompany(u.getSymbol())}">
@@ -129,7 +151,8 @@
 
 									</h:commandLink>
 								</h:column>
-								<h:column>
+								<c:if test="1=2">
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Update</f:facet>
 									<h:commandLink>
 										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -137,7 +160,7 @@
 									</h:commandLink>
 
 								</h:column>
-								<h:column>
+								<h:column style="color:white;background-color:black">
 									<f:facet name="header">Delete</f:facet>
 									<h:commandLink
 										action="#{CompanyBean.DeleteCompany(u.getSymbol())}">
@@ -145,7 +168,8 @@
 									</h:commandLink>
 
 								</h:column>
-							</h:dataTable>
+								</c:if>
+							</b:dataTable>
 						</h:form>
 
 					</div>

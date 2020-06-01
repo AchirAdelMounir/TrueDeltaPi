@@ -6,7 +6,10 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column; 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 @Entity
@@ -27,8 +30,10 @@ public class Company implements Serializable {
 	@Column(name="SECTOR")
 	private String Sector;
 
-	@OneToMany(mappedBy="Company",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="Company",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
 private Set<Security> Securities;
+	@ManyToMany(fetch = FetchType.EAGER,cascade = {  CascadeType.PERSIST, CascadeType.REMOVE })
+	private Set<Watchlist> w;
 
 	@Column(name="PRICE")
 	private double Price;
@@ -195,6 +200,35 @@ private Set<Security> Securities;
 				+ ", R_Earnings_Share=" + R_Earnings_Share + ", Year_Week_Low=" + Year_Week_Low + ", Year_Week_High="
 				+ Year_Week_High + ", Market_Cap_E=" + Market_Cap_E + ", BITDA=" + BITDA + ", R_Price_Sales="
 				+ R_Price_Sales + ", R_Price_Book=" + R_Price_Book + ", SEC_Filings=" + SEC_Filings + "]";
+	}
+	public Set<Watchlist> getW() {
+		return w;
+	}
+	public void setW(Set<Watchlist> w) {
+		this.w = w;
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Symbol == null) ? 0 : Symbol.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Company other = (Company) obj;
+		if (Symbol == null) {
+			if (other.Symbol != null)
+				return false;
+		} else if (!Symbol.equals(other.Symbol))
+			return false;
+		return true;
 	}
 
 	

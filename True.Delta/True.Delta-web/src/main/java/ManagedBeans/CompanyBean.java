@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -15,12 +16,22 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.omg.CORBA.WStringSeqHelper;
+import org.quartz.DateBuilder;
+import org.quartz.SimpleTrigger;
+
 import javax.ejb.EJB;
+import javax.ejb.Init;
+import javax.ejb.Schedule;
 import javax.faces.bean.SessionScoped;
 
 import Entities.*;
 import Services.*;
 
+import static org.quartz.TriggerBuilder.*;
+import static org.quartz.CronScheduleBuilder.*;
+import static org.quartz.DateBuilder.*;
 @ManagedBean(name = "CompanyBean")
 @SessionScoped
 
@@ -79,8 +90,9 @@ public class CompanyBean implements Serializable {
 	private List<Company> LastS;
 	private String input;
 
-	public void Initialize() {
+	public String Initialize() {
 		c.CompaniesInfoFinder();
+		return "okay";
 	}
 
 	public void setUtil(CommonUtils util) {
@@ -102,6 +114,15 @@ public class CompanyBean implements Serializable {
 
 		util.redirectWithGet();
 	}
+	
+		public void doPeriodicCleanup() { 
+			SimpleTrigger trigger = (SimpleTrigger) newTrigger()
+				    .withIdentity("trigger3", "group1")
+				    .withSchedule(cronSchedule("0 0 12 * * ?"))
+				    
+				    .forJob("myJob",Initialize())
+				    .build();
+					    }
 
 	public void DeleteCompany(String sym) {
 		c.DeleteCompany(sym);
