@@ -44,9 +44,9 @@ public class Complain implements Serializable {
 	Date date ;
 	
 
-	/*@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="User_Id",referencedColumnName="Id")
-	private User User;*/
+	private User User;
 
 	
 	public int getId() {

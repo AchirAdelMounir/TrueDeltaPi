@@ -7,20 +7,21 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import Enumerations.ContractType;
 import Enumerations.DisponibiliteAM;
 import Enumerations.FinancialAsset;
 
-
 @Embeddable
-public class AssetManager implements Serializable{
+public class AssetManager  implements Serializable{
 	/**
 	 * 
 	 */

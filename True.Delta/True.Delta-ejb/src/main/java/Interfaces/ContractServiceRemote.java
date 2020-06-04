@@ -1,13 +1,16 @@
 package Interfaces;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.ParseException;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import javax.ejb.Remote;
 import javax.persistence.TypedQuery;
+
+import com.itextpdf.text.DocumentException;
 
 import Entities.Contract;
 import Entities.User;
@@ -84,6 +87,51 @@ public interface ContractServiceRemote {
 	int DeleteContractByIdUser(int idUser);
 	int DeleteContractByDate(String date);
 
+	Boolean VerificationBanqueUser(int idBanque, int idUser);
+
+	List<Object[]> NbrContractByDate1(String date) throws ParseException;
+
+	List<Object[]> count1();
+
+	List<Object[]> nbcontractstartdate();
+
+	List<Object[]> nbpackenddate();
+
+	List<Object[]> nbcontractenddate();
+	Long  NbContractTypeFree();
+	public Long  NbContractTypeWithCondition();
+	public Long  NbContractAccept();
+	public Long  NbContractInclass() ;
+	public Long  NbContractRefuse() ;
+ public Long  NbContractIsApproved1();
+ public Long  NbContractIsApproved0();
+ public void SmsSender(String msg);
+	public List<Contract> GetTopByInput(String Input,int TopN);
+	public List<Contract> GetLastByInput(String Input,int TopN);
+	public Boolean ifExists(Contract C);
+	public Contract DisplayContract(String sym);
+	public List<Contract> SearchByInput(String SearchField, String operator, Object o) ;
+	public List<Contract> SearchByInput(ContractType  SearchField , Integer operator, Object o);
+	public List<Contract> SearchByInput(ContractType  SearchField , Integer operator);
+	public List<Contract> SearchByInput(ContractType  SearchField);
+
+	List<Contract> SearchByInput(Integer SearchField, String operator, Object o);
+	public void AffectedContract1(int idContract,int idUser);
+
+	int addContract1(Contract contract, Long id_user);
+	void Excel2DatabaseTest() throws ClassNotFoundException ;
+
+	void PDF() throws IOException, URISyntaxException;
+
+	boolean signPdf() throws IOException,  Exception;
+
+	void pdfs() throws Exception;
+
+	Long verif(int idC);
+
+	List<Contract> GetTopByInput(int amount, int TopN);
+
+	List<Contract> GetTopByInput(Date amount, int TopN);
 
 	
 	

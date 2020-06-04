@@ -85,7 +85,29 @@ public interface ContractServiceLocal {
 	int DeleteContractByIdUser(int idUser);
 
 	int DeleteContractByDate(String date);
+	Boolean VerificationBanqueUser(int idBanque, int idUser);
 
+	List<Object[]> NbrContractByDate1(String date) throws ParseException;
+
+	List<Object[]> count1();
+
+	List<Object[]> nbcontractstartdate();
+
+	List<Object[]> nbpackenddate();
+
+	List<Object[]> nbcontractenddate();
+
+	Long  NbContractTypeFree();
+	public Long  NbContractTypeWithCondition();
+	public Long  NbContractAccept();
+	public Long  NbContractInclass() ;
+	public Long  NbContractRefuse() ;
+	 public Long  NbContractIsApproved1();
+	 public Long  NbContractIsApproved0();
+		public List<Contract> GetTopByInput(String Input,int TopN);
+		public List<Contract> GetLastByInput(String Input,int TopN);
+		public Boolean ifExists(Contract C);
+		public Contract DisplayContract(String sym);
 
 
 	//User VerificationBanque(int IdUser);

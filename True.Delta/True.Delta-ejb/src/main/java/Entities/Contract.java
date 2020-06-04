@@ -82,9 +82,10 @@ public class Contract implements Serializable {
 	
 	@OneToOne
 	private Portfolio Portfolio;
+	
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="User_Id",referencedColumnName="Id")
-	private User User;
+	private User user;
 	
 	@ManyToOne
 	private Proposition proposition ; 
@@ -193,15 +194,16 @@ public class Contract implements Serializable {
 	public void setPortfolio(Portfolio portfolio) {
 		Portfolio = portfolio;
 	}
-	public User getUser() {
-		return User;
-	}
-	public void setUser(User user) {
-		User = user;
-	}
+
 
 	
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getScore() {
 		return score;
 	}
@@ -573,7 +575,7 @@ public class Contract implements Serializable {
 		this.levelR = levelR;
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
-		User = user;
+		user = user;
 	}
 	public Contract(int score) {
 		super();
@@ -752,6 +754,59 @@ public class Contract implements Serializable {
 		ContartType = contartType;
 		FinancialAsset = financialAsset;
 	}
+	public Contract(Double amount, Date creationDate, Date startDate, Date endDate, Double gain, String description,
+			Boolean isApproved, Double risque, Double comission, Double gainAset, Double gainClient,
+			Double risqueClient, Double risqueAsset, int scoreC, int score, Etat_Contract etatContract,
+			LevelOfRisk levelR, ContractType contartType, Enumerations.FinancialAsset financialAsset) {
+		super();
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		Gain = gain;
+		Description = description;
+		this.isApproved = isApproved;
+		Risque = risque;
+		Comission = comission;
+		GainAset = gainAset;
+		this.gainClient = gainClient;
+		RisqueClient = risqueClient;
+		RisqueAsset = risqueAsset;
+		this.scoreC = scoreC;
+		this.score = score;
+		EtatContract = etatContract;
+		this.levelR = levelR;
+		ContartType = contartType;
+		FinancialAsset = financialAsset;
+	}
+	public Contract(Double amount, Date creationDate, Date startDate, Date endDate, Double gain, String description,
+			Boolean isApproved, Double risque, Double comission, Double gainAset, Double gainClient,
+			Double risqueClient, Double risqueAsset, int scoreC, int score, Etat_Contract etatContract,
+			LevelOfRisk levelR, ContractType contartType, Enumerations.FinancialAsset financialAsset,
+			Entities.User user) {
+		super();
+		Amount = amount;
+		CreationDate = creationDate;
+		StartDate = startDate;
+		EndDate = endDate;
+		Gain = gain;
+		Description = description;
+		this.isApproved = isApproved;
+		Risque = risque;
+		Comission = comission;
+		GainAset = gainAset;
+		this.gainClient = gainClient;
+		RisqueClient = risqueClient;
+		RisqueAsset = risqueAsset;
+		this.scoreC = scoreC;
+		this.score = score;
+		EtatContract = etatContract;
+		this.levelR = levelR;
+		ContartType = contartType;
+		FinancialAsset = financialAsset;
+		user = user;
+	}
+	
 	
 	
 	

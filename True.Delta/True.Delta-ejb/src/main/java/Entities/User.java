@@ -1,5 +1,6 @@
 package Entities;
 import java.io.Serializable;
+import javax.persistence.Inheritance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -20,13 +22,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import Enumerations.Civil_Status;
 import Enumerations.ContractType;
+import Enumerations.Professional_Status_Type;
+import Enumerations.Residency_Status_Type;
 import Enumerations.TypeDevise;
+import Enumerations.User_Type;
 
-
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name="USER")
+
 public class User implements Serializable {
 	
 	/**
@@ -62,54 +70,53 @@ public class User implements Serializable {
 	
 	@Column(name = "Credit_Balance")
 	private double Credit; // Solde en banque
-	
-	@Column(name ="Civil_Status")
-	private String Civil_Status; //etat civile (marié / célibataire / ... )
-	
-	@Column(name = "Professional_Status")
-	private String Profession;
-	
-	@Column(name = "Residency_Status")
-	private String Residence; // propriétaire ou locataire
+
 	
 	@Column(name="Account_Number")
 	private int Account_Number;
 	@Column(name = "Refund")
 	private double Refund;
-	
-	@Column()
-    int Amount;
+
 
 	@Enumerated(EnumType.STRING)
 	TypeDevise Devise;
+
 	
 	@Enumerated(EnumType.STRING)
-	ContractType ContractType;
+	Residency_Status_Type  Residence;
+	@Enumerated(EnumType.STRING)
+	Professional_Status_Type Profession;
+
+
+	@Enumerated(EnumType.STRING)
+	Civil_Status Civil_Status;
+
+	
+	
 	
 	
 	//@Embedded
 	//private Visitor visitor;
 	
-	@Embedded
-	private AssetManager asset_manager;
+
 	//@Column(name = "USER_TYPE")
 	//private UserType Type;
 	
 	@Enumerated(EnumType.STRING) 
-    Enumerations.UserType UserType;
+    User_Type UserType;
 	
 	
 	
 	
 	/*@OneToMany(mappedBy="User")
-	private Set<Feedback> Feedbacks;*/
-//	@OneToMany(mappedBy="User")
-	/*private Set<Complain> Complains;
-	@OneToMany(mappedBy="User")*/
-	/*private Set<Complain> Articles;*/
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="User" , cascade = CascadeType.ALL)
-	private List<Contract> Contratcs;
+	private Set<Feedback> Feedbacks;
+	@OneToMany(mappedBy="User")
+	private Set<Complain> Complains;
+	@OneToMany(mappedBy="User")
+	private Set<Complain> Articles;*/
 
+	@OneToMany(mappedBy="user")
+	private List<Contract> Contratcs;
 	@OneToOne 
 	private Portfolio portfolio;
 
@@ -127,12 +134,44 @@ public class User implements Serializable {
 		Contratcs = contratcs;
 	}*/
 
-	public AssetManager getAsset_manager() {
+	/*public AssetManager getAsset_manager() {
 		return asset_manager;
 	}
 
 	public void setAsset_manager(AssetManager asset_manager) {
 		this.asset_manager = asset_manager;
+	}*/
+
+	public List<Contract> getContratcs() {
+		return Contratcs;
+	}
+
+	public void setContratcs(List<Contract> contratcs) {
+		Contratcs = contratcs;
+	}
+
+	public Residency_Status_Type getResidence() {
+		return Residence;
+	}
+
+	public void setResidence(Residency_Status_Type residence) {
+		Residence = residence;
+	}
+
+	public Professional_Status_Type getProfession() {
+		return Profession;
+	}
+
+	public void setProfession(Professional_Status_Type profession) {
+		Profession = profession;
+	}
+
+	public Civil_Status getCivil_Status() {
+		return Civil_Status;
+	}
+
+	public void setCivil_Status(Civil_Status civil_Status) {
+		Civil_Status = civil_Status;
 	}
 
 	public int getId() {
@@ -208,9 +247,7 @@ public class User implements Serializable {
 	
 	
 
-	public Enumerations.UserType getUserType() {
-		return UserType;
-	}
+	
 
 	/*public List<Contract> getContratcs() {
 		return Contratcs;
@@ -220,9 +257,6 @@ public class User implements Serializable {
 		Contratcs = contratcs;
 	}*/
 
-	public void setUserType(Enumerations.UserType userType) {
-		UserType = userType;
-	}
 
 	public User() {
 		super();
@@ -249,8 +283,16 @@ public class User implements Serializable {
 		this.portfolio = portfolio;
 	}*/
 
+	public User_Type getUserType() {
+		return UserType;
+	}
+
+	public void setUserType(User_Type userType) {
+		UserType = userType;
+	}
+
 	public User(String nom, String prenom, String adresseMail, String password, String login, 
-			 Enumerations.UserType userType) {
+			 User_Type userType) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -285,29 +327,8 @@ public class User implements Serializable {
 		Credit = credit;
 	}
 
-	public String getCivil_Status() {
-		return Civil_Status;
-	}
 
-	public void setCivil_Status(String civil_Status) {
-		Civil_Status = civil_Status;
-	}
 
-	public String getProfession() {
-		return Profession;
-	}
-
-	public void setProfession(String profession) {
-		Profession = profession;
-	}
-
-	public String getResidence() {
-		return Residence;
-	}
-
-	public void setResidence(String residence) {
-		Residence = residence;
-	}
 
 	public int getAccount_Number() {
 		return Account_Number;
@@ -361,50 +382,9 @@ public class User implements Serializable {
 		return serialVersionUID;
 	}
 
-/*	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
-			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
-			TypeDevise devise, AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
-			Set<Complain> complains, Set<Complain> articles, Set<Contract> contratcs, Portfolio portfolio) {
-		super();
-		Id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		this.id_banque = id_banque;
-		this.age = age;
-		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
-		Account_Number = account_Number;
-		Devise = devise;
-		this.asset_manager = asset_manager;
-		UserType = userType;
-		Feedbacks = feedbacks;
-		Complains = complains;
-		Articles = articles;
-		Contratcs = contratcs;
-		this.portfolio = portfolio;
-	}*/
 
-	public ContractType getContractType() {
-		return ContractType;
-	}
 
-	public void setContractType(ContractType contractType) {
-		ContractType = contractType;
-	}
-
-	public int getAmount() {
-		return Amount;
-	}
-
-	public void setAmount(int amount) {
-		Amount = amount;
-	}
-
+	
 	/*public Set<Feedback> getFeedbacks() {
 		return Feedbacks;
 	}
@@ -421,44 +401,15 @@ public class User implements Serializable {
 		Articles = articles;
 	}*/
 
-	public List<Contract> getContratcs() {
+	/*public List<Contract> getContratcs() {
 		return Contratcs;
 	}
 
 	public void setContratcs(List<Contract> contratcs) {
 		Contratcs = contratcs;
-	}
-
-	/*public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
-			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
-			int amount, TypeDevise devise, Enumerations.ContractType contractType, AssetManager asset_manager,
-			Enumerations.UserType userType, Set<Feedback> feedbacks, Set<Complain> complains, Set<Complain> articles,
-			List<Contract> contratcs, Portfolio portfolio) {
-		super();
-		Id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		this.id_banque = id_banque;
-		this.age = age;
-		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
-		Account_Number = account_Number;
-		Amount = amount;
-		Devise = devise;
-		ContractType = contractType;
-		this.asset_manager = asset_manager;
-		UserType = userType;
-		Feedbacks = feedbacks;
-		Complains = complains;
-		Articles = articles;
-		Contratcs = contratcs;
-		this.portfolio = portfolio;
 	}*/
+
+
 
 	public double getRefund() {
 		return Refund;
@@ -468,92 +419,9 @@ public class User implements Serializable {
 		Refund = refund;
 	}
 
-	/*public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
-			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
-			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
-			AssetManager asset_manager, Enumerations.UserType userType, Set<Feedback> feedbacks,
-			Set<Complain> complains, Set<Complain> articles, List<Contract> contratcs, Portfolio portfolio) {
-		super();
-		Id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		this.id_banque = id_banque;
-		this.age = age;
-		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
-		Account_Number = account_Number;
-		Refund = refund;
-		Amount = amount;
-		Devise = devise;
-		ContractType = contractType;
-		this.asset_manager = asset_manager;
-		UserType = userType;
-		Feedbacks = feedbacks;
-		Complains = complains;
-		Articles = articles;
-		Contratcs = contratcs;
-		this.portfolio = portfolio;
-	}*/
-
-	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
-			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
-			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
-			AssetManager asset_manager, Enumerations.UserType userType) {
-		super();
-		Id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		this.id_banque = id_banque;
-		this.age = age;
-		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
-		Account_Number = account_Number;
-		Refund = refund;
-		Amount = amount;
-		Devise = devise;
-		ContractType = contractType;
-		this.asset_manager = asset_manager;
-		UserType = userType;
-	}
-
-	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
-			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
-			double refund, int amount, TypeDevise devise, Enumerations.ContractType contractType,
-			Enumerations.UserType userType) {
-		super();
-		Id = id;
-		this.nom = nom;
-		this.prenom = prenom;
-		this.adresseMail = adresseMail;
-		this.password = password;
-		this.login = login;
-		this.id_banque = id_banque;
-		this.age = age;
-		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
-		Account_Number = account_Number;
-		Refund = refund;
-		Amount = amount;
-		Devise = devise;
-		ContractType = contractType;
-		UserType = userType;
-	}
-
 	public User(String nom, String prenom, String adresseMail, String password, String login, int id_banque, int age,
-			double credit, String civil_Status, String profession, String residence, int account_Number, double refund,
-			int amount, TypeDevise devise, Enumerations.ContractType contractType, Enumerations.UserType userType) {
+			double credit, int account_Number, double refund, TypeDevise devise, Residency_Status_Type residence,
+			Professional_Status_Type profession, Enumerations.Civil_Status civil_Status, User_Type userType) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -563,22 +431,19 @@ public class User implements Serializable {
 		this.id_banque = id_banque;
 		this.age = age;
 		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
 		Account_Number = account_Number;
 		Refund = refund;
-		Amount = amount;
 		Devise = devise;
-		ContractType = contractType;
+		Residence = residence;
+		Profession = profession;
+		Civil_Status = civil_Status;
 		UserType = userType;
 	}
 
-/*	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
-			int age, double credit, String civil_Status, String profession, String residence, int account_Number,
-			TypeDevise devise, Enumerations.ContractType contractType, AssetManager asset_manager,
-			Enumerations.UserType userType, Set<Feedback> feedbacks, Set<Complain> complains, Set<Complain> articles,
-			Set<Contract> contratcs, Portfolio portfolio) {
+	public User(int id, String nom, String prenom, String adresseMail, String password, String login, int id_banque,
+			int age, double credit, int account_Number, double refund, TypeDevise devise,
+			Residency_Status_Type residence, Professional_Status_Type profession,
+			Enumerations.Civil_Status civil_Status, User_Type userType) {
 		super();
 		Id = id;
 		this.nom = nom;
@@ -589,34 +454,16 @@ public class User implements Serializable {
 		this.id_banque = id_banque;
 		this.age = age;
 		Credit = credit;
-		Civil_Status = civil_Status;
-		Profession = profession;
-		Residence = residence;
 		Account_Number = account_Number;
+		Refund = refund;
 		Devise = devise;
-		ContractType = contractType;
-		this.asset_manager = asset_manager;
+		Residence = residence;
+		Profession = profession;
+		Civil_Status = civil_Status;
 		UserType = userType;
-		Feedbacks = feedbacks;
-		Complains = complains;
-		Articles = articles;
-		Contratcs = contratcs;
-		this.portfolio = portfolio;
-	}*/
+	}
 
-	//@Override
-/*	public String toString() {
-		return "User [Id=" + Id + ", nom=" + nom + ", prenom=" + prenom + ", adresseMail=" + adresseMail + ", password="
-				+ password + ", login=" + login + ", id_banque=" + id_banque + ", age=" + age + ", Credit=" + Credit
-				+ ", Civil_Status=" + Civil_Status + ", Profession=" + Profession + ", Residence=" + Residence
-				+ ", Account_Number=" + Account_Number + ", Devise=" + Devise + ", ContractType=" + ContractType
-				+ ", asset_manager=" + asset_manager + ", UserType=" + UserType + ", Feedbacks=" + Feedbacks
-				+ ", Complains=" + Complains + ", Articles=" + Articles + ", Contratcs=" + Contratcs + ", portfolio="
-				+ portfolio + "]";
-	}*/
-
-
-
+	
 
 
 
