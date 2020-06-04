@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:body>
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/template/Header.xhtml" />
+			</ui:insert>
+		</div>
+		<section class="main__middle__container">
+			<div class="titles blog text-left">
+				<div class="container">
+					<div class="seper"></div>
+					<h2 class="page__title">GESTION DES </h2>
+					<h2 class="page__title">EMPLOYEE</h2>
+					<i class="fa fa-table" /> Welcome 
+				</div>
+			</div>
+			<div class="container">
+				<div class="row no_padding title__block nothing no-margin">
+
+					<div class="col-md-8">
+						<h3>Details</h3>
+				
+						
+										 <h:outputLabel for="console" value="filter" ></h:outputLabel>
+										 
+										 <h:form>
+						
+			      <h:commandLink value ="ALL" action="#{EmployeeBean.getall()}"   class="btn btn-lg btn-info" ></h:commandLink>
+       <h:commandLink value ="RH" action="#{EmployeeBean.getRh()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                <h:commandLink value ="developer" action="#{EmployeeBean.getdeveloper()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                     
+             
+                       <h:commandLink value ="Manager" action="#{EmployeeBean.getmanager()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                    <h:commandLink value ="Former" action="#{EmployeeBean.getformer()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                
+					</h:form>
+										 
+										 
+        
+						<div style="width: 100%" class="dc_divider4"></div>
+						<p class="black-text"></p>
+						<p id="feedback"></p>
+						
+						
+						
+						
+						
+						
+						<section class="recent-posts">
+    <div class="container">
+      <div class="row no-margin nothing">
+        <div class="col-md-9 ">
+         <h3 style="margin-top:0">Basic</h3>
+    
+       
+    
+   <ui:repeat value="#{EmployeeBean.employeesformr}" var="e">
+         <li>
+          <article > 
+          
+          <h:graphicImage style="width:'10%'" value="#{'../ressources/images/img/person.png'}" />
+            <div class="text">
+         
+              <p class="small-paragraph"><h:outputText value="Cin:#{e.cin}" /></p>
+               <p><h:outputText value="firstName: #{e.firstName} " /></p>
+               <p><h:outputText value="lastName: #{e.lastName} " /></p>
+               <p><h:outputText value="Email: #{e.email} " /></p>
+               <p><h:outputText value="salary: #{e.salary} DT " /></p>
+               <p><h:outputText value="adress: #{e.address} " /></p>
+                <p><h:outputText value="role: #{e.role} " /></p>
+              
+              
+              
+
+             
+            </div>
+            <div class="clearfix"></div>
+          </article>
+          </li>
+          <h:form>
+           <h:commandLink value ="Delete" action ="#{EmployeeBean.delete(e.cin)}"  class="btn btn-lg btn-info" ></h:commandLink>
+     <h:commandLink value ="update" action ="#{EmployeeBean.updateEmploye(e)}"  class="btn btn-lg btn-info" ></h:commandLink>
+           </h:form>
+          </ui:repeat>
+        </div>
+        </div>  
+    </div>
+  </section>
+						
+						
+						
+						
+						
+						
+						
+						
+
+</div>
+						
+					</div>
+
+					<div class="col-md-4">
+						<h3>Get in touch with us</h3>
+						<div style="width: 60%" class="dc_divider4"></div>
+						<p class="black-text">
+							<span>Address:</span> 
+						</p>
+						<p class="black-text">
+							<span>Telephone:</span> 
+						</p>
+						<p class="black-text">
+							<span>Fax:</span> 
+						</p>
+					</div>
+
+				</div>
+			
+		</section>
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/template/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</h:body>
+<script type="text/javascript">
+  function test1(){
+    alert('test');
+    alert(document.getElementById('frmDashBoard:testbt').value);
+  }
+  </script>
+</ui:composition>
