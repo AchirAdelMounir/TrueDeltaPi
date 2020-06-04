@@ -63,12 +63,22 @@ public class User implements Serializable {
 	
 	@Column(name = "USER_IS_VALID")
 	private boolean isValid;
+	@Column(name = "USER_PIC")
+	private String image;
 	
 	
 	
 	
 
 	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	@Column(name = "USER_TOKEN")
 	private String code;
@@ -243,7 +253,7 @@ public class User implements Serializable {
 	}
 
 	public User(int id, String nom, String prenom, Date date, String adresseMail, String password, String login,
-			UserType type, boolean isValid, String code, Administrator admin, Customer customer,
+			UserType type, boolean isValid, String image, String code, Administrator admin, Customer customer,
 			AssetManager asset_manager, Set<Feedback> feedbacks, Set<Complain> complains, Set<Contract> contratcs,
 			Portfolio portfolio) {
 		super();
@@ -256,6 +266,7 @@ public class User implements Serializable {
 		this.login = login;
 		Type = type;
 		this.isValid = isValid;
+		this.image = image;
 		this.code = code;
 		this.admin = admin;
 		this.customer = customer;
@@ -265,6 +276,8 @@ public class User implements Serializable {
 		Contratcs = contratcs;
 		this.portfolio = portfolio;
 	}
+
+	
 
 	
 	

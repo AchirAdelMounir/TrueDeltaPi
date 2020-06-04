@@ -43,6 +43,17 @@
 			<type>ejb</type>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Dependency for input text floating label -->
+		<dependency>
+    <groupId>org.primefaces</groupId>
+    <artifactId>primefaces</artifactId>
+    <version>7.1</version>
+</dependency>
+
+
+
+
+
 
 
 		<!-- Import the JAX-RS API, we use provided scope as the API is included 
@@ -118,11 +129,34 @@
 			<artifactId>jboss-ejb-api_3.2_spec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>8.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.primefaces</groupId> -->
+<!-- 			<artifactId>primefaces</artifactId> -->
+<!-- 			<version>8.0</version> -->
+<!-- 		</dependency> -->
+
+<!-- dependency for chart -->
+<dependency>
+    <groupId>org.chartistjsf</groupId>
+    <artifactId>ChartistJSF</artifactId>
+    <version>2.1</version>     
+</dependency>
+
+<dependency> 
+    <groupId>org.primefaces</groupId> 
+    <artifactId>primefaces</artifactId> 
+    <version>6.0</version> 
+</dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.2.14</version>
+        </dependency>
 
 	</dependencies>
 

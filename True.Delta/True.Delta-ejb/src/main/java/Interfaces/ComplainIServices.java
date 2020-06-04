@@ -44,6 +44,10 @@ public interface ComplainIServices {
 
 	Complain findById(int id);
 
+	void AnswerComplain(int id,String answer);
+
+	Long getNbComplainVuByCustomer();
+
 
 
 	

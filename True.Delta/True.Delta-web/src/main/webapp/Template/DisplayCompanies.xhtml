@@ -97,7 +97,7 @@
 
 							<h:dataTable binding="#{table}"
 								value="#{CompanyBean.DisplayCompanies()}" var="u"
-								class="table order text-center">
+								class="table order text-center" >
 								<h:column>
 									<f:facet name="header">   SYMBOL</f:facet>
 									<h:outputText value="#{u.getSymbol()}" />

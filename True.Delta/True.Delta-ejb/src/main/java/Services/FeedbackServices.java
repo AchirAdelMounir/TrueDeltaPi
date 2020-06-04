@@ -30,6 +30,8 @@ import java.util.List;
 import Entities.Feedback;
 //import Entities.User;
 import Enumerations.LevelRating;
+import Enumerations.StatusTypeOfComplain;
+import Enumerations.Who;
 //import Enumerations.LevelRating;
 import Interfaces.FeedbackIServices;
 //import Entities.Complain;
@@ -39,6 +41,8 @@ import Interfaces.FeedbackIServices;
 public class FeedbackServices implements FeedbackIServices{
 	@Inject
 	ComplainsServices service;
+	@Inject
+	UserService userv;
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;
 
@@ -47,7 +51,10 @@ public class FeedbackServices implements FeedbackIServices{
 		// TODO Auto-generated method stub
 		LocalDateTime localDateTime = LocalDateTime.now();
 		f.setDate(Date.from( localDateTime.atZone(ZoneId.systemDefault()).toInstant()));
+		f.setAdmin_vu(false);
 		em.persist(f);
+		
+		
 		
 		System.out.println("Feedback:"+ f.getId());
 		return f.getId();
@@ -134,6 +141,12 @@ public class FeedbackServices implements FeedbackIServices{
 			return query.getResultList();
 		}
 	@Override
+	 public List<Feedback> getAllFeedbackByWho(Who who) {
+		 TypedQuery<Feedback> query= em.createQuery("select f from Feedback f where f.who=:who ",Feedback.class);
+			query.setParameter("who",who);
+			return query.getResultList();
+		}
+	@Override
 	public Long getNbFeedback() {
 		TypedQuery<Long> query = em.createQuery("select COUNT(*) from Feedback ", Long.class);
 		return query.getSingleResult();
@@ -143,6 +156,13 @@ public class FeedbackServices implements FeedbackIServices{
 	public Long getNbFeedbackByIdUser(int idUser) {
 		TypedQuery<Long> query = em.createQuery("select COUNT (f) from Feedback f where f.user.id=:idUser", Long.class);
 		query.setParameter("idUser", idUser);
+		return query.getSingleResult();
+
+	}
+	@Override
+	public Long getNbFeedbackByWho(Who who) {
+		TypedQuery<Long> query = em.createQuery("select COUNT (f) from Feedback f where f.who=:who", Long.class);
+		query.setParameter("who", who);
 		return query.getSingleResult();
 
 	}
@@ -157,14 +177,20 @@ public class FeedbackServices implements FeedbackIServices{
 
 	}
 	@Override
-	public Long getNbFeedbackByRating(Enumerations.LevelRating rating) {
-		TypedQuery<Long> query = em.createQuery("select COUNT (f) from Feedback f where f.rating=:rating", Long.class);
+	public Long getNbFeedbackByRating(Enumerations.LevelRating rating,Who who) {
+		TypedQuery<Long> query = em.createQuery("select COUNT (f) from Feedback f where f.rating=:rating and f.who=:who", Long.class);
 		query.setParameter("rating", rating);
+		query.setParameter("who", who);
 		return query.getSingleResult();
 
 	}
+	@Override 
+	public Long getNbFeedbackByVuAdmin() {
+		TypedQuery<Long> query = em.createQuery("select COUNT (f) from Feedback f where f.admin_vu=false ", Long.class);
+		return query.getSingleResult();
+	}
 	@Override
-	public double getAvgOfRating(Enumerations.LevelRating rating) {
+	public double getAvgOfRating(Enumerations.LevelRating rating,Who who) {
 		double Avg;
 		//,n,b,m,g,vg,p,s
 		/*n=getNbFeedbackByRating(LevelRating.Null)*0;
@@ -174,7 +200,7 @@ public class FeedbackServices implements FeedbackIServices{
 		vg=getNbFeedbackByRating(LevelRating.Very_good)*4;
 		p=getNbFeedbackByRating(LevelRating.Perfect)*5;
 		s=n+b+m+g+vg+p;*/
-		Avg=((double)getNbFeedbackByRating(rating)/(double)getNbFeedback())*100;
+		Avg=((double)getNbFeedbackByRating(rating,who)/(double)getNbFeedbackByWho(who))*100;
 		return Avg;
 	}
 	@Override
@@ -183,27 +209,27 @@ public class FeedbackServices implements FeedbackIServices{
 			return 0;
 		}
 		else if(GetFeedbackById(idFeedback).getRating()==LevelRating.Bad) {
-			return 1;
+			return 1.0;
 		}
 		else if(GetFeedbackById(idFeedback).getRating()==LevelRating.Middling) {
-			return 2;
+			return 2.0;
 		}
 		else if(GetFeedbackById(idFeedback).getRating()==LevelRating.Good) {
-			return 3;
+			return 3.0;
 		}
 		else if(GetFeedbackById(idFeedback).getRating()==LevelRating.Very_good) {
 			return 4;
 		}
-		else return 5;
+		else return 5.0;
 	}
 	@Override
-	public double noteGlobal() {
+	public double noteGlobal(Who who) {
 		double s=0;
-		List<Feedback> l= getAllFeedback();
+		List<Feedback> l= getAllFeedbackByWho(who);
 		for(int i=0; i<l.size(); i++) {
 			s+=(double)nbOfStarsById(l.get(i).getId());
 		}
-		 return s/(double)getNbFeedback();
+		 return s/(double)getNbFeedbackByWho(who);
 		
 	}
 	@Override
@@ -283,7 +309,7 @@ public class FeedbackServices implements FeedbackIServices{
 		for(int i=0; i<3; i++) {
 			long max= sortedlist.get(sortedlist.size() - 1);
 			int ind=listOfInd.get(listOfActivity.indexOf(max));
-			s="TOP "+(i+1)+" User: ID "+ind+" "+"with "+max+" "+"activity"+"\n";
+			s="TOP "+(i+1)+userv.DisplayUser(ind).getPrenom()+"  "+userv.DisplayUser(ind).getNom()+"  "+"with "+" "+max+" "+"activity"+"\n";
 			finale.add(s);
 			sortedlist.remove(sortedlist.size() - 1);
 			listOfActivity.set(listOfActivity.indexOf(max), (long)-1);
@@ -343,6 +369,40 @@ public class FeedbackServices implements FeedbackIServices{
 		//return val;
 		
 		
+	}
+	public String wordDanger(String Str) {
+		
+List <String> dic =new ArrayList<>();
+		
+		try {
+		      File myObj = new File("D://4 INFINI/2 semestre/JEE/My_Dictionary.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        System.out.println(data);
+		        dic.add(data);
+		        
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
+		//split the notice
+		List <String> not =new ArrayList<>();
+	      
+	      for (String s: Str.split(" ")) {
+	         System.out.println(s);
+	         not.add(s);
+	      }
+	      //test
+	      for(int i=0; i<not.size();i++) {
+	    	  for(int j=0;j<dic.size();j++) {
+	    		  if (not.get(i).contains(dic.get(j)))  return dic.get(j);
+	    		  
+	    	  }
+	      }
+	      return "";
 	}
 	
 	/*@Override

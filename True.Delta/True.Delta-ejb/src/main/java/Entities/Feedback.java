@@ -21,6 +21,7 @@ import Enumerations.LevelRating;
 import Enumerations.Who;
 
 import java.util.Date;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name="FEEDBACK")
@@ -42,16 +43,13 @@ public class Feedback implements Serializable{
 	private Who who;
 	@Enumerated(EnumType.STRING) 
 	private LevelRating rating;
-	public Who getWho() {
-		return who;
-	}
-	public void setWho(Who who) {
-		this.who = who;
-	}
+	
 	@Column(name="FEEDBACK_NOTICE") 
 	String notice;
 	@Column(name="FEEDBACK_DATE") 
 	Date date ;
+	@Column(name="FEEDBACK_ADMIN_VU")
+	private Boolean admin_vu;
 	
 	public int getId() {
 		return id;
@@ -64,6 +62,12 @@ public class Feedback implements Serializable{
 	}
 	public void setRating(Enumerations.LevelRating rating) {
 		this.rating = rating;
+	}
+	public Who getWho() {
+		return who;
+	}
+	public void setWho(Who who) {
+		this.who = who;
 	}
 	public Date getDate() {
 		return date;
@@ -82,6 +86,13 @@ public class Feedback implements Serializable{
 	}
 	public void setNotice(String notice) {
 		this.notice = notice;
+	}
+	
+	public Boolean getAdmin_vu() {
+		return admin_vu;
+	}
+	public void setAdmin_vu(Boolean admin_vu) {
+		this.admin_vu = admin_vu;
 	}
 	public Feedback() {
 		super();
