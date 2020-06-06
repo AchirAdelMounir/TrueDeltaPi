@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<h:head>
+		<link rel="icon" type="image/x-icon" href="favicon.ico"></link>
+		<title>Angle - Bootstrap Admin Template</title>
+	</h:head>
+
+	<h:body>
+
+		<header class="topnavbar-wrapper"> </header>
+		<!-- sidebar-->
+		<aside class="aside-container">
+			<!-- START Sidebar (left)-->
+			<div class="aside-inner">
+				<nav class="sidebar" data-sidebar-anyclick-close="">
+					<!-- START sidebar nav-->
+					<ul class="sidebar-nav">
+						<!-- Iterates over all sidebar items-->
+						<li class="nav-heading "><span
+							data-localize="sidebar.heading.HEADER">Main Navigation</span></li>
+						<li class=" "><a href="#dashboard" title="Dashboard"
+							data-toggle="collapse">
+								<div class="float-right badge badge-success">3</div> <i
+								class="fa fa-fw fa-dashboard"></i><span
+								data-localize="sidebar.nav.DASHBOARD">Evaluation</span>
+						
+							<ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+								<li class="sidebar-subnav-header">Dashboard</li>
+								<li class=" active"><h:link value="Evaluation360"
+										outcome="/pages/EmployesListEval.xhtml" /></li>
+										<div class="float-right badge badge-success">3</div>
+										 
+							<i class="fa fa-fw fa-dashboard"></i>
+								<span data-localize="sidebar.nav.DASHBOARD">Training</span></ul>
+						
+							<ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+								<li class="sidebar-subnav-header">Dashboard</li>
+								<li class=" active"><h:link value="Training"
+										outcome="/pages/AddTraining.xhtml" /></li>
+										<i class="fa fa-fw fa-dashboard"></i>
+								<span data-localize="sidebar.nav.DASHBOARD">Trainers</span></ul>
+						</a>
+							
+							<ul class="sidebar-nav sidebar-subnav collapse" id="dashboard">
+								<li class="sidebar-subnav-header">Dashboard</li>
+								<li class=" active"><h:link value="Trainer"
+										outcome="/pages/TrainingList.xhtml" /></li>
+                      </ul></li>
+                      
+						<li class="nav-heading "><span
+							data-localize="sidebar.heading.COMPONENTS">Components</span></li>
+						<li class=" "><a href="#extras" title="Extras"
+							data-toggle="collapse"><em class="fa fa-fw fa-info"></em><span
+								data-localize="sidebar.nav.extra.EXTRA">Extras</span></a></li>
+
+
+
+						<li class="nav-heading "><span
+							data-localize="sidebar.heading.COMPONENTS">Objective</span></li>
+
+
+
+
+						<li class=" "><h:link
+								outcome="/pages/evaluation/addObjective.xhtml">
+								<em class="fa fa-fw fa-plus"></em>
+								<span>Add objective</span>
+							</h:link></li>
+
+
+						<li class=" "><h:link
+								outcome="/pages/evaluation/objectives.xhtml">
+								<em class="fa fa-fw fa-list"></em>
+								<span>All objectives</span>
+							</h:link></li>
+
+<li class="nav-heading "><span
+							data-localize="sidebar.heading.COMPONENTS">Training</span></li>
+
+
+
+
+						<li class=" "><h:link
+								outcome="/pages/Formation/AddTraining.xhtml">
+								<em class="fa fa-fw fa-plus"></em>
+								<span>Add Training</span>
+							</h:link></li>
+
+
+						<li class=" "><h:link
+								outcome="/pages/formation/TrainingList.xhtml">
+								<em class="fa fa-fw fa-list"></em>
+								<span>Show training </span>
+							</h:link></li>
+
+
+
+					</ul>
+				</nav>
+			</div>
+		</aside>
+
+
+
+	</h:body>
+
+</ui:composition>
+
+
+

@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:body>
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/template/Header.xhtml" />
+			</ui:insert>
+		</div>
+		<section class="main__middle__container">
+			<div class="titles blog text-left">
+				<div class="container">
+					<div class="seper"></div>
+					<h2 class="page__title">GESTION DES </h2>
+					<h2 class="page__title">VEHICULES</h2>
+					<i class="fa fa-table" /> Welcome 
+				</div>
+			</div>
+			<div class="container">
+				<div class="row no_padding title__block nothing no-margin">
+
+					<div class="col-md-8">
+						<h3>Types</h3>
+				
+						
+										 <h:outputLabel for="console" value="FILTER" ></h:outputLabel>
+										 
+										 <h:form>
+						
+			      <h:commandLink value ="ALL" action="#{VehiculeBean.getAll()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                  <h:commandLink value ="Trucs" action="#{VehiculeBean.getCamions()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                  <h:commandLink value ="Cars" action="#{VehiculeBean.getBerlines()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                  <h:commandLink value ="SUVs" action="#{VehiculeBean.getSuvs()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                  <h:commandLink value ="Berlins" action="#{VehiculeBean.getCamionettes()}"   class="btn btn-lg btn-info" ></h:commandLink>
+                
+					</h:form>
+										 
+										 
+        
+						<div style="width: 100%" class="dc_divider4"></div>
+						<p class="black-text"></p>
+						<p id="feedback"></p>
+						
+						
+						
+						
+						
+						
+						<section class="recent-posts">
+    <div class="container">
+      <div class="row no-margin nothing">
+        <div class="col-md-9 ">
+         <h3 style="margin-top:0">All Vehiculs :<h:outputText value=" #{VehiculeBean.getAll().size()} " /></h3>
+    
+       
+    
+   <ui:repeat value="#{VehiculeBean.vehicules}" var="e">
+         <li>
+          <article > 
+          
+          <h:graphicImage style="width:'10%'" value="#{'../ressources/images/img/person.png'}" />
+            <div class="text">
+         
+              <p class="small-paragraph"><h:outputText value="ID:#{e.vehiculeId}" /></p>
+               <p><h:outputText value="Matricule: #{e.matricule} " /></p>
+               <p><h:outputText value="Type: #{e.typeVh} " /></p>
+               
+              
+              
+              
+
+             
+            </div>
+            <div class="clearfix"></div>
+          </article>
+          </li>
+          <h:form>
+           <h:commandLink value ="Delete" action ="#{VehiculeBean.delete(e.vehiculeId)}"  class="btn btn-lg btn-info" ></h:commandLink>
+     <h:commandLink value ="update" action ="#{VehiculeBean.updateVehicule(e)}"  class="btn btn-lg btn-info" ></h:commandLink>
+           </h:form>
+          </ui:repeat>
+        </div>
+        </div>  
+    </div>
+  </section>
+						
+						
+						
+						
+						
+						
+						
+						
+
+</div>
+						
+					</div>
+
+					<div class="col-md-4">
+						<h3>Get in touch with us</h3>
+						<div style="width: 60%" class="dc_divider4"></div>
+						<p class="black-text">
+							<span>Address:</span> 
+						</p>
+						<p class="black-text">
+							<span>Telephone:</span> 
+						</p>
+						<p class="black-text">
+							<span>Fax:</span> 
+						</p>
+					</div>
+
+				</div>
+			
+		</section>
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/template/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</h:body>
+<script type="text/javascript">
+  function test1(){
+    alert('test');
+    alert(document.getElementById('frmDashBoard:testbt').value);
+  }
+  </script>
+</ui:composition>

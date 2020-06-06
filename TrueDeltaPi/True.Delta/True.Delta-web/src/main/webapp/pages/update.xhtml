@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:body>
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="/template/Header.xhtml" />
+			</ui:insert>
+		</div>
+		<section class="main__middle__container">
+			<div class="titles blog text-left">
+				<div class="container">
+					<div class="seper"></div>
+					<h2 class="page__title">GESTION DES </h2>
+					<h2 class="page__title">EMPLOYEE</h2>
+					<i class="fa fa-table" /> Welcome 
+				</div>
+			</div>
+			<div class="container">
+				<div class="row no_padding title__block nothing no-margin">
+
+					<div class="col-md-8">
+						<h3>Details</h3>
+						<div style="width: 100%" class="dc_divider4"></div>
+						<p class="black-text"></p>
+						<p id="feedback"></p>
+
+ 
+						<h:form  enctype="multipart/form-data">
+												
+						
+						
+
+						<p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+    <f:facet name="default">
+        <h:outputText value="Status: StandBy" />
+    </f:facet>
+ 
+    <f:facet name="start">
+        <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+    </f:facet>
+ 
+    <f:facet name="complete">
+        <h:outputText value="Status: Completed" />
+    </f:facet>
+</p:ajaxStatus>
+ 
+<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+    <p:graphicImage name="/demo/images/ajaxloadingbar.gif" />
+</p:dialog>
+						   <p:messages id="msgs" />
+							<p:messages id="msgs" />
+							<div class="form-group col-md-6">
+								<h:outputText value="matricule" />
+								<h:inputText id="addresss" style="width:100%;"
+									class="form-control" value="#{VehiculeBean.matricule}" />
+
+							</div>
+												
+							<div class="form-group col-md-6">
+							<h:outputText value="typeVh" />
+							<h:selectOneRadio id="console"  value="#{VehiculeBean.typeVh}" unselectable="true" >      
+                              <f:selectItem itemLabel="Truc"  itemValue="Truc" />
+       		                  <f:selectItem itemLabel="Car" itemValue="Car"  />
+                              <f:selectItem itemLabel="SUV" itemValue="SUV"  />
+                              <f:selectItem itemLabel="Berlin" itemValue="Berlin" />
+                             </h:selectOneRadio>
+                            </div>
+							<div class="form-group col-md-6">
+							
+							  <h:outputText for="button" value="Button:" />
+    
+							</div>
+                           <div  class="form-group col-md-6">
+                            <h:commandButton action="#{VehiculeBean.update}" value="update"  icon="ui-icon-refresh" >
+							</h:commandButton>
+</div>
+
+						</h:form>
+					</div>
+
+					<div class="col-md-4">
+						<h3>Get in touch with us</h3>
+						<div style="width: 60%" class="dc_divider4"></div>
+						<p class="black-text">
+							<span>Address:</span>
+						</p>
+						<p class="black-text">
+							<span>Telephone:</span>
+						</p>
+						<p class="black-text">
+							<span>Fax:</span> 
+						</p>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="/template/footer.xhtml" />
+			</ui:insert>
+		</div>
+	</h:body>
+
+</ui:composition>
