@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui" xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
+	<h:head>
+		<link rel="icon" type="image/x-icon" href="favicon.ico"></link>
+		<title>Angle - Bootstrap Admin Template</title>
+	</h:head>
+
+	<h:body>
+
+
+		<!-- top navbar-->
+		<header class="topnavbar-wrapper">
+			<!-- START Top Navbar-->
+			<nav class="navbar topnavbar">
+				<!-- START navbar header-->
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#/">
+						<div class="brand-logo">
+							<h:graphicImage styleClass="img-fluid"
+								value="/resources/default/img/logo.png" />
+						</div>
+					</a>
+				</div>
+				<!-- END navbar header-->
+				<!-- START Left navbar-->
+				<t:dataList id="String" styleClass="navbar-nav mr-auto flex-row"
+					itemStyleClass="nav-item" layout="Constant" rowIndexVar="int">
+
+
+					<!-- START User avatar toggle-->
+				</t:dataList>
+				<!-- END Left navbar-->
+
+
+				<ul class="navbar-nav mr-auto flex-row">
+					<li class="nav-item">
+						<!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
+						<a class="nav-link d-none d-md-block d-lg-block d-xl-block"
+						href="#" data-trigger-resize=""
+						data-toggle-state="aside-collapsed"><i
+							class="fa fa-fw fa-bars"></i></a>
+					</li>
+					<!-- START User avatar toggle-->
+					<li class="nav-item d-none d-md-block">
+						<!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
+						<a class="nav-link" id="user-block-toggle" href="#user-block"
+						data-toggle="collapse"><i class="fa fa-user"></i></a>
+					</li>
+					<!-- END User avatar toggle-->
+					<!-- START lock screen-->
+					<li class="nav-item d-none d-md-block"><a class="nav-link"
+						href="lock.html" title="Lock screen"><i
+							class="fa fa-fw fa-lock"></i></a></li>
+					<!-- END lock screen-->
+				</ul>
+				<!-- END Left navbar-->
+
+
+				<!-- START Right Navbar-->
+				<ul class="navbar-nav flex-row">
+					<li class="nav-item"><a class="nav-link" href="#"
+						data-search-open=""><i class="fa fa-fw fa-search"></i></a></li>
+					<li class="nav-item dropdown dropdown-list"><a
+						class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#"
+						data-toggle="dropdown"><i class="fa fa-fw fa-bell-o"></i><span
+							class="badge badge-danger">11</span></a> <!-- START Dropdown menu-->
+						<div class="dropdown-menu dropdown-menu-right animated flipInX">
+							<div class="dropdown-item">
+								<!-- START list group-->
+								<div class="list-group">
+									<!-- list item-->
+									<div class="list-group-item list-group-item-action">
+										<div class="media">
+											<div class="align-self-start mr-2">
+												<i class="fa fa-fw fa-twitter fa-2x text-info"></i>
+											</div>
+											<div class="media-body">
+												<p class="m-0">New followers</p>
+												<p class="m-0 text-muted text-sm">1 new follower</p>
+											</div>
+										</div>
+									</div>
+									<!-- list item-->
+									<div class="list-group-item list-group-item-action">
+										<div class="media">
+											<div class="align-self-start mr-2">
+												<i class="fa fa-fw fa-envelope fa-2x text-warning"></i>
+											</div>
+											<div class="media-body">
+												<p class="m-0">New e-mails</p>
+												<p class="m-0 text-muted text-sm">You have 10 new emails</p>
+											</div>
+										</div>
+									</div>
+									<!-- list item-->
+									<div class="list-group-item list-group-item-action">
+										<div class="media">
+											<div class="align-self-start mr-2">
+												<i class="fa fa-fw fa-tasks fa-2x text-success"></i>
+											</div>
+											<div class="media-body">
+												<p class="m-0">Pending Tasks</p>
+												<p class="m-0 text-muted text-sm">11 pending task</p>
+											</div>
+										</div>
+									</div>
+									<!-- last list item-->
+									<div class="list-group-item list-group-item-action">
+										<span class="d-flex align-items-center"><span
+											class="text-sm">More notifications</span><span
+											class="badge badge-danger ml-auto">14</span></span>
+									</div>
+								</div>
+								<!-- END list group-->
+							</div>
+						</div> <!-- END Dropdown menu--></li>
+					<!-- END Alert menu-->
+
+
+				</ul>
+
+				<!-- START Search form-->
+				<form class="navbar-form" role="search" action="search.html">
+					<div class="form-group">
+						<input class="form-control" type="text"
+							placeholder="Type and hit enter ..." />
+						<div class="fa fa-fw fa-close navbar-form-close"
+							data-search-dismiss=""></div>
+					</div>
+					<button class="d-none" type="submit">Submit</button>
+				</form>
+				<!-- END Search form-->
+			</nav>
+			<!-- END Top Navbar-->
+		</header>
+	</h:body>
+</ui:composition>
+
+
+
+

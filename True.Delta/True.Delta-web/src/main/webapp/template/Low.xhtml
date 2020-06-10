@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">	 
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+		<div id="main-slide" class="carousel slide carousel-fade"
+			data-ride="carousel">
+			<!-- Indicators Starts -->
+			<ol class="carousel-indicators visible-lg visible-md">
+				<li data-target="#main-slide" data-slide-to="0" class="active"></li>
+				<li data-target="#main-slide" data-slide-to="1"></li>
+				<li data-target="#main-slide" data-slide-to="2"></li>
+			</ol>
+			<!-- Indicators Ends -->
+			<!-- Carousel Inner Starts -->
+			<div class="carousel-inner">
+				<!-- Carousel Item Starts -->
+				<div class="item active bg-parallax item-1">
+					<img src="Assets/images/nasdaq.jpg" />
+					<div class="slider-content">
+						<div class="container">
+							<div class="slider-text text-center">
+								<h3 class="slide-title">
+									<span>SEE </span>ALL <span> NASDAQ'S</span><br /> Asset Managers
+								</h3>
+								<h:form>
+
+									<h:commandButton class="slider btn btn-primary"
+										value="Show More About Companies" action="#{CompanyBean.DisplayTopLastNCompanies('Market_Cap_E',4)}"></h:commandButton>
+
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel Item Ends -->
+				<!-- Carousel Item Starts -->
+				<div class="item bg-parallax item-2">
+					<img src="Assets/images/nasdaq2.jpg" />
+					<div class="slider-content">
+						<div class="col-md-12">
+							<div class="container">
+								<div class="slider-text text-center">
+									<h3 class="slide-title">
+										<span>CHOOSE </span> US <br/> TO MANAGE <span> YOUR
+											PORTFOLIO</span>
+									</h3>
+									<p>
+										<a href="pricing.html" class="slider btn btn-primary">our
+											prices</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel Item Ends -->
+			</div>
+			<!-- Carousel Inner Ends -->
+			<!-- Carousel Controlers Starts -->
+			<a class="left carousel-control" href="index.html#main-slide"
+				data-slide="prev"> <span><i class="fa fa-angle-left"></i></span>
+			</a> <a class="right carousel-control" href="index.html#main-slide"
+				data-slide="next"> <span><i class="fa fa-angle-right"></i></span>
+			</a>
+			<!-- Carousel Controlers Ends -->
+		</div>
+		<section class="shop-cart">
+			<!--Start section-->
+			<div class="container">
+				<div class="row">
+
+
+		<h:form>
+													<div class="slider-text text-center">
+					
+
+  <a href="Low.xhtml" class="slider btn btn-primary"  ><i class="fa fa-user"></i> Low</a>
+ 
+<a href="Medium.xhtml" class="slider btn btn-primary"><i class="fa fa-user"></i> Medium</a>
+<a href="High.xhtml" class="slider btn btn-primary"><i class="fa fa-user"></i> High</a>
+
+<a href="ListAM.xhtml" class="slider btn btn-primary"><i class="fa fa-user"></i> All</a>
+
+      							</div>
+      							
+      	</h:form>
+
+
+
+
+
+
+
+					<!-- Purchased Products Starts -->
+					<div class="col-xs-12 table-responsive">
+
+						<h:form>
+
+							<h:dataTable binding="#{table}"
+								value="#{AssetManagerBean.assetManagersLow}" var="e"
+								class="table order text-center">
+								<h:column>
+									<f:facet name="header">  Name </f:facet>
+									<h:outputText value="#{e.nom} " />
+								</h:column>
+							
+								<h:column>
+									<f:facet name="header">Returns</f:facet>
+									<h:outputText value="#{e.score} " />
+								</h:column>
+							
+								<h:column>
+									<f:facet name="header">Risk</f:facet>
+									<h:outputText value="#{e.risk} " />
+								</h:column>
+								
+								<h:column>
+									<f:facet name="header">Classification</f:facet>
+									<h:outputText value="#{e.classification} " />
+								</h:column>
+									
+							</h:dataTable>
+						</h:form>
+
+					</div>
+					<!-- Cart Totals Ends -->
+				</div>
+			</div>
+		</section>
+		<!-- Section Shopping Cart Ends -->
+		<!-- Call To Action Section Starts -->
+		<section class="call-action-all">
+			<div class="call-action-all-overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- Call To Action Text Starts -->
+							<div class="action-text">
+								<h2>Get Started Today With Bitcoin</h2>
+								<p class="lead">Open account for free and start trading
+									Bitcoins!</p>
+							</div>
+							<!-- Call To Action Text Ends -->
+							<!-- Call To Action Button Starts -->
+							<p class="action-btn">
+								<a class="btn btn-primary" href="register.html">Register Now</a>
+							</p>
+							<!-- Call To Action Button Ends -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

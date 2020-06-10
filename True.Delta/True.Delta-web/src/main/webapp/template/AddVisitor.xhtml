@@ -1,0 +1,193 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Add_AM" />
+	<ui:define name="content">
+
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title">
+									Get in <span>touch</span>
+								</h2>
+								<!-- Title Ends -->
+								<hr />
+								<!-- Breadcrumb Starts -->
+								<ul class="breadcrumb">
+									<li><a href="index.html"> home</a></li>
+									<li>contact</li>
+								</ul>
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-8 contact-form">
+						<h3 class="col-xs-12">Add Visitor</h3>
+						<p class="col-xs-12">Fill this form to create your profile.</p>
+						<!-- Contact Form Starts -->
+						<h:form id="createAMForm">
+
+							<!-- Input Field Starts -->
+							<div class="form-group col-xs-12">
+							
+								<p:messages rendered="true" />
+							
+								</div>
+					
+								
+							<div class="form-group col-md-6">
+
+								<h:outputLabel for="prenom" value="Name " />
+								<h:inputText class="form-control" label="name"
+									value="#{VisitorBean.nom}" id="prenom" required="true">
+									<f:validateLength minimum="0" maximum="30"  />
+								</h:inputText>
+
+
+
+							</div>
+							
+								
+							<div class="form-group col-md-6">
+
+								<h:outputLabel for="nom" value="mail" />
+								<h:inputText class="form-control" label="Last name:"
+									value="#{VisitorBean.adresseMail}" id="nom" required="true">
+									<f:validateLength minimum="0" maximum="30"  />
+								</h:inputText>
+
+
+
+							</div>
+								
+							<div class="form-group col-md-6">
+
+								<h:outputLabel for="adresseMail" value="Password:" />
+								<h:inputText class="form-control" label="Mail address:"
+									value="#{VisitorBean.password}" id="adresseMail" required="true">
+									<f:validateLength minimum="0" maximum="30"  />
+								</h:inputText>
+
+
+
+							</div>
+							
+							
+			
+							<!-- Input Field Ends -->
+							<!-- Submit Form Button Starts -->
+							<div class="form-group col-xs-12 col-sm-4">
+
+								<h:commandButton value="Save" ajax="false"
+									icon="fa fa-check-square" class="btn btn-primary btn-contact"
+									action="#{VisitorBean.add()}">
+									<f:resetValues render="" />
+								</h:commandButton>
+
+
+
+
+
+							</div>
+							<!-- Submit Form Button Ends -->
+							<!-- Form Submit Message Starts -->
+
+							<!-- Form Submit Message Ends -->
+
+						</h:form>
+						<h:form>
+							<center>
+								<h:commandButton class="slider btn btn-primary"
+									value="Go to Companies" action="DisplayCompanies"></h:commandButton>
+							</center>
+						</h:form>
+						<!-- Contact Form Ends -->
+					</div>
+					<!-- Contact Widget Starts -->
+					<div class="col-xs-12 col-md-4">
+						<div class="widget">
+							<div class="contact-page-info">
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-home big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Address</h4>
+										<p>123 Disney Street Slim Av. Brooklyn Bridge, NY, New
+											York</p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-phone big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Phone Numbers</h4>
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Email Addresses</h4>
+
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Social Media Icons Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-share-alt big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Social Profiles</h4>
+										<div class="social-contact">
+											<ul>
+												<li class="facebook"><a href="#" target="_blank"><i
+														class="fa fa-facebook"></i></a></li>
+												<li class="twitter"><a href="#" target="_blank"><i
+														class="fa fa-twitter"></i></a></li>
+												<li class="google-plus"><a href="#" target="_blank"><i
+														class="fa fa-google-plus"></i></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- Social Media Icons Starts -->
+							</div>
+						</div>
+					</div>
+					<!-- Contact Widget Ends -->
+				</div>
+			</div>
+		</section>
+
+		<!--Start section-->
+
+
+
+	</ui:define>
+	<script src="https://widget.cloudinary.com/v2.0/global/all.js"
+		type="text/javascript"></script>
+
+	<h:outputScript library="js" name="../ressources/cvcloudinary.js" />
+</ui:composition>

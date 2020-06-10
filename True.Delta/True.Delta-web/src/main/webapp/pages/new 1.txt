@@ -1,0 +1,262 @@
+package beans;
+
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import Entities.AssetManager;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.ejb.EJB;
+import Interfaces.AssetManagerServiceInterface;
+
+@ManagedBean(name = "AssetManagerBean")
+@SessionScoped
+public class AssetManagerBean {
+
+@EJB 	
+AssetManagerServiceInterface es ;
+private int Id;
+
+private String description;
+private String experience;
+private double score ;
+private double rating;
+private String risk;
+private boolean confirmation ;
+
+
+
+public String getNom() {
+	return this.getNom();
+}
+public void setNom(String nom) {
+	this.setNom(nom);
+}
+public String getPrenom() {
+	return this.getPrenom();
+}
+public void setPrenom(String prenom) {
+	this.setPrenom(prenom);
+}
+public String getAdresseMail() {
+	return this.getAdresseMail();
+}
+public void setAdresseMail(String adresseMail) {
+	this.setAdresseMail(adresseMail);
+}
+
+
+private List<AssetManager> assetManagers = new ArrayList<>();
+private List<AssetManager> assetManagersConfir=new ArrayList<>();
+private List<AssetManager> assetManagersHigh=new ArrayList<>();
+
+
+public Map<String, Float> changes =new HashMap<>();
+
+public String getDescription() {
+	return description;
+}
+public void setDescription(String description) {
+	this.description = description;
+}
+public String getExperience() {
+	return experience;
+}
+public void setExperience(String experience) {
+	this.experience = experience;
+}
+public double getScore() {
+	return score;
+}
+public void setScore(double score) {
+	this.score = score;
+}
+public double getRating() {
+	return rating;
+}
+public void setRating(double rating) {
+	this.rating = rating;
+}
+public String getRisk() {
+	return risk;
+}
+public void setRisk(String risk) {
+	this.risk = risk;
+}
+public boolean getConfirmation() {
+	return confirmation;
+}
+public void setConfirmation(boolean confirmation) {
+	this.confirmation = confirmation;
+}
+public List<AssetManager> getAssetManagers() {
+	this.assetManagers= es.getall();
+	return assetManagers;
+}
+public void setAssetManagers(List<AssetManager> assetManagers) {
+	this.assetManagers = assetManagers;
+}
+public List<AssetManager> getAssetManagersConfir() {
+	this.assetManagersConfir= es.getallConfirmation();
+	return assetManagersConfir;
+} 
+
+
+public void setAssetManagersHigh(List<AssetManager> assetManagers) {
+	this.assetManagers = assetManagers;
+}
+public List<AssetManager> getAssetManagersHigh() {
+	this.assetManagersHigh= es.GetHigh();
+	return assetManagersHigh;
+} 
+
+
+
+
+public  Map<String, Float> getconversions() throws IOException {
+	this.changes= es.Change();
+	return changes;
+} 
+
+
+public void setconversions( Map<String, Float> changes) {
+	this.changes = changes;
+}
+
+
+public void setAssetManagersConfir(List<AssetManager> assetManagers) {
+	this.assetManagersConfir = assetManagers;
+}
+
+
+public String add() {
+	AssetManager Vh = new AssetManager();
+	
+	Vh.setDescription(this.getDescription());
+	Vh.setExperience(this.getExperience());
+	Vh.setScore(this.getScore());
+	Vh.setRating(this.getRating());
+	Vh.setRisk(this.getRisk());
+	Vh.setNom(this.getNom());
+	Vh.setPrenom(this.getPrenom());
+	Vh.setAdresseMail(this.getAdresseMail());
+
+	es.addAssetManager(Vh);
+	
+	Vh.setDescription("");
+	Vh.setExperience("");
+	Vh.setScore(0);
+	Vh.setRating(0);
+	Vh.setRisk("");
+	Vh.setNom("");
+	Vh.setPrenom("");
+	Vh.setAdresseMail("");
+
+	return "/pages/list?faces-redirect=true";
+	
+}
+
+
+
+
+
+public void delete( int id) {
+
+	es.deleteAssetManager(id);;
+	
+}
+
+
+
+
+public String updateAssetManager(AssetManager Vh) {
+	
+	this.setDescription(Vh.getDescription());
+	this.setExperience(Vh.getExperience());
+	this.setScore(Vh.getScore());
+	this.setRating(Vh.getRating());
+	this.setRisk(Vh.getRisk());
+	this.setNom(this.getNom());
+	this.setPrenom(this.getPrenom());
+	this.setAdresseMail(this.getAdresseMail());
+	
+	
+	
+	return "/pages/update?faces-redirect=true";
+	
+	
+	}
+
+	
+public String update() {
+	AssetManager Vh = new AssetManager();
+	Vh.setDescription(this.getDescription());
+	Vh.setExperience(this.getExperience());
+	Vh.setScore(this.getScore());
+	Vh.setRating(this.getRating());
+	Vh.setRisk(this.getRisk());
+	Vh.setNom(this.getNom());
+	Vh.setPrenom(this.getPrenom());
+	Vh.setAdresseMail(this.getAdresseMail());
+	
+	es.updateAssetManager(Vh);
+	
+	Vh.setDescription("");
+	Vh.setExperience("");
+	Vh.setScore(0);
+	Vh.setRating(0);
+	Vh.setRisk("");
+	Vh.setNom("");
+	Vh.setPrenom("");
+	Vh.setAdresseMail("");
+	
+	
+	
+	
+	return "/pages/list?faces-redirect=true";
+	
+}
+
+public String acceptAssetManager(AssetManager am) {
+	
+	am.setConfirmation(true);
+	
+	
+	
+	es.updateAssetManager(am);
+
+	
+	
+	
+	
+	return "/pages/confirm?faces-redirect=true";
+	
+	
+	}
+
+
+
+public List<AssetManager> getAll()
+{
+	return es.getall();
+}
+
+
+
+
+
+public int getId() {
+	return Id;
+}
+public void setId(int id) {
+	Id = id;
+}
+
+
+}

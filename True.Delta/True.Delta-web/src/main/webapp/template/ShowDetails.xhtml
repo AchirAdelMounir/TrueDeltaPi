@@ -1,0 +1,212 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+
+		<section class="banner-area">
+
+			<div class="banner-overlay">
+				<img src="Assets/images/nasdaq3.jpg" />
+
+				<div class="banner-text text-center">
+
+					<div class="container">
+
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title-head">
+									<h:outputText value="#{loginBean.user.class}" />
+									<span></span>
+								</h2>
+								<!-- Title Ends -->
+								<hr />
+								<!-- Breadcrumb Starts -->
+								<ul class="breadcrumb">
+									<li><a href="index.html"> home</a></li>
+									<li>About</li>
+								</ul>
+								
+								
+												<h:form>
+
+									<h:commandButton class="slider btn btn-primary"
+										value="Check this Asset Manager's Portfolios" action="#{AssetManagerBean.getportfoliobyAM()}"></h:commandButton>
+
+								</h:form>
+								
+								<h:form> 
+
+									<h:commandButton class="slider btn btn-primary"
+										value="Check this Asset Manager's Feedbacks" action="#{AssetManagerBean.DetailsCmntr()}"></h:commandButton>
+
+								</h:form>
+								
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Banner Area Starts -->
+
+		<!-- About Section Ends -->
+		<!-- Facts Section Starts -->
+		<section class="facts">
+			<!-- Container Starts -->
+			<div class="container">
+				<!-- Fact Badges Starts -->
+				<div class="row text-center facts-content">
+					<div class="text-center heading-facts">
+						<h2>
+                                   Welcome to the profile of
+							<span> <h:outputText value="#{AssetManagerBean.am.nom}" />
+								
+							</span>
+						</h2>
+						<p>
+							Member Since :
+							<h:outputText value="#{AssetManagerBean.am.dateInscri}" />
+						</p>
+					</div>
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact">
+					      Classified As :
+						<h4>    
+							<h:outputText value="#{AssetManagerBean.am.classification}">
+								<f:convertNumber type="currency" maxFractionDigits="0" />
+							</h:outputText>
+
+						</h4>
+					
+					</div>
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact fact-clear">
+					     With the Experience :
+						<h4>
+
+							<h:outputText value="#{AssetManagerBean.am.experience}">
+								<f:convertNumber type="currency" maxFractionDigits="0" />
+							</h:outputText>
+						</h4>
+						
+					</div>
+					
+					
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact">
+					    Returns :
+						<h4>
+							<h:outputText value="#{AssetManagerBean.am.score}">
+								<f:convertNumber type="number" maxFractionDigits="8" />
+							</h:outputText>
+						</h4>
+
+					</div>
+					
+					
+					
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact">
+					    Risk Supported :
+						<h4>
+							<h:outputText value="#{AssetManagerBean.am.risk}">
+								<f:convertNumber type="number" maxFractionDigits="8" />
+							</h:outputText>
+						</h4>
+
+					</div>
+					
+						<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6 fact">
+					    Can Be Contacted on : 
+						<h4>
+							<h:outputText value="#{AssetManagerBean.am.adresseMail}">
+								<f:convertNumber type="number" maxFractionDigits="8" />
+							</h:outputText>
+						</h4>
+
+					</div>
+					
+					
+					<!-- Fact Badge Item Ends -->
+					<!-- Fact Badge Item Starts -->
+					<div class="col-xs-12 col-md-3 col-sm-6">
+					    Has Rating
+						<h4>
+							<h:outputText value="#{AssetManagerBean.am.ratingAM}">
+								<f:convertNumber type="number" maxFractionDigits="8" />
+							</h:outputText>
+						</h4>
+
+					</div>
+					<!-- Fact Badge Item Ends -->
+					<div class="col-xs-12 buttons">
+						<div class="col-xs-12 col-md-6 col-sm-12">
+							<h:form>
+								
+                        <a href="ListAM.xhtml" class="slider btn btn-primary"  ><i class="fa fa-user"></i> Check Others</a>
+							</h:form>
+						</div>
+
+						
+					</div>
+				</div>
+				
+				
+
+								
+				<!-- Fact Badges Ends -->
+			</div>
+			<!-- Container Ends -->
+		</section>
+		<!-- facts Section Ends -->
+		<!-- Team Section Starts -->
+		<section class="team">
+			
+		</section>
+		<!-- Team Section Ends -->
+		<!-- Call To Action Section Starts -->
+		<section class="call-action-all">
+			<div class="call-action-all-overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- Call To Action Text Starts -->
+							<div class="action-text">
+								<h2>Want To See Companies Top Tier</h2>
+								<p class="lead">Open account for free and start trading
+									Bitcoins!</p>
+							</div>
+							<!-- Call To Action Text Ends -->
+							<!-- Call To Action Button Starts -->
+							<p class="action-btn">
+								<a class="btn btn-primary" href="register.html">Register Now</a>
+							</p>
+							<!-- Call To Action Button Ends -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

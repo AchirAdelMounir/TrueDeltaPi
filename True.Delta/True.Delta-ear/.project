@@ -3,6 +3,7 @@
 	<name>True.Delta-ear</name>
 	<comment></comment>
 	<projects>
+		<project>True.Delta-ejb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

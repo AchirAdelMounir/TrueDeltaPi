@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -32,10 +33,16 @@ public class Portfolio implements Serializable{
 	
 	@OneToOne(mappedBy="Portfolio")
 	private Contract Contract;
+	
 	@OneToMany(mappedBy="Portfolio")
 	private Set<Security> Securities;
-	@OneToOne(mappedBy="portfolio")
-	private User User;
+	
+	
+	
+	
+
+	@ManyToOne
+	private AssetManager assetmanager;
 
 	
 	public Portfolio() {
@@ -44,17 +51,7 @@ public class Portfolio implements Serializable{
 	
 	
 	
-	public Portfolio(int idPortfolio, int typePortfolio, double returns, int volatility, Entities.Contract contract,
-			Set<Security> securities, Entities.User user) {
-		super();
-		IdPortfolio = idPortfolio;
-		TypePortfolio = typePortfolio;
-		Returns = returns;
-		Volatility = volatility;
-		Contract = contract;
-		Securities = securities;
-		User = user;
-	}
+	
 
 
 
@@ -70,6 +67,26 @@ public class Portfolio implements Serializable{
 		return TypePortfolio;
 	}
 	
+	public AssetManager getAssetmanager() {
+		return assetmanager;
+	}
+
+
+
+
+
+
+
+	public void setAssetmanager(AssetManager assetmanager) {
+		this.assetmanager = assetmanager;
+	}
+
+
+
+
+
+
+
 	public void setTypePortfolio(int typePortfolio) {
 		TypePortfolio = typePortfolio;
 	}
