@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/test/template/default/template.xhtml">
+	<ui:define name="content">
+		<section class="section-container"> <!-- Page content-->
+		<div class="content-wrapper">
+			<div class="content-heading">
+				<div>
+					Add Claims<small data-localize="dashboard.WELCOME"></small>
+				</div>
+				<!-- START Language list-->
+				<div class="ml-auto">
+					<div class="btn-group">
+						<button
+							class="btn btn-secondary dropdown-toggle dropdown-toggle-nocaret"
+							type="button" data-toggle="dropdown">English</button>
+						<div
+							class="dropdown-menu dropdown-menu-right-forced animated fadeInUpShort"
+							role="menu">
+							<a class="dropdown-item" href="#" data-set-lang="en">English</a><a
+								class="dropdown-item" href="#" data-set-lang="es">Spanish</a>
+						</div>
+					</div>
+				</div>
+				<!-- END Language list-->
+			</div>
+			<!-- START cards box-->
+			<h:form>
+				<h:panelGrid columns="2">
+				
+			        
+					
+					
+					
+				
+					
+					<h:commandButton value="ADD" action="#{VehiculeBean.add()}" />
+				</h:panelGrid>
+			</h:form>
+			<!-- END cards box-->
+		</div>
+		</section>
+	</ui:define>
+</ui:composition>

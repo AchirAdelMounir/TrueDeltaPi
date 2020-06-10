@@ -36,18 +36,13 @@ public class User implements Serializable {
 	@Column(name = "USER_NOM")
 	private String nom;
 	
-	@Column(name = "USER_PRENOM")
-	private String prenom;
 	
 	@Column(name = "USER_ADRESS_MAIL")
 	private String adresseMail;
 	
 	@Column(name = "USER_PASSWORD")
 	private String password;
-	
-	@Column(name = "USER_LOGIN")
-	private String login;
-	
+
 	
 	
 	/*@Embedded
@@ -70,8 +65,7 @@ public class User implements Serializable {
 	private Set<Complain> Articles;
 	@OneToMany(mappedBy="User")
 	private Set<Contract> Contratcs;
-	@OneToOne 
-	private Portfolio portfolio;
+
 
 	
 	
@@ -102,13 +96,7 @@ public class User implements Serializable {
 		this.nom = nom;
 	}
 
-	public String getPrenom() {
-		return prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
+	
 
 	public String getAdresseMail() {
 		return adresseMail;
@@ -126,13 +114,7 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
+	
 
 	/*public UserType getType() {
 		return Type;

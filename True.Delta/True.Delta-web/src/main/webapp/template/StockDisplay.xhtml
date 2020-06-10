@@ -1,0 +1,259 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<img src="Assets/images/c.jpg" />
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title-head">
+									<h:outputText value="#{SecurityBean.symStock}" />
+									<span> Stocks Info</span>
+								</h2>
+								<!-- Title Ends -->
+
+								<!-- Breadcrumb Starts -->
+								<h:form>
+
+									<h:commandButton class="slider btn btn-primary"
+										value="Go to Companies" action="DisplayCompanies"></h:commandButton>
+
+								</h:form>
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="contact">
+				<div class="container-fluid">
+				 
+					<div class="row" style="background-color: #232323">
+					
+					<div class="main-logo col-xs-8 col-md-1 col-md-2 col-lg-2 hidden-xs">
+                        <h4 style="color:white">#{SecurityBean.symStock} <span style="color:orange">FROM NASDAQ</span></h4>
+                    </div>
+                    <div class="col-md-7 col-lg-7">
+						<ul class="unstyled bitcoin-stats text-center">
+
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.priceDifference}">
+										<f:convertNumber type="currency" maxFractionDigits="5" />
+									</h:outputText>
+								</h6> <span>Last price difference</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.priceDifferencePercentage}">
+
+									</h:outputText>
+									%
+								</h6> <span>24 Hour price</span>
+							</li>
+							<li>
+								<h6>
+									<h:outputText class="price" data-bw-theme="light"
+										value="#{SecurityBean.yesterdaystock.volume}">
+										<f:convertNumber type="currency" maxFractionDigits="5" />
+									</h:outputText>
+								</h6> <span>24 hour volume</span>
+							</li>
+
+							<li>
+								<h6>
+									<h:form>
+										<h:outputText style="color:orange" id="txt_count"
+											class="price" data-bw-theme="light"
+											value="#{SecurityBean.price}">
+											<f:convertNumber type="currency" maxFractionDigits="5" />
+										</h:outputText>
+										<!--  <p:poll interval="3"
+								listener="#{SecurityBean.GetPriceInstantanly()}"
+								update="txt_count" />-->
+									</h:form>
+								</h6> <span>Live price</span>
+							</li>
+						</ul>
+						</div>
+						<div class="col-md-3 col-lg-3">
+                        <ul class="unstyled user">
+                            <li class="sign-in"><a href="login.html" class="btn btn-primary"><i class="fa fa-eye"></i> + To Watch List</a></li>
+                            <li class="sign-up"><h:form>
+
+							<h:commandButton class="btn btn-primary"
+								value="See History" action="AddCompany"><i class="fa fa-history"></i></h:commandButton>
+
+						</h:form></li>
+                        </ul>
+                    </div>
+					</div>
+				</div>
+				
+			
+
+
+			<div class="container-fluid">
+
+
+				<ui:repeat value="#{SecurityBean.DisplayInfosStocks()}" var="item">
+					<!-- Quote Starts -->
+					<div class="col-md-3 img-block-quote">
+
+
+						<div class="widget">
+							<center>
+								<h3 style="color: white">
+									<h:outputText value="#{item.DATE}">
+										<f:convertDateTime type="date" dateStyle="full" />
+									</h:outputText>
+								</h3>
+							</center>
+							<div class="contact-page-info">
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-dollar big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4></h4>
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+
+									<div class="contact-info-box-content">
+
+										<h4>Open Price</h4>
+
+										<h:outputText value="#{item.open}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+
+
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+
+										<h4>Close Price:</h4>
+
+										<h:outputText value="#{item.close}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</div>
+								</div>
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+
+
+										<h4>Highest Price</h4>
+
+										<h:outputText value="#{item.high}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+
+
+									</div>
+								</div>
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+
+
+										<h4>LowestPrice</h4>
+
+										<h:outputText value="#{item.low}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+
+
+									</div>
+								</div>
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+
+
+										<h4>Adjusted close</h4>
+
+										<h:outputText value="#{item.adj_Close}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+
+
+									</div>
+								</div>
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+
+										<h4>Volume Traded</h4>
+
+										<h:outputText value="#{item.volume}">
+											<f:convertNumber type="currency" maxFractionDigits="0" />
+										</h:outputText>
+
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<!-- siloh -->
+
+
+
+
+						<!--  <h:form>
+	            <h:outputText id="txt_count" value="#{SecurityBean.price}" />
+	            <p:poll interval="3" listener="#{SecurityBean.GetPriceInstantanly()}" update="txt_count" />
+	        </h:form>
+	        -->
+
+
+					</div>
+				</ui:repeat>
+				<!-- Quote Ends -->
+				<!-- Chart Starts -->
+				<br /> <br /> <br /> <br /> <br />
+				<div class="col-md-6 bg-grey-chart">
+					<div class="chart-widget dark-chart chart-1">
+						<div>
+							<div class="btcwdgt-chart" data-bw-theme="dark"></div>
+
+						</div>
+					</div>
+				</div>
+				<!-- Chart Ends -->
+			</div>
+
+		</section>
+
+
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,180 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<img src="Assets/images/c.jpg" />
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title-head">
+									Top/Worst<span> Companies</span>
+								</h2>
+								<!-- Title Ends -->
+
+								<!-- Breadcrumb Starts -->
+								<ul class="breadcrumb">
+									<li><a href="index.html"> Based on </a></li>
+									<br />
+									<h:form>
+									<li><h:selectOneMenu class="form-control"
+											value="#{CompanyBean.value}"  onchange="submit()">
+											<f:selectItem itemValue="Market_Cap_E"
+												itemLabel="Market Cap" />
+											
+											<f:selectItem itemValue="BITDA"
+												itemLabel="BITDA" />
+												
+											<f:selectItem itemValue=" DividendYield"
+												itemLabel="Dividend Yield" />
+												
+												<f:selectItem itemValue="Year_Week_Low"
+												itemLabel="52_Weeks_Low" />
+												
+												<f:selectItem itemValue="Year_Week_High"
+												itemLabel="52_Weeks_High" />
+												<f:ajax event="click" listener="#{CompanyBean.ajaxListener}"/>
+												
+											
+										</h:selectOneMenu></li></h:form>
+
+								</ul>
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Banner Area Ends -->
+		<!-- Pricing Starts -->
+		<section class="pricing">
+			<div class="container">
+
+
+				<!-- Section Content Starts -->
+				<h3 class="text-center">Top Companies</h3>
+				<p class="text-center">The Top 4 Companies</p>
+				<div class="row pricing-tables-content pricing-page">
+					<div class="pricing-container">
+						<!-- Pricing Tables Starts -->
+						<ul class="pricing-list bounce-invert">
+							<ui:repeat value="#{CompanyBean.top}" var="item">
+								<li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+									<ul class="pricing-wrapper">
+										<!-- Pricing Table #1 Starts -->
+										<li><header class="pricing-header">
+												<h2>
+													<h:outputText value="#{item.name}" />
+													<span>For </span>
+												</h2>
+												<div class="price">
+
+													<h4 style="color: white">
+														<h:outputText value="#{item.market_Cap_E}">
+															<f:convertNumber type="currency" maxFractionDigits="0" />
+														</h:outputText>
+													</h4>
+												</div>
+											</header> <footer class="pricing-footer">
+
+												<h:form>
+													<h:commandLink class="btn btn-primary" value="Show More"
+														action="#{CompanyBean.DisplayCompany(item.getSymbol())}">
+														<i class="fa fa-info-circle" aria-hidden="true"></i>
+													</h:commandLink>
+												</h:form>
+
+											</footer></li>
+										<!-- Pricing Table #1 Ends -->
+									</ul>
+								</li>
+							</ui:repeat>
+
+						</ul>
+					</div>
+				</div>
+				<h3 class="text-center sell-title">Worst Companies</h3>
+				<p class="text-center">The last 4 Companies</p>
+				<div class="row pricing-tables-content pricing-page">
+					<div class="pricing-container">
+						<!-- Pricing Tables Starts -->
+						<ul class="pricing-list bounce-invert">
+							<ui:repeat value="#{CompanyBean.lastS}" var="item">
+								<li class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+									<ul class="pricing-wrapper">
+										<!-- Pricing Table #1 Starts -->
+										<li><header class="pricing-header">
+												<h2>
+													<h:outputText value="#{item.name}" />
+													<span>For </span>
+												</h2>
+												<div class="price">
+
+													<h4 style="color: white">
+														<h:outputText value="#{item.market_Cap_E}">
+															<f:convertNumber type="currency" maxFractionDigits="0" />
+														</h:outputText>
+													</h4>
+												</div>
+											</header> <footer class="pricing-footer">
+
+												<h:form>
+													<h:commandLink class="btn btn-primary" value="Show More"
+														action="#{CompanyBean.DisplayCompany(item.getSymbol())}">
+														<i class="fa fa-info-circle" aria-hidden="true"></i>
+													</h:commandLink>
+												</h:form>
+
+											</footer></li>
+										<!-- Pricing Table #1 Ends -->
+									</ul>
+								</li>
+							</ui:repeat>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- Pricing Ends -->
+		<!-- Call To Action Section Starts -->
+		<section class="call-action-all">
+			<div class="call-action-all-overlay">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<!-- Call To Action Text Starts -->
+							<div class="action-text">
+								<h2>Get Started Today With Bitcoin</h2>
+								<p class="lead">Open account for free and start trading
+									Bitcoins!</p>
+							</div>
+							<!-- Call To Action Text Ends -->
+							<!-- Call To Action Button Starts -->
+							<p class="action-btn">
+								<a class="btn btn-primary" href="register.html">Register Now</a>
+							</p>
+							<!-- Call To Action Button Ends -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+
+
+	</ui:define>
+</ui:composition>
