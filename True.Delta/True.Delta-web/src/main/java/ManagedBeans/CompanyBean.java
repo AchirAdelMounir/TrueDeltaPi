@@ -133,6 +133,7 @@ public class CompanyBean implements Serializable {
 	}
 
 	public List<Company> DisplayCompanies() {
+	
 
 		Co = c.DisplayCompanies();
 		clear();

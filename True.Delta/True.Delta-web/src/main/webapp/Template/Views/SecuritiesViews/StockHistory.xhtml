@@ -5,6 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
@@ -124,9 +125,16 @@
 												<a href="blog-post-light.html">Start-Date </a>
 											</h4> <h:inputText t:type="date" class="form-control"
 												value="#{SecurityBean.d1}">
+												
+												
+												
+												
+												
 												<f:convertDateTime style="backgroundcolor:black"
 													pattern="yyyy-MM-dd" />
 											</h:inputText>
+											
+												<h:outputText style="color:orange" value=" #{SecurityBean.dateverif}"></h:outputText>
 										</li>
 										<li>
 											<h4 class="entry-title">
@@ -134,11 +142,12 @@
 
 
 												<a href="blog-post-light.html">End-Date </a>
-											</h4> <h:inputText t:type="date" class="form-control"
+											</h4> <h:inputText t:type="date" class="form-control" 
 												value="#{SecurityBean.d2}">
-												<f:convertDateTime pattern="yyyy-MM-dd" />
+												<f:convertDateTime pattern="yyyy-MM-dd"  />
 											</h:inputText>
 										</li>
+										<h:outputText style="color:orange" value=" #{SecurityBean.dateverif}"></h:outputText><br/>
 										<h:commandLink class="slider btn btn-primary" value="Search "
 											action="#{SecurityBean.DisplayCustomHistory()}"><i class="fa fa-search" aria-hidden="true"></i>
 											</h:commandLink>

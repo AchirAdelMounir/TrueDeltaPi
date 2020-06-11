@@ -513,25 +513,25 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		// Getting the simple moving average (SMA) of the close price over the last 5
 		// ticks
 		SMAIndicator shortSma = new SMAIndicator(closePrice, 5);
-		// Here is the 5-ticks-SMA value at the 42nd index
+		//  5-ticks-SMA value at the 42nd index
 		System.out.println("5-ticks-SMA value at the 42nd index: " + shortSma.getValue(42).doubleValue());
 		Trading.add("5-ticks-SMA value at the 42nd index: " + shortSma.getValue(42).doubleValue());
 
 		// Getting a longer SMA (e.g. over the 30 last ticks)
 		SMAIndicator longSma = new SMAIndicator(closePrice, 30);
-		// Buying rules
-		// We want to buy:
-		// - if the 5-ticks SMA crosses over 30-ticks SMA
-		// - or if the price goes below a defined price (e.g $800.00)
+		// Buying rules (ma premiere stratégie)
+		// We want to buy: (2choix)
+		// if the 5-ticks SMA crosses over 30-ticks SMA
+		// if if the price goes below a defined price (kima 800)
 		Num second= DoubleNum.valueOf(stop_loss);
 		Rule buyingRule = new CrossedUpIndicatorRule(shortSma, longSma)
 				.or(new CrossedDownIndicatorRule(closePrice, stop_loss));
 
-		// Selling rules
-		// We want to sell:
-		// - if the 5-ticks SMA crosses under 30-ticks SMA
-		// - or if the price loses more than 3%
-		// - or if the price earns more than 2%
+		// Selling rules(ma premiere stratégie)
+		//we sell if (3 choix)
+		//  if the 5-ticks SMA crosses under 30-ticks SMA
+		//   if the price loses more than 3%
+		//   if the price earns more than 2%
 		Rule sellingRule = new CrossedDownIndicatorRule(shortSma, longSma).or(new StopLossRule(closePrice, stop_loss_drops))
 				.or(new StopGainRule(closePrice,stop_loss_earns));
 
@@ -546,7 +546,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 		AnalysisCriterion profitTradesRatio = new AverageProfitableTradesCriterion();
 		System.out.println("Profitable trades ratio: " + profitTradesRatio.calculate(series, tradingRecord));
 		Trading.add("Profitable trades ratio: " + profitTradesRatio.calculate(series, tradingRecord));
-		// Getting the reward-risk ratio
+		// reward-risk ratio
 		AnalysisCriterion rewardRiskRatio = new RewardRiskRatioCriterion();
 		System.out.println("Reward-risk ratio: " + rewardRiskRatio.calculate(series, tradingRecord));
 		Trading.add("Reward-risk ratio: " + rewardRiskRatio.calculate(series, tradingRecord));
@@ -620,6 +620,7 @@ public class SecuritesServices implements SecuritiesServicesInterfaceRemote, Sec
 	    	in.setRoc(roc.getValue(i).doubleValue());
 	    	in.setRsi(rsi.getValue(i).doubleValue());
 	    	in.setSd(sd.getValue(i).doubleValue());
+	    	in.setAtr(atr.getValue(i).doubleValue());
 	    	in.setTypicalPrice(typicalPrice.getValue(i).doubleValue());
 	    	in.setWilliamsR(williamsR.getValue(i).doubleValue());
 	    	in.setShortSma(shortSma.getValue(i).doubleValue());

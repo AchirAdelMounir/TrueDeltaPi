@@ -81,15 +81,17 @@
 								<f:convertNumber type="currency" maxFractionDigits="0" />
 							</h:outputText>
 						</h3>
-						<h4>BITDA</h4>
+						<h4>EBITDA</h4>
 					</div>
 					<!-- Fact Badge Item Ends -->
 					<!-- Fact Badge Item Starts -->
 					<div class="col-xs-12 col-md-3 col-sm-6 fact">
 						<h3>
 							<h:outputText value="#{CompanyBean.c.dividendYield}">
-								<f:convertNumber type="currency" maxFractionDigits="8" />
+								<f:convertNumber  maxFractionDigits="3" />
+								
 							</h:outputText>
+							%
 						</h3>
 
 						<h4>Dividend Yield</h4>

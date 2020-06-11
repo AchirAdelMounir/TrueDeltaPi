@@ -6,8 +6,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:b="http://bootsfaces.net/ui"
-	xmlns:ct="http://www.chartistjsf.org/charts"
-	template="Template.xhtml">
+	xmlns:ct="http://www.chartistjsf.org/charts" template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
 		<script name="jquery/jquery.js" library="primefaces"></script>
@@ -37,16 +36,16 @@
 				</div>
 			</div>
 		</section>
-	
-					
-			
+
+
+
 		<section class="faq">
-		
+
 
 
 			<!--Start section-->
 			<div class="container">
-			<div class="widget recent-posts">
+				<div class="widget recent-posts">
 					<h3 style="color: orange" class="widget-title">Customize your
 						search</h3>
 					<ul class="unstyled clearfix">
@@ -100,6 +99,8 @@
 													pattern="yyyy-MM-dd" />
 											</h:inputText>
 										</li>
+										<h:outputText style="color:orange"
+											value=" #{SecurityBean.dateverif}"></h:outputText>
 										<li>
 											<h4 class="entry-title">
 
@@ -109,13 +110,17 @@
 											</h4> <h:inputText t:type="date" class="form-control"
 												value="#{SecurityBean.d2}">
 												<f:convertDateTime pattern="yyyy-MM-dd" />
-											</h:inputText>
+											</h:inputText> <h:outputText style="color:orange"
+												value=" #{SecurityBean.dateverif}"></h:outputText><br />
 										</li>
 										<h:commandLink class="slider btn btn-primary" value="Search "
-											action="#{SecurityBean.DisplayCustomIndicators()}"><i class="fa fa-search" aria-hidden="true"></i>
-											</h:commandLink>
-											<h:commandLink class="slider btn btn-primary" value="Export To Excel " action="#{SecurityBean.DownloadExcel()}"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
-</h:commandLink>
+											action="#{SecurityBean.DisplayCustomIndicators()}">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</h:commandLink>
+										<h:commandLink class="slider btn btn-primary"
+											value="What are those indicators ? " action="AboutIndicators">
+											<i class="fa fa-eye"></i>
+										</h:commandLink>
 									</h:form>
 								</p>
 							</div>
@@ -136,27 +141,28 @@
 
 							<h:form>
 
-								
-							<b:dataTable  excel="true" csv="true" border="true"
-								style="background-color:black; color:white;" pdf="true" 
-								id="mytable"
-								 copy="true" print="true" binding="#{table}" value="#{SecurityBean.i}" var="u" class="table order text-center">
+
+								<b:dataTable excel="true" csv="true" border="true"
+									style="background-color:black; color:white;" pdf="true"
+									id="mytable" copy="true" print="true" binding="#{table}"
+									value="#{SecurityBean.i}" var="u"
+									class="table order text-center">
 									<h:column style="color:orange;background-color:black">
-										<f:facet  name="header">D</f:facet>
-										<h:outputText >
-										<f:convertDateTime type="zonedDateTime"/>
-									</h:outputText>
-									</h:column >
+										<f:facet name="header">D</f:facet>
+										<h:outputText>
+											<f:convertDateTime type="zonedDateTime" />
+										</h:outputText>
+									</h:column>
 									<h:column style="color:orange;background-color:black">
-										<f:facet  name="header">ClosePrice</f:facet>
+										<f:facet name="header">ClosePrice</f:facet>
 										<h:outputText style="color:orange" value="#{u.closePrice}" />
-									</h:column >
+									</h:column>
 									<h:column style="color:white;background-color:black">
-										<f:facet  name="header">LongEma</f:facet>
+										<f:facet name="header">LongEma</f:facet>
 										<h:outputText value="#{u.longEma}">
 											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
-									</h:column >
+									</h:column>
 									<h:column style="color:white;background-color:black">
 										<f:facet name="header">ShortEma</f:facet>
 										<h:outputText value="#{u.shortEma}">
@@ -182,7 +188,7 @@
 										</h:outputText>
 									</h:column>
 									<h:column style="color:white;background-color:black">
-										<f:facet style="text-align: center" name="header">Var</f:facet>
+										<f:facet style="text-align: center" name="header">PVar</f:facet>
 										<h:outputText value="#{u.priceVariation}">
 											<f:convertNumber type="currency" maxFractionDigits="3" />
 										</h:outputText>
@@ -206,6 +212,12 @@
 										</h:outputText>
 									</h:column>
 									<h:column style="color:white;background-color:black">
+										<f:facet name="header">Atr</f:facet>
+										<h:outputText value="#{u.atr}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
 										<f:facet name="header">Typical Price</f:facet>
 										<h:outputText value="#{u.typicalPrice}">
 											<f:convertNumber type="currency" maxFractionDigits="3" />
@@ -224,49 +236,123 @@
 					</div>
 					<!-- Cart Totals Ends -->
 				</div>
-				
+
 			</div>
-			<br/><br/><br/>
-			
-				<div class="container" style="background-color:#232323;height: 320px;width: 100%">
-					<div class="row">
-						<div class="col-xs-12">
-							<!-- Call To Action Text Starts -->
-							<div class="action-text">
-							<br/><br/><br/>
-								<h2 class="title-head">
-									<h:outputText value="SEE" />
-									<span> Some Statistics</span>
-								</h2>
-								<h:form>
+			<br />
+			<br />
+			<br />
 
-									<h:commandButton class="slider btn btn-primary"
-										value="I Want to trade now !" action="#{SecurityBean.gotocomp()}"></h:commandButton>
+			<div class="container"
+				style="background-color: #232323; height: 320px; width: 100%">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Call To Action Text Starts -->
+						<div class="action-text">
+							<br />
+							<br />
+							<br />
+							<h2 class="title-head">
+								<h:outputText value="SEE" />
+								<span> Some Statistics</span>
+							</h2>
+							<h:form>
 
-								</h:form>
-							</div>
-							<!-- Call To Action Text Ends -->
-							<!-- Call To Action Button Starts -->
-							
-							<!-- Call To Action Button Ends -->
+								<h:commandButton class="slider btn btn-primary"
+									value="I Want to trade now !"
+									action="TradingSimulator"></h:commandButton>
+
+							</h:form>
 						</div>
+						<!-- Call To Action Text Ends -->
+						<!-- Call To Action Button Starts -->
+
+						<!-- Call To Action Button Ends -->
 					</div>
-					</div>
-					<br/><br/><br/>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+
 			
+
+
+
+
+
 			<div class=" bg-grey-chart"
-						style="width: 1400px; height: 700px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;background-color:white">
-						<ct:chart id="lineChart" type="line" style="width: 1400px; height: 700px;"
-							model="#{SecurityBean.lineModel}">
-							
-						</ct:chart>
-					</div>
-					
-			
-			
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChart1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModel}">
+
+				</ct:chart>
+			</div>
+			<div class="action-text">
+					<h2 class="title-head">
+									<h:outputText value="Percentage Price" />
+									<span> Ocillator</span>
+								</h2>
+								</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartppo1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelppo}">
+
+				</ct:chart>
+			</div>
+			<div class="action-text">
+				<h2 class="title-head">
+					<h:outputText value="Rate" />
+					<span> OF Change</span>
+				</h2>
+			</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartroc1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelroc}">
+
+				</ct:chart>
+			</div>
+				<div class="action-text">
+				<h2 class="title-head">
+					<h:outputText value="Relative" />
+					<span> strength index</span>
+				</h2>
+			</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartrsi1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelrsi}">
+
+				</ct:chart>
+			</div>
+<div class="action-text">
+				<h2 class="title-head">
+					<h:outputText value="" />
+					<span> Williams</span>
+				</h2>
+			</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartwilliams1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelwilliams}">
+
+				</ct:chart>
+			</div>
+
+
 			<!-- Sidebar Ends -->
-			
-			
+
+
 		</section>
 		<!-- Section Shopping Cart Ends -->
 		<!-- Call To Action Section Starts -->

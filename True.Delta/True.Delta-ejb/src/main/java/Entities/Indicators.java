@@ -136,6 +136,12 @@ public ZonedDateTime getEndTime() {
 public void setEndTime(ZonedDateTime endTime) {
 	this.endTime = endTime;
 }
+public double getAtr() {
+	return atr;
+}
+public void setAtr(double atr) {
+	this.atr = atr;
+}
 
 
 }
