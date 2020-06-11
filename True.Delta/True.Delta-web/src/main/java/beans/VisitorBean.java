@@ -101,7 +101,7 @@ public String add() {
 	
 	
 
-	return "/Template/ListAM?faces-redirect=true";
+	return "/Template/ListVisitor?faces-redirect=true";
 	
 }
 

@@ -309,7 +309,7 @@ keys.add("TRY");
         	if(query1.getSingleResult()==1)
         	{
         		
-          		TypedQuery<Double> query = em.createQuery( "SELECT AVG(Rating) FROM  Ratings r  WHERE r.nomAM=:hamma )",Double.class)
+          		TypedQuery<Double> query = em.createQuery( "SELECT ROUND(AVG(Rating),2) FROM  Ratings r  WHERE r.nomAM=:hamma )",Double.class)
          				.setParameter("hamma", am.getNom());
           		
                	am.setRatingAM(query.getSingleResult());
@@ -318,7 +318,7 @@ keys.add("TRY");
         	{
         		
 
-          		TypedQuery<Double> query = em.createQuery( "SELECT AVG(Rating) FROM  Ratings r  WHERE r.nomAM=:hamma  AND r.Rating>0)",Double.class)
+          		TypedQuery<Double> query = em.createQuery( "SELECT ROUND(AVG(Rating),2) FROM  Ratings r  WHERE r.nomAM=:hamma  AND r.Rating>0)",Double.class)
          				.setParameter("hamma", am.getNom());
                	am.setRatingAM(query.getSingleResult());
         	

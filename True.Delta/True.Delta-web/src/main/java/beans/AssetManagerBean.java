@@ -325,6 +325,7 @@ public void setConfirmation(boolean confirmation) {
 public List<AssetManager> getAssetManagers() {
 	
 	es.CalculRating();
+	es.Classification();
 	es.CalculReturns();
    this.assetManagers= es.getall();
   
