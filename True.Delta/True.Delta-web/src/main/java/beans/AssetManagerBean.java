@@ -10,6 +10,7 @@ import javax.persistence.TypedQuery;
 
 import Entities.AssetManager;
 import Entities.Portfolio;
+import Entities.Ratings;
 import Entities.Visitor;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import Interfaces.AssetManagerServiceInterface;
 import Interfaces.EmailRemote;
+import Interfaces.RatingServiceInterface;
 
 @ManagedBean(name = "AssetManagerBean")
 @SessionScoped
@@ -41,6 +43,8 @@ public class AssetManagerBean {
 	
 @EJB 	
 AssetManagerServiceInterface es ;
+@EJB 	
+RatingServiceInterface rs ;
 @EJB
 EmailRemote emails;
 private int Id;
@@ -322,9 +326,14 @@ public List<AssetManager> getAssetManagers() {
 	
 	es.CalculRating();
 	es.CalculReturns();
-    this.assetManagers= es.getall();
+   this.assetManagers= es.getall();
+  
+
+    
 	return assetManagers;
 }
+
+
 public void setAssetManagers(List<AssetManager> assetManagers) {
 	this.assetManagers = assetManagers;
 }
@@ -365,12 +374,14 @@ public String add() {
 	int ver =0;
 	AssetManager Vh = new AssetManager();
 	Vh.setNom(this.getNom());
+	
 	Vh.setPassword(this.getPassword());
 	Vh.setAdresseMail(this.getAdresseMail());
 	Vh.setExperience(this.getExperience());
 	Vh.setRatingAM(0);
 	Vh.setScore(0);
 	Vh.setBan(false);
+	Vh.setClassification("not specified");
 
 	Vh.setRatingAM(0);
 	Vh.setRisk(this.getRisk());
@@ -453,7 +464,9 @@ public String updateAssetManager(int id) {
 
 	
 public String update() {
+	
 	 AssetManager Vh =es.getAssetManagerById(IdUp) ;
+
 	Vh.setNom(this.getNom());
 	Vh.setAdresseMail(this.getAdresseMail());
 	Vh.setPassword(password);
@@ -461,6 +474,7 @@ public String update() {
 	Vh.setScore(this.getScore());
 	Vh.setRisk(this.getRisk());
 	Vh.setClassification("not specified");
+
 	
 	
 	
@@ -533,9 +547,7 @@ public List<AssetManager> getAll()
 
 	assetmanager.setRatingAM(1);
 	}*/
-	es.CalculRating();
-	es.CalculReturns();
-	es.Classification();
+
 	listeBan=es.BanAM();
 	return es.getall() ;
 }

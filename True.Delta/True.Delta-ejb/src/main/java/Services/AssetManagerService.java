@@ -37,7 +37,27 @@ public  class  AssetManagerService implements AssetManagerServiceInterface {
 	@Override
 	public int addAssetManager(AssetManager AssetManager) {
 	AssetManager.setConfirmation(false);
+	AssetManager.setClassification("not defined");
+	AssetManager.setRatingAM(0);
+	AssetManager.setRatingAM(0);
+
 		em.persist(AssetManager);
+		
+	Ratings rate= new Ratings() ;  
+	rate.setCmntr("");
+	rate.setIdVisitor(2);
+	rate.setNomAM(AssetManager.getNom());
+	rate.setRating(0);
+	em.persist(rate);	 
+	
+	Portfolio prt = new Portfolio();
+
+	prt.setAssetmanager(AssetManager);
+	prt.setReturns(1000);
+	prt.setTypePortfolio(1);
+	prt.setVolatility(12);
+	em.persist(prt);
+
 		return (AssetManager.getId());
 
 		
@@ -56,6 +76,7 @@ public  class  AssetManagerService implements AssetManagerServiceInterface {
 	@Override
 	public int updateAssetManager(AssetManager AssetManager) {
 		em.merge(AssetManager);
+		
 		return (AssetManager.getId());
 
 		
@@ -274,18 +295,41 @@ keys.add("TRY");
      
     @Override
      public  List<AssetManager> CalculRating()
+     
    	{
+    	
     	for (AssetManager am : getall() )
-    		
+    	
     	{
-  		TypedQuery<Double> query = em.createQuery( "SELECT AVG(Rating) FROM  Ratings r  WHERE r.nomAM=:hamma",Double.class)
- 				.setParameter("hamma", am.getNom());
-  		
-    	am.setRatingAM(  query.getSingleResult());
+    		
 
-		System.out.print(query.getSingleResult());	
-    	}
-  
+        	TypedQuery<Long> query1 = em.createQuery("SELECT Count(*) FROM Ratings r  WHERE r.nomAM=:hamma ", Long.class)
+        			
+        			 .setParameter("hamma",getAssetManagerById(am.getId()).getNom());
+        	if(query1.getSingleResult()==1)
+        	{
+        		
+          		TypedQuery<Double> query = em.createQuery( "SELECT AVG(Rating) FROM  Ratings r  WHERE r.nomAM=:hamma )",Double.class)
+         				.setParameter("hamma", am.getNom());
+          		
+               	am.setRatingAM(query.getSingleResult());
+        	}
+        	else 
+        	{
+        		
+
+          		TypedQuery<Double> query = em.createQuery( "SELECT AVG(Rating) FROM  Ratings r  WHERE r.nomAM=:hamma  AND r.Rating>0)",Double.class)
+         				.setParameter("hamma", am.getNom());
+               	am.setRatingAM(query.getSingleResult());
+        	
+        	}
+
+
+ 
+        	}
+
+
+    	
 		return getall();	
    	}
     
@@ -451,9 +495,9 @@ public List<Portfolio> getPortfolioByAM(AssetManager am) {
 @Override
 public float nbPortfolios( AssetManager am) {
 	
-	TypedQuery<Long> query = em.createQuery("SELECT Count(*) FROM Ratings r  WHERE r.nomAM=:hamma ", Long.class)
+	TypedQuery<Long> query = em.createQuery("SELECT Count(*) FROM Portfolio r  WHERE r.assetmanager.Id=:hamma ", Long.class)
 			
-			 .setParameter("hamma",getAssetManagerById(am.getId()).getNom());
+			 .setParameter("hamma",getAssetManagerById(am.getId()).getId());
 	
 	
 	float a = (float) query.getSingleResult() ;

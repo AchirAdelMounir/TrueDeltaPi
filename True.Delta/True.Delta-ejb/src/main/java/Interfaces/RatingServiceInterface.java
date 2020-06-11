@@ -23,6 +23,7 @@ public interface RatingServiceInterface {
 	List<Ratings> getall();
 
 	    public  List<String> Commentaire( ) ;
+
 	
 	
 
