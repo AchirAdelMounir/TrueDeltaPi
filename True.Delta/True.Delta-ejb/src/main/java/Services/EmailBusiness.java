@@ -30,7 +30,7 @@ public class EmailBusiness implements EmailRemote{
 	    {
 
 			final String fromEmail = "ghada.aissaoui@esprit.tn"; 
-			final String password = "ghada<3"; 
+			final String password = "ghada1234"; 
 			Authenticator auth = new Authenticator() {
 				//override the getPasswordAuthentication method
 				protected PasswordAuthentication getPasswordAuthentication() {
