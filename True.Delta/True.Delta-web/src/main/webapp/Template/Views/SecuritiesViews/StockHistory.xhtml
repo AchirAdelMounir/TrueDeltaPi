@@ -5,8 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
 	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	template="Template.xhtml">
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
 		<script name="jquery/jquery.js" library="primefaces"></script>
@@ -36,42 +35,42 @@
 				</div>
 			</div>
 		</section>
-	
-					<div class="col-md-7 col-lg-4">
-						<ul class="unstyled bitcoin-stats text-center">
 
-							<li>
-								<h6>
-									<h:outputText id="c" class="price" data-bw-theme="light"
-										value="#{SecurityBean.coef}">
-										<f:convertNumber type="currency" maxFractionDigits="3" />
-									</h:outputText>
-								</h6> <span>Coef Of Deviation</span>
-							</li>
-							<li>
-								<h6>
-									<h:outputText id="v" class="price" data-bw-theme="light" style="color:orange"
-										value="#{SecurityBean.volatility}">
-										<f:convertNumber type="currency" maxFractionDigits="3" />
+		<div class="col-md-7 col-lg-4">
+			<ul class="unstyled bitcoin-stats text-center">
 
-									</h:outputText>
-									
-								</h6> <span style="color:orange">Volatility</span>
-							</li>
-							<li>
-								<h6>
-									<h:outputText id="s1"  class="price" data-bw-theme="light"
-										value="#{SecurityBean.sigma}">
-										<f:convertNumber type="currency" maxFractionDigits="3" />
-									</h:outputText>
-								</h6> <span>Standard Deviation</span>
-							</li>
-							
-						</ul>
-				</div>
-			
+				<li>
+					<h6>
+						<h:outputText id="c" class="price" data-bw-theme="light"
+							value="#{SecurityBean.coef}">
+							<f:convertNumber type="currency" maxFractionDigits="3" />
+						</h:outputText>
+					</h6> <span>Coef Of Deviation</span>
+				</li>
+				<li>
+					<h6>
+						<h:outputText id="v" class="price" data-bw-theme="light"
+							style="color:orange" value="#{SecurityBean.volatility}">
+							<f:convertNumber type="currency" maxFractionDigits="3" />
+
+						</h:outputText>
+
+					</h6> <span style="color: orange">Volatility</span>
+				</li>
+				<li>
+					<h6>
+						<h:outputText id="s1" class="price" data-bw-theme="light"
+							value="#{SecurityBean.sigma}">
+							<f:convertNumber type="currency" maxFractionDigits="3" />
+						</h:outputText>
+					</h6> <span>Standard Deviation</span>
+				</li>
+
+			</ul>
+		</div>
+
 		<section class="faq">
-		
+
 
 			<div class="sidebar col-xs-12 col-md-4">
 				<!-- Latest Posts Widget Ends -->
@@ -125,16 +124,15 @@
 												<a href="blog-post-light.html">Start-Date </a>
 											</h4> <h:inputText t:type="date" class="form-control"
 												value="#{SecurityBean.d1}">
-												
-												
-												
-												
-												
+
+
+
+
+
 												<f:convertDateTime style="backgroundcolor:black"
 													pattern="yyyy-MM-dd" />
-											</h:inputText>
-											
-												<h:outputText style="color:orange" value=" #{SecurityBean.dateverif}"></h:outputText>
+											</h:inputText> <h:outputText style="color:orange"
+												value=" #{SecurityBean.dateverif}"></h:outputText>
 										</li>
 										<li>
 											<h4 class="entry-title">
@@ -142,20 +140,28 @@
 
 
 												<a href="blog-post-light.html">End-Date </a>
-											</h4> <h:inputText t:type="date" class="form-control" 
+											</h4> <h:inputText t:type="date" class="form-control"
 												value="#{SecurityBean.d2}">
-												<f:convertDateTime pattern="yyyy-MM-dd"  />
+												<f:convertDateTime pattern="yyyy-MM-dd" />
 											</h:inputText>
 										</li>
-										<h:outputText style="color:orange" value=" #{SecurityBean.dateverif}"></h:outputText><br/>
+										<h:outputText style="color:orange"
+											value=" #{SecurityBean.dateverif}"></h:outputText>
+										<br />
 										<h:commandLink class="slider btn btn-primary" value="Search "
-											action="#{SecurityBean.DisplayCustomHistory()}"><i class="fa fa-search" aria-hidden="true"></i>
-											</h:commandLink>
-											<h:commandLink class="slider btn btn-primary" value="Export To Excel " action="#{SecurityBean.DownloadExcel()}"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
-</h:commandLink>
+											action="#{SecurityBean.DisplayCustomHistory()}">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</h:commandLink>
+										<h:commandLink class="slider btn btn-primary"
+											value="Export To Excel "
+											action="#{SecurityBean.DownloadExcel()}">
+											<i class="fa fa-file-excel-o" aria-hidden="true"></i>
+										</h:commandLink>
 
-									<h:commandLink class="slider btn btn-primary" value="Indicators" action="#{SecurityBean.SeeIndicators()}"> <i class="fa fa-eye" aria-hidden="true"></i>
-</h:commandLink>
+										<h:commandLink class="slider btn btn-primary"
+											value="Indicators" action="#{SecurityBean.SeeIndicators()}">
+											<i class="fa fa-eye" aria-hidden="true"></i>
+										</h:commandLink>
 									</h:form>
 								</p>
 							</div>
@@ -170,7 +176,7 @@
 				</div>
 				<!-- Latest Posts Widget Ends -->
 				<!-- Tags Widget Starts -->
-				
+
 				<!-- Tags Widget Ends -->
 			</div>
 			<!-- Sidebar Ends -->
@@ -236,9 +242,9 @@
 					</div>
 					<!-- Cart Totals Ends -->
 				</div>
-				
+
 			</div>
-			
+
 		</section>
 		<!-- Section Shopping Cart Ends -->
 		<!-- Call To Action Section Starts -->

@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+		<section class="content">
+			<i class="pi pi-check" style="font-size: 3em"></i>
+		</section>
+
+
+		<div class="app-sidebar__inner">
+
+			<div class="col-lg-6">
+				<div class="main-card mb-3 card">
+					<div class="card-body">
+						<h5 class="card-title">Ajouter votre Reclamation</h5>
+						<h:form>
+							<h:inputText class="form-control" value="#{eymen.categories}">Categorie</h:inputText>
+							<h:inputText class="form-control" value="#{eymen.description}">Description</h:inputText>
+							<h:inputText class="form-control" value="#{eymen.date}"
+								t:type="date">Date</h:inputText>
+
+							<h:commandLink value="Add" class="btn btn-primary"
+								action="#{eymen.addrec}" />
+
+
+
+						</h:form>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+	</ui:define>
+
+</ui:composition>
