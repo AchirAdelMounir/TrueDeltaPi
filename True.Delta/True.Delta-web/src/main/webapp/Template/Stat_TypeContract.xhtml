@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Stat_TypeContract" />
+	<ui:define name="content">
+
+	
+		
+<main class="main-content-wrapper" >
+<h:body onload="ChangeColor()">
+           <div>
+           <h3></h3>
+           </div>
+           <h:form>
+           <center>
+            <div class="form__group mb--25 mb-sm--20">
+                                                <div class="form-row" >
+           
+          
+          
+ 
+           </div>
+           </div>
+           
+           
+     
+           </center>
+           
+          <div class="inner-page-content mt--9pt4">
+                <!-- Services Area Start -->
+                <section class="services-area mb--70 mb-xl--60 mb-lg--50 mb-md--40 mb-sm--30">
+                    <div class="container">
+<div id="piechart" style="width: 900px; height: 500px;"></div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(drawChart);
+	function drawChart() {
+		// Create the data table.
+		var data = google.visualization.arrayToDataTable([
+			[ 'Task', 'Hours per day' ],
+			[ 'Free',#{charts.nbfree} ],
+			[ 'With_Condition',#{charts.nbCondition}],
+]);
+		// Set chart options
+		var options = {
+			'title' : 'Pourcentage of Type Contracts',
+			is3D : true,
+			pieSliceText : 'label',
+			tooltip : {
+				showColorCode : true
+			},
+			'width' : 900,
+			'height' : 500
+		};
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		chart.draw(data, options);
+	}
+	
+	
+
+
+	</script>
+
+</div>
+</section>
+</div>
+
+
+</h:form>
+
+		
+
+</h:body>
+</main>
+
+
+
+
+
+
+
+</ui:define>
+</ui:composition>
+
+
+    
+
+
+<!-- end document-->

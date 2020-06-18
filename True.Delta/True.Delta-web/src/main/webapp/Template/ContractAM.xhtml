@@ -1,0 +1,222 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Contract_AM" />
+	<ui:define name="content">
+
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title">
+									Get in <span>touch</span>
+								</h2>
+								<!-- Title Ends -->
+								<hr />
+								<!-- Breadcrumb Starts -->
+								<ul class="breadcrumb">
+									<li><a href="index.html"> home</a></li>
+									<li>contact</li>
+								</ul>
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+							
+							<!-- Partie Recuperation des employes -->
+							
+							<section class="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-8 contact-form">
+						<h3 class="col-xs-12">List Contract </h3>
+						
+					
+
+							<!-- Input Field Starts -->
+							<div class="form-group col-xs-12">
+							
+								<p:messages rendered="true" />
+							
+							</div>
+<h:panelGroup columns="5">
+<h:form>
+<h:dataTable value="#{contractBean.contracts}" var="contract" border="5"  >
+
+<h:column><f:facet name="header"><h:outputText value="Creation Date" /></f:facet>
+<h:outputText value="#{contract.creationDate}" /> </h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Start Date" /></f:facet>
+<h:outputText value="#{contract.startDate}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="End Date" /></f:facet>
+<h:outputText value="#{contract.endDate}" />
+								
+</h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Comission" /></f:facet>
+<h:outputText value="#{contract.comission}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Amount" /></f:facet>
+<h:outputText value="#{contract.amount}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Score" /></f:facet>
+<h:outputText value="#{contract.score}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Gain" /></f:facet>
+<h:outputText value="#{contract.gain}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Risque" /></f:facet>
+<h:outputText value="#{contract.risque}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Gain Client" /></f:facet>
+<h:outputText value="#{contract.gainClient}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Risque Client" /></f:facet>
+<h:outputText value="#{contract.risque}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Gain Asset" /></f:facet>
+<h:outputText value="#{contract.gainAset}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Risque Asset" /></f:facet>
+<h:outputText value="#{contract.risqueAsset}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Level Of Risque" /></f:facet>
+<h:outputText value="#{contract.levelR}" /></h:column>
+
+<h:column><f:facet name="header"><h:outputText value="Is Approved" /></f:facet>
+<h:outputText value="#{contract.isApproved}" /></h:column>
+
+
+<h:column ><f:facet name="header"><h:outputText value="Contract State" /></f:facet>
+<h:outputText value="#{contract.etatContract}" /></h:column>
+
+
+<h:column>
+<f:facet name="header"><h:outputText value="Display" /></f:facet>
+
+<h:commandButton value="Read" ajax="false"
+									icon="fa fa-check-square" class=" btn-primary btn-contact"
+									action="#{contractBean.displayContract(contract)}"> </h:commandButton>
+</h:column>
+
+</h:dataTable>
+</h:form>
+</h:panelGroup>
+
+
+
+
+						<h3 class="col-xs-12">Approved Contract </h3> 
+						
+					
+						
+						
+						<!-- Contact Form Starts -->
+						<h:form id="AdminContractForm">
+						
+					
+
+							<!-- Input Field Starts -->
+							<div class="form-group col-xs-12">
+							
+								<p:messages rendered="true" />
+							
+							</div>
+							
+							
+														
+							
+							
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							
+								<div class="form-group col-md-10">
+								<h:outputLabel for="LevelOfRisk" value="Level Of Risk:" />
+								<h:selectOneMenu class="form-control" value="#{contractBean.levelIR}">
+								<f:selectItem itemLabel="Level Of Risk" itemValue=""/>
+								<f:selectItems value="#{level.levelOfRisk}" />
+								</h:selectOneMenu>
+
+
+							</div>
+							
+							
+						
+							
+								<div class="form-group col-xs-12 col-sm-50">
+														
+						<tr><td><h:outputText value="Approved / Not Approved"></h:outputText></td>
+<td><h:selectBooleanCheckbox value="#{contractBean.isApproved}"></h:selectBooleanCheckbox></td></tr>
+							
+		</div>
+							
+							
+						
+							
+							
+
+						
+							
+	
+						
+							
+							
+								
+
+							
+							
+									<div class="form-group col-xs-12 col-sm-10">
+
+								<h:commandButton value="Update" ajax="false"
+									icon="fa fa-check-square" class="btn btn-primary btn-contact"
+									action="#{contractBean.UpdateContractAM()}">
+								
+								</h:commandButton>
+
+
+
+
+
+							</div>
+						
+							<!-- Submit Form Button Ends -->
+							<!-- Form Submit Message Starts -->
+
+							<!-- Form Submit Message Ends -->
+
+					
+</h:form>
+						
+					
+						<!-- Contact Form Ends -->
+					</div>
+					<!-- Contact Widget Starts -->
+					
+					<!-- Contact Widget Ends -->
+				</div>
+			</div>
+		</section>
+
+		<!--Start section-->
+
+
+
+	</ui:define>
+</ui:composition>

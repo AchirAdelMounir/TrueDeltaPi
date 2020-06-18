@@ -1,0 +1,196 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Add_AM" />
+	<ui:define name="content">
+
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title">
+									Get in <span>touch</span>
+								</h2>
+								<!-- Title Ends -->
+								<hr />
+								<!-- Breadcrumb Starts -->
+								<ul class="breadcrumb">
+									<li><a href="index.html"> home</a></li>
+									<li>contact</li>
+								</ul>
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-8 contact-form">
+						<h3 class="col-xs-12">Add Asset Manager</h3>
+						<p class="col-xs-12">Fill this form to create your profile.</p>
+						<!-- Contact Form Starts -->
+						<h:form id="createAMForm">
+
+							<!-- Input Field Starts -->
+							<div class="form-group col-xs-12">
+
+								<p:messages rendered="true" />
+
+							</div>
+
+
+
+
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-6">
+								<h:outputLabel for="dev1" value="Devise 1 :" />
+								<h:selectOneMenu id="dev1" class="form-control"
+								value="#{AssetManagerBean.dev1}">
+								<f:selectItems value="#{AssetManagerBean.keys}" />
+							</h:selectOneMenu>
+							</div>
+							
+							
+					
+							
+							
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-6">
+								<h:outputLabel for="dev2" value="Devise 2 :" />
+								<h:selectOneMenu id="dev2" class="form-control"
+								value="#{AssetManagerBean.dev2}">
+								<f:selectItems value="#{AssetManagerBean.keys}" />
+							</h:selectOneMenu>
+
+
+							</div>
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-6">
+								<h:outputLabel for="montant" value="Montant : " />
+								<h:inputText class="form-control"
+									value="#{AssetManagerBean.montant}" label="Montant :"
+									id="montant" required="true">
+									
+									<f:validateLength minimum="0" maximum="30" />
+								</h:inputText>
+                            </div>
+                            
+                     
+						
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-6">
+
+
+
+								<h:commandButton value="Convertir" ajax="false"
+									icon="fa fa-check-square" class="btn btn-primary btn-contact"
+									action="#{AssetManagerBean.Convertir() }">
+									<f:resetValues render="" />
+								</h:commandButton>
+
+
+							</div>
+						
+
+							<!-- Input Field Ends -->
+							<!-- Submit Form Button Starts -->
+
+							<!-- Submit Form Button Ends -->
+							<!-- Form Submit Message Starts -->
+
+							<!-- Form Submit Message Ends -->
+
+						</h:form>
+						
+							<div style="width: 40px;height: 40px;">
+							<Label >  #{AssetManagerBean.resultat} </Label>
+
+                           </div>
+						
+						
+						<!-- Contact Form Ends -->
+					</div>
+					<!-- Contact Widget Starts -->
+					<div class="col-xs-12 col-md-4">
+						<div class="widget">
+							<div class="contact-page-info">
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-home big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Address</h4>
+										<p>123 Disney Street Slim Av. Brooklyn Bridge, NY, New
+											York</p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-phone big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Phone Numbers</h4>
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Email Addresses</h4>
+
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Social Media Icons Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-share-alt big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Social Profiles</h4>
+										<div class="social-contact">
+											<ul>
+												<li class="facebook"><a href="#" target="_blank"><i
+														class="fa fa-facebook"></i></a></li>
+												<li class="twitter"><a href="#" target="_blank"><i
+														class="fa fa-twitter"></i></a></li>
+												<li class="google-plus"><a href="#" target="_blank"><i
+														class="fa fa-google-plus"></i></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- Social Media Icons Starts -->
+							</div>
+						</div>
+					</div>
+					<!-- Contact Widget Ends -->
+				</div>
+			</div>
+		</section>
+
+		<!--Start section-->
+
+
+
+	</ui:define>
+</ui:composition>

@@ -1,5 +1,5 @@
 package Enumerations;
 
 public enum Professional_Status_Type {
-	Employee,Entrepreneur,other
+	Doctor,Professor,Engineer,other,Employee,Entrepreneur
 }

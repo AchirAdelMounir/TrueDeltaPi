@@ -76,21 +76,10 @@
                                 <li><h:form><h:commandLink escape="false" value="   Bitcoin" action="/Template/Views/SecuritiesViews/Bitcoin"/></h:form></li>
                                 <li><h:form><h:commandLink escape="false" value="   Feedbacks" action="#{FeedbackBean.FeedbacksCustomer()}"/></h:form></li>
                                <li> <h:form><h:commandLink escape="false" value="  Complains" action="#{FeedbackBean.ComplainsCustomer()}"/></h:form></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">pages <i class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><h:form><h:commandLink action="#{UserBean.redirectToRegister()}">Register</h:commandLink></h:form></li>
-                                        <li><a href="login.html">Login page</a></li>
-										<li><a href="shopping-cart.html">Shopping cart</a></li>
-                                        <li><a href="shopping-checkout.html">shopping checkout</a></li>
-                                        <li><a href="faq.html">FAQ page</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-										<li><a href="503.html">Server Error Page</a></li>
-                                        <li><a href="terms-of-services.html">Terms of Services</a></li>
-										<li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
+                               <li> <h:form><h:commandLink escape="false" value="  Convertisseur" action="#{AssetManagerBean.gotoconv()}"/></h:form></li>
+                               <li> <h:form><h:commandLink escape="false" value="Exchange" action="#{AssetManagerBean.gototaux()}"/></h:form></li>
+                               
+                                <li> <h:form><h:commandLink escape="false" value="Exchange" action="#{AssetManagerBean.gotoc()}"/></h:form></li>
 								<!-- Cart Icon Starts -->
 								<li class="cart"><a href="shopping-cart.html"><i class="fa fa-shopping-cart"></i></a></li>
 								<!-- Cart Icon Starts -->

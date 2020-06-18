@@ -1,0 +1,272 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+	<ui:param name="page_name" value="Add_Contract" />
+	<ui:define name="content">
+
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title">
+									Get in <span>touch</span>
+								</h2>
+								<!-- Title Ends -->
+								<hr />
+								<!-- Breadcrumb Starts -->
+								<ul class="breadcrumb">
+									<li><a href="index.html"> home</a></li>
+									<li>contact</li>
+								</ul>
+								<!-- Breadcrumb Ends -->
+							</div>
+						</div>
+						<!-- Section Title Ends -->
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		<section class="contact">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-8 contact-form">
+						<h3 class="col-xs-12">Create Contract </h3>
+						
+						<!-- Contact Form Starts -->
+						<h:form id="createContractForm">
+
+							<!-- Input Field Starts -->
+							<div class="form-group col-xs-12">
+							
+								<p:messages rendered="true" />
+							
+							</div>
+						
+								
+						
+							
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+						
+							<div class="form-group col-md-10">
+								<h:outputLabel for="CreationDate" value="Creation Date:" />
+								<h:inputText class="form-control"
+									value="#{contractBean.dateCreation}" label="Creation Date" id="CreationDate" required="true">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+									<f:validateLength minimum="0" maximum="50" />
+								</h:inputText>
+
+							</div>
+	
+							
+							
+							
+								<div class="form-group col-md-10">
+								<h:outputLabel for="FinancialAsset" value="Financial Asset:" />
+								<h:selectOneMenu class="form-control" value="#{contractBean.financialAsset}">
+								<f:selectItem itemLabel="financialAsset" itemValue=""/>
+								<f:selectItems value="#{financial.financialAsset}" />
+								</h:selectOneMenu>
+
+
+							</div>
+							
+						
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-10">
+								<h:outputLabel for="Amount" value="Amount:" />
+								<h:inputText class="form-control" label="Amount"
+									value="#{contractBean.amount}" id="Amount" required="false">
+									<f:validateLength minimum="0" maximum="10" />
+						
+								</h:inputText>
+
+
+							</div>
+							
+			
+							
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-10">
+								<h:outputLabel for="StartDate" value="Start Date: " />
+								<h:inputText value="#{contractBean.startDate}"
+									class="form-control" label="StartDate" id="StartDate" >
+							
+									<f:convertDateTime pattern="dd-MM-yyyy" /></h:inputText>
+
+
+							</div>
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group col-md-10">
+
+								<h:outputLabel for="EndDate" value="End Date:" />
+								<h:inputText value="#{contractBean.endDate}"
+									class="form-control" label="EndDate" id="EndDate" >
+									<f:convertDateTime pattern="dd-MM-yyyy" /></h:inputText>
+
+
+							</div>
+							
+							
+								<div class="form-group col-md-10">
+								<h:outputLabel for="Commission" value="Commission en % :" />
+								<h:inputText class="form-control" label="Commissiont"
+									value="#{contractBean.commission}" id="Commission" required="false">
+									<f:validateLength minimum="0" maximum="10" />
+								</h:inputText>
+
+
+							</div>
+							
+							
+								<div class="form-group col-md-10">
+								<h:outputLabel for="Gain" value="Gain en % :" />
+								<h:inputText class="form-control" label="Gain"
+									value="#{contractBean.gain}" id="Gain" required="false">
+									<f:validateLength minimum="0" maximum="10" />
+								</h:inputText>
+
+
+							</div>
+							
+								<div class="form-group col-md-10">
+								<h:outputLabel for="Risque" value="Risque en % :" />
+								<h:inputText class="form-control" label="Risque"
+									value="#{contractBean.risque}" id="Risque" required="false">
+									<f:validateLength minimum="0" maximum="10" />
+								</h:inputText>
+
+
+							</div>
+							
+							<div class="form-group col-md-10">
+								<h:outputLabel for="Description" value="Commentaire:" />
+							
+								<h:inputText class="form-control" label="Description"
+									value="#{contractBean.description}" id="Description" required="false">
+									<f:validateLength minimum="0" maximum="1000" />
+								</h:inputText>
+
+
+							</div>
+							
+							
+									<div class="form-group col-xs-12 col-sm-10">
+
+								<h:commandButton value="Create" ajax="false"
+									icon="fa fa-check-square" class="btn btn-primary btn-contact"
+									action="#{contractBean.addContractWithCondition()}">
+									<f:resetValues render="createContractForm:name" />
+								</h:commandButton>
+
+							</div>
+							
+							<div class="form-group col-xs-5 ">
+
+								<h:commandButton value="Retour" ajax="false"
+									icon="fa fa-check-square" class=" btn-contact"
+									action="#{contractBean.ChoisirContrat()}">
+									<f:resetValues render="createContractForm:name" />
+								</h:commandButton>
+
+							</div>
+							
+										<div class="form-group col-xs-5 ">
+
+								<h:commandButton value="Next" ajax="false"
+									icon="fa fa-check-square" class=" btn-contact"
+									action="#{contractBean.addContractWithCondition()}">
+									<f:resetValues render="createContractForm:name" />
+								</h:commandButton>
+
+							</div>
+						
+							<!-- Submit Form Button Ends -->
+							<!-- Form Submit Message Starts -->
+
+							<!-- Form Submit Message Ends -->
+
+						</h:form>
+						
+					
+						<!-- Contact Form Ends -->
+					</div>
+					<!-- Contact Widget Starts -->
+					<div class="col-xs-12 col-md-4">
+						<div class="widget">
+							<div class="contact-page-info">
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-home big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Address</h4>
+										<p>123 Disney Street Slim Av. Brooklyn Bridge, NY, New
+											York</p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-phone big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Phone Numbers</h4>
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Contact Info Box Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-envelope big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Email Addresses</h4>
+
+										<p></p>
+									</div>
+								</div>
+								<!-- Contact Info Box Ends -->
+								<!-- Social Media Icons Starts -->
+								<div class="contact-info-box">
+									<i class="fa fa-share-alt big-icon"></i>
+									<div class="contact-info-box-content">
+										<h4>Social Profiles</h4>
+										<div class="social-contact">
+											<ul>
+												<li class="facebook"><a href="#" target="_blank"><i
+														class="fa fa-facebook"></i></a></li>
+												<li class="twitter"><a href="#" target="_blank"><i
+														class="fa fa-twitter"></i></a></li>
+												<li class="google-plus"><a href="#" target="_blank"><i
+														class="fa fa-google-plus"></i></a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- Social Media Icons Starts -->
+							</div>
+						</div>
+					</div>
+					<!-- Contact Widget Ends -->
+				</div>
+			</div>
+		</section>
+
+		<!--Start section-->
+
+
+
+	</ui:define>
+</ui:composition>

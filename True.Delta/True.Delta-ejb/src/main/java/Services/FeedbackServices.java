@@ -324,7 +324,7 @@ public class FeedbackServices implements FeedbackIServices{
 		List <String> dic =new ArrayList<>();
 		
 		try {
-		      File myObj = new File("D://4 INFINI/2 semestre/JEE/My_Dictionary.txt");
+		      File myObj = new File("D://pi/My_Dictionary.txt");
 		      Scanner myReader = new Scanner(myObj);
 		      while (myReader.hasNextLine()) {
 		        String data = myReader.nextLine();
@@ -375,7 +375,7 @@ public class FeedbackServices implements FeedbackIServices{
 List <String> dic =new ArrayList<>();
 		
 		try {
-		      File myObj = new File("D://4 INFINI/2 semestre/JEE/My_Dictionary.txt");
+		      File myObj = new File("D://pi/My_Dictionary.txt");
 		      Scanner myReader = new Scanner(myObj);
 		      while (myReader.hasNextLine()) {
 		        String data = myReader.nextLine();
