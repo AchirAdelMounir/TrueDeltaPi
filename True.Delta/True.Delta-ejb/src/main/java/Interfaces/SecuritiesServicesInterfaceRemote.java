@@ -2,8 +2,12 @@ package Interfaces;
 import javax.ejb.Remote;
 import javax.persistence.Query;
 
+import org.ta4j.core.BarSeries;
+import org.ta4j.core.Strategy;
+
 import Entities.Bond;
 import Entities.Company;
+import Entities.Indicators;
 import Entities.Portfolio;
 import Entities.Security;
 import Entities.Stock;
@@ -33,9 +37,16 @@ public interface SecuritiesServicesInterfaceRemote {
 	public double StandardDev(String Sym, String Period1, String Period2);
 	public double CoefOfDeviation(String Sym, String Period1, String Period2);
 	public List<Security> GetLastByInput(String Input,int TopN);
+	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2);
 	
 	public List<Security> DisplayStock();
 	public void AddStock(Company c,Stock s);
 	public int getIdSecurities(Stock s);
+	BarSeries Creating_TimeSeries(String Sym, String frequency, String Period1, String Period2);
+	Strategy Calculate_Indicator(BarSeries series);
+	void Trading_Strategy(BarSeries series, Strategy strategy);
+	public List<String> trader(String Sym, String frequency, String Period1, String Period2,double stop_loss_earns,double stop_loss_drops,double stop_loss);
+	public List<Indicators> Indicators_Calculator(String Sym, String frequency, String Period1, String Period2);
+
 
 }

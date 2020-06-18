@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="TemplateReg.xhtml"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	<ui:param name="page_name" value="RegisterCustomer" />
+	
+
+
+	<ui:define name="content">
+	
+	
+	
+	 <div class="wrapper">
+        <div class="container-fluid user-auth">
+			<div class="hidden-xs col-sm-4 col-md-4 col-lg-4">
+				<!-- Logo Starts -->
+				<a class="logo" href="index.html">
+					                        <h:graphicImage class="img-responsive mobile-logo" value="/Template/Assets/images/creative-didactique-triangle.gif" height="65px" width="65px"></h:graphicImage>
+				</a>
+				<!-- Logo Ends -->
+				<!-- Slider Starts -->
+				<div id="carousel-testimonials" class="carousel slide carousel-fade" data-ride="carousel">
+					<!-- Indicators Starts -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-testimonials" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-testimonials" data-slide-to="1"></li>
+						<li data-target="#carousel-testimonials" data-slide-to="2"></li>
+					</ol>
+					<!-- Indicators Ends -->
+					<!-- Carousel Inner Starts -->
+					<div class="carousel-inner">
+										<img class="img-responsive mobile-logo" src="images/financ.jpg" alt="logo"/>
+					
+						<!-- Carousel Item Starts -->
+						<div class="item active item-1">
+							<div>
+								<blockquote>
+									<p>This is a realistic program for anyone looking for site to invest. Paid to me regularly, keep up good work!</p>
+									<footer><span>Lucy Smith</span>, England</footer>
+								</blockquote>
+							</div>
+						</div>
+						<!-- Carousel Item Ends -->
+						<!-- Carousel Item Starts -->
+						<div class="item item-2">
+							<div>
+								<blockquote>
+									<p>Bitcoin doubled in 7 days. You should not expect anything more. Excellent customer service!</p>
+									<footer><span>Slim Hamdi</span>, Tunisia</footer>
+								</blockquote>
+							</div>
+						</div>
+						<!-- Carousel Item Ends -->
+						<!-- Carousel Item Starts -->
+						<div class="item item-3">
+							<div>
+								<blockquote>
+									<p>My family and me want to thank you for helping us find a great opportunity to make money online. Very happy with how things are going!</p>
+									<footer><span>Rawia Chniti</span>, Russia</footer>
+								</blockquote>
+							</div>
+						</div>
+						<!-- Carousel Item Ends -->
+					</div>
+					<!-- Carousel Inner Ends -->
+				</div>
+				<!-- Slider Ends -->
+			</div>
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+				<!-- Logo Starts -->
+				<a class="visible-xs" href="index.html">
+					                        <h:graphicImage class="img-responsive mobile-logo" value="/Template/Assets/images/creative-didactique-triangle.gif" height="65px" width="65px"></h:graphicImage>
+					
+				</a>
+				<!-- Logo Ends -->
+				<div class="form-container">
+					<div>
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<h2 class="title-head hidden-xs">member <span>login</span></h2>
+							 <p class="info-form">Send, receive and securely store your coins in your wallet</p>
+						</div>
+						<!-- Section Title Ends -->
+						<!-- Form Starts -->
+						<h:form>
+						<div class="form-group">
+								<h:inputText id="log" class="form-control" a:placeholder="USER LOGIN" value="#{UserBean.login}" required="true" requiredMessage="Login Is Required">
+
+								
+								</h:inputText>
+								<h:messages for="log" styleClass="errorBlock"/>
+							</div>
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							
+							<!-- Input Field Ends -->
+							<!-- Input Field Starts -->
+							<div class="form-group">
+									<h:inputSecret id="pass" requiredMessage="Password Is Required" class="form-control" a:placeholder="PASSWORD" value="#{UserBean.pass}" required="true"></h:inputSecret>
+									<h:messages for="pass" styleClass="errorBlock"/>
+							</div>
+							<div class="form-group">
+								
+								<h:commandButton value="Create account" class="btn btn-primary" action="#{UserBean.log_in()}"></h:commandButton>
+								</div>
+						</h:form>
+						<!-- Form Ends -->
+					</div>
+				</div>
+				<!-- Copyright Text Starts -->
+				<p class="text-center copyright-text">Copyright © 2018 Bayya All Rights Reserved</p>
+				<!-- Copyright Text Ends -->
+			</div>
+		</div>
+        <!-- Template JS Files -->
+      
+
+    </div>
+	
+	
+	</ui:define>
+	
+	
+	</ui:composition>

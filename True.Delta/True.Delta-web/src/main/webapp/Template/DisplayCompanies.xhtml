@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
-	template="Template.xhtml">	 
+	template="Template.xhtml">
 	<ui:param name="page_name" value="Accueil" />
 	<ui:define name="content">
 		<div id="main-slide" class="carousel slide carousel-fade"
@@ -46,7 +46,7 @@
 							<div class="container">
 								<div class="slider-text text-center">
 									<h3 class="slide-title">
-										<span>CHOOSE </span> US <br/> TO MANAGE <span> YOUR
+										<span>CHOOSE </span> US <br /> TO MANAGE <span> YOUR
 											PORTFOLIO</span>
 									</h3>
 									<p>
@@ -97,7 +97,7 @@
 
 							<h:dataTable binding="#{table}"
 								value="#{CompanyBean.DisplayCompanies()}" var="u"
-								class="table order text-center">
+								class="table order text-center" >
 								<h:column>
 									<f:facet name="header">   SYMBOL</f:facet>
 									<h:outputText value="#{u.getSymbol()}" />

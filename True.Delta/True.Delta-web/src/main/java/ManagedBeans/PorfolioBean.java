@@ -1,5 +1,6 @@
 package ManagedBeans;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UpdateModelException;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import Entities.Portfolio;
 import Entities.Security;
@@ -408,6 +410,14 @@ public class PorfolioBean {
 	
 	
 		
+	}
+	public String gobacktoPortfolioM() throws IOException
+	{
+		return("/Template/PortfolioManagment?faces-redirect=true");
+	}
+	public String profile() throws IOException
+	{
+		return("/Template/ProfileCustomer?faces-redirect=true");
 	}
 	
 	

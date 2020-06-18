@@ -2,6 +2,9 @@ package Interfaces;
 import javax.ejb.Local;
 import javax.persistence.Query;
 
+import org.ta4j.core.BarSeries;
+import org.ta4j.core.Strategy;
+
 import Entities.*;
 
 import java.math.BigDecimal;
@@ -29,9 +32,14 @@ public interface SecuritiesServicesInterfaceLocal {
 	public List<Security> SecuritiesFinder(int Number,String operator,double value);
 	public double StandardDev(String Sym, String Period1, String Period2);
 	public double CoefOfDeviation(String Sym, String Period1, String Period2);
+	public String StockExcelFinder(String Sym,String frequency, String Period1, String Period2);
 	
 	public List<Security> DisplayStock();
 	public void AddStock(Company c,Stock s);
 	public int getIdSecurities(Stock s);
-
+	BarSeries Creating_TimeSeries(String Sym, String frequency, String Period1, String Period2);
+	Strategy Calculate_Indicator(BarSeries series);
+	void Trading_Strategy(BarSeries series, Strategy strategy);
+	public List<String> trader(String Sym, String frequency, String Period1, String Period2,double stop_loss_earns,double stop_loss_drops,double stop_loss);
+	public List<Indicators> Indicators_Calculator(String Sym, String frequency, String Period1, String Period2);
 }

@@ -1,0 +1,367 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ct="http://www.chartistjsf.org/charts" template="Template.xhtml">
+	<ui:param name="page_name" value="Accueil" />
+	<ui:define name="content">
+		<script name="jquery/jquery.js" library="primefaces"></script>
+
+		<section class="banner-area">
+			<div class="banner-overlay">
+				<div class="banner-text text-center">
+					<img src="../../Assets/images/c.jpg" />
+					<div class="container">
+						<!-- Section Title Starts -->
+						<div class="row text-center">
+							<div class="col-xs-12">
+								<!-- Title Starts -->
+								<h2 class="title-head">
+									<h:outputText value="#{SecurityBean.symStock}" />
+									<span> Stocks Info</span>
+								</h2>
+								<h:form>
+
+									<h:commandButton class="slider btn btn-primary"
+										value="Go to Companies" action="#{SecurityBean.gotocomp()}"></h:commandButton>
+
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+
+		<section class="faq">
+
+
+
+			<!--Start section-->
+			<div class="container">
+				<div class="widget recent-posts">
+					<h3 style="color: orange" class="widget-title">Customize your
+						search</h3>
+					<ul class="unstyled clearfix">
+						<!-- Recent Post Widget Starts -->
+						<li>
+							<div class="posts-thumb pull-left">
+								<a href="blog-post.html"> </a>
+							</div>
+							<div class="post-info">
+								<h4 class="entry-title">
+									<h:outputLink styleClass="outputText" id="fades" value="#">
+										<h:outputText value="Frequency" />
+										<p:tooltip id="toolTipFades" for="fades"
+											value="The text for tooltip" />
+									</h:outputLink>
+
+								</h4>
+								<h:form>
+									<li><h:selectOneMenu class="form-control"
+											value="#{SecurityBean.frequency}"
+											onselect="#{SecurityBean.DisplayCustomIndicators()}">
+											<f:selectItem itemValue="1d" itemLabel="Daily" />
+
+											<f:selectItem itemValue="1wk" itemLabel="Weekly" />
+
+											<f:selectItem itemValue="1mo" itemLabel="Monthly" />
+
+
+											<p:ajax event="change" update="@this,s" />
+
+
+
+										</h:selectOneMenu></li>
+								</h:form>
+							</div>
+							<div class="clearfix"></div>
+
+
+
+
+							<div class="post-info">
+
+								<p class="post-meta">
+									<h:form>
+										<li>
+											<h4 class="entry-title">
+												<a href="blog-post-light.html">Start-Date </a>
+											</h4> <h:inputText t:type="date" class="form-control"
+												value="#{SecurityBean.d1}">
+												<f:convertDateTime style="backgroundcolor:black"
+													pattern="yyyy-MM-dd" />
+											</h:inputText>
+										</li>
+										<h:outputText style="color:orange"
+											value=" #{SecurityBean.dateverif}"></h:outputText>
+										<li>
+											<h4 class="entry-title">
+
+
+
+												<a href="blog-post-light.html">End-Date </a>
+											</h4> <h:inputText t:type="date" class="form-control"
+												value="#{SecurityBean.d2}">
+												<f:convertDateTime pattern="yyyy-MM-dd" />
+											</h:inputText> <h:outputText style="color:orange"
+												value=" #{SecurityBean.dateverif}"></h:outputText><br />
+										</li>
+										<h:commandLink class="slider btn btn-primary" value="Search "
+											action="#{SecurityBean.DisplayCustomIndicators()}">
+											<i class="fa fa-search" aria-hidden="true"></i>
+										</h:commandLink>
+										<h:commandLink class="slider btn btn-primary"
+											value="What are those indicators ? " action="AboutIndicators">
+											<i class="fa fa-eye"></i>
+										</h:commandLink>
+									</h:form>
+								</p>
+							</div>
+
+
+						</li>
+						<!-- Recent Post Widget Ends -->
+						<!-- Recent Post Widget Starts -->
+
+						<!-- Recent Post Widget Ends -->
+					</ul>
+				</div>
+				<div class="row">
+
+					<!-- Purchased Products Starts -->
+					<div class="col-xs-12 table-responsive" style="background: orange">
+						<h:panelGrid id="s">
+
+							<h:form>
+
+
+								<b:dataTable excel="true" csv="true" border="true"
+									style="background-color:black; color:white;" pdf="true"
+									id="mytable" copy="true" print="true" binding="#{table}"
+									value="#{SecurityBean.i}" var="u"
+									class="table order text-center">
+									<h:column style="color:orange;background-color:black">
+										<f:facet name="header">D</f:facet>
+										<h:outputText>
+											<f:convertDateTime type="zonedDateTime" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:orange;background-color:black">
+										<f:facet name="header">ClosePrice</f:facet>
+										<h:outputText style="color:orange" value="#{u.closePrice}" />
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">LongEma</f:facet>
+										<h:outputText value="#{u.longEma}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">ShortEma</f:facet>
+										<h:outputText value="#{u.shortEma}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">longSma</f:facet>
+										<h:outputText value="#{u.longSma}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">ShortSma</f:facet>
+										<h:outputText value="#{u.shortSma}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">ppo</f:facet>
+										<h:outputText value="#{u.ppo}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet style="text-align: center" name="header">PVar</f:facet>
+										<h:outputText value="#{u.priceVariation}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">Roc</f:facet>
+										<h:outputText value="#{u.roc}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">Rsi</f:facet>
+										<h:outputText value="#{u.rsi}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">Sd</f:facet>
+										<h:outputText value="#{u.sd}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">Atr</f:facet>
+										<h:outputText value="#{u.atr}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">Typical Price</f:facet>
+										<h:outputText value="#{u.typicalPrice}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+									<h:column style="color:white;background-color:black">
+										<f:facet name="header">williamsR</f:facet>
+										<h:outputText value="#{u.williamsR}">
+											<f:convertNumber type="currency" maxFractionDigits="3" />
+										</h:outputText>
+									</h:column>
+								</b:dataTable>
+							</h:form>
+						</h:panelGrid>
+
+					</div>
+					<!-- Cart Totals Ends -->
+				</div>
+
+			</div>
+			<br />
+			<br />
+			<br />
+
+			<div class="container"
+				style="background-color: #232323; height: 320px; width: 100%">
+				<div class="row">
+					<div class="col-xs-12">
+						<!-- Call To Action Text Starts -->
+						<div class="action-text">
+							<br />
+							<br />
+							<br />
+							<h2 class="title-head">
+								<h:outputText value="SEE" />
+								<span> Some Statistics</span>
+							</h2>
+							<h:form>
+
+								<h:commandButton class="slider btn btn-primary"
+									value="I Want to trade now !"
+									action="TradingSimulator"></h:commandButton>
+
+							</h:form>
+						</div>
+						<!-- Call To Action Text Ends -->
+						<!-- Call To Action Button Starts -->
+
+						<!-- Call To Action Button Ends -->
+					</div>
+				</div>
+			</div>
+			<br />
+			<br />
+			<br />
+
+			
+
+
+
+
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChart1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModel}">
+
+				</ct:chart>
+			</div>
+			<div class="action-text">
+					<h2 class="title-head">
+									<h:outputText value="Percentage Price" />
+									<span> Ocillator</span>
+								</h2>
+								</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartppo1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelppo}">
+
+				</ct:chart>
+			</div>
+			<div class="action-text">
+				<h2 class="title-head">
+					<h:outputText value="Rate" />
+					<span> OF Change</span>
+				</h2>
+			</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartroc1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelroc}">
+
+				</ct:chart>
+			</div>
+				<div class="action-text">
+				<h2 class="title-head">
+					<h:outputText value="Relative" />
+					<span> strength index</span>
+				</h2>
+			</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartrsi1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelrsi}">
+
+				</ct:chart>
+			</div>
+<div class="action-text">
+				<h2 class="title-head">
+					<h:outputText value="" />
+					<span> Williams</span>
+				</h2>
+			</div>
+
+			<div class=" bg-grey-chart"
+				style="width: 700px; height: 350px; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; background-color: white">
+				<ct:chart id="lineChartwilliams1" type="line"
+					style="width: 700px; height: 350px;"
+					model="#{SecurityBean.lineModelwilliams}">
+
+				</ct:chart>
+			</div>
+
+
+			<!-- Sidebar Ends -->
+
+
+		</section>
+		<!-- Section Shopping Cart Ends -->
+		<!-- Call To Action Section Starts -->
+
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

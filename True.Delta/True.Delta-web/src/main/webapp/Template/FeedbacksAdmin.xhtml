@@ -1,0 +1,168 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+
+
+
+
+	<ui:param name="page_name" value="adminFeedbacks" />
+
+
+
+	<ui:define name="content">
+	
+		<style type="text/css">
+.ui-sticky {
+	top: 70px !important;
+}
+
+@media ( max-width : 960px) {
+	.ui-sticky {
+		top: 110px !important;
+	}
+}
+</style>
+		<div id="main-slide" class="carousel slide carousel-fade"
+			data-ride="carousel">
+			<!-- Indicators Starts -->
+			<ol class="carousel-indicators visible-lg visible-md">
+				<li data-target="#main-slide" data-slide-to="0" class="active"></li>
+				<li data-target="#main-slide" data-slide-to="1"></li>
+				<li data-target="#main-slide" data-slide-to="2"></li>
+			</ol>
+			<!-- Indicators Ends -->
+			<!-- Carousel Inner Starts -->
+			<div class="carousel-inner">
+				<!-- Carousel Item Starts -->
+				<div class="item active bg-parallax item-1">
+					<img src="Assets/images/sim5.jpg" />
+					<div class="slider-content">
+						<div class="container">
+							<div class="slider-text text-center">
+								<h3 class="slide-title">
+									<span>FEED</span><br /> BACKS
+								</h3>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel Item Ends -->
+
+			</div>
+			<!-- Carousel Inner Ends -->
+
+			
+				<!-- 			<p:toolbar> -->
+				<!--         <f:facet name="left"> -->
+				<!--             <p:commandButton value="Submit"   style="margin-right:20px;" /> -->
+				<!--         </f:facet> -->
+				<!--         </p:toolbar> -->
+				<h:form id="tabform">
+				
+				<p:toolbar id="tb" style="background-color:black" >
+					<f:facet name="right">
+						<i class="fa fa-bell-o" aria-hidden="true" style="color:white" ><span
+							class="badge badge-light" style="background-color: red">#{FeedbackBean.getNbFeedbackByVuAdmin()}</span></i>
+					</f:facet>
+				</p:toolbar>
+
+				<p:sticky target="tb" />
+				
+
+				<h2 style="color: #FFFFFF">My Feedbacks</h2>
+				<div style="margin-right: 30px; margin-left: 30px"
+					class="tab-pane fade active in">
+
+					
+						<p:growl id="msgs" showDetail="true"
+							skipDetailIfEqualsSummary="true" />
+
+
+
+
+
+						<div style="min-height:600px;height:280px;min-width:600px;width:1310px;overflow:auto;">
+							<table  class="table order text-center" >
+
+                            <tr>
+                                <th style="color:#E68919" ></th>
+                                <th style="color:#E68919" ></th>
+                                <th style="color:#E68919" ><center>Date</center></th>
+                                <th style="color:#E68919" >Who</th>
+                                <th style="color:#E68919" >Rate</th>
+                                <th style="color:#E68919" >Notice</th>
+                                <th style="color:#E68919" ></th>
+                            </tr>
+                            <ui:repeat value="#{FeedbackBean.getAllFeedback()}"
+                                var="feedback">
+                                <tr>
+                                    <td>
+                                        <i
+                                    class="fa #{feedback.admin_vu==false ? 'fa fa-exclamation' : ''}"
+                                    style="color: red" />
+                                    </td>
+                                    <td>
+                                        <h:outputText value="" class="col-xs-2 col-sm-5" />
+                                    </td>
+                                    <td><h:outputText value="#{feedback.date}">
+                                                    <f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+                                                </h:outputText>  </td>
+                                        <td ><h:outputText value="#{feedback.who}"
+                                        class="col-xs-2 col-sm-5" /></td>
+                                        <td><h:outputText value="#{feedback.rating}"
+                                        class="col-xs-2 col-sm-5" /></td>
+                                        <td><h:outputText value="#{feedback.notice}"
+                                        class="col-xs-2 col-sm-5" /></td>
+                                        <td>
+                                            <p:commandLink id="ajaxVu" update="tabform"
+                                    action="#{FeedbackBean.changeVuAdmin(feedback.id)}"
+                                    disabled="#{feedback.admin_vu==true}">
+                                    <i class="fa fa-eye" aria-hidden="true" />
+                                </p:commandLink>
+                                <h:commandLink
+                                    action="#{FeedbackBean.DeleteFeddbackById(feedback.id)}">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </h:commandLink>
+                                <h:commandLink action="#{FeedbackBean.setInd(feedback.id)}" disabled="#{feedback.rating.toString()!='Perfect'}">
+                                                    
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+
+                                                </h:commandLink>
+                                        </td>
+
+                                </tr>
+                        </ui:repeat>
+
+                            </table>
+                           </div>
+						<p:commandLink id="ajaxRefresh" update="tabform"
+						action="#{FeedbackBean.refresh()}"
+						class="col-xs-12 col-sm-7 text-center">
+						<i class="fa fa-refresh" aria-hidden="true" />
+					</p:commandLink>
+					
+					
+				</div>
+</h:form>
+
+			
+
+		</div>
+		<style>
+.test {
+	background-color: #cf8608;
+}
+th {
+  background: #111111;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+</style>
+	</ui:define>
+</ui:composition>

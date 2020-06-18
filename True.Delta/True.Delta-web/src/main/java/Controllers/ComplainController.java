@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response;
 
 import Entities.Complain;
 import Interfaces.ComplainIServices;
+import Services.ComplainsServices;
 
 @RequestScoped
 @Path("complain")
@@ -23,7 +24,7 @@ import Interfaces.ComplainIServices;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ComplainController {
 	@Inject
-	ComplainIServices service;
+	ComplainsServices service;
 	@POST
 	@Path("create")
     public Response create(Complain c) {

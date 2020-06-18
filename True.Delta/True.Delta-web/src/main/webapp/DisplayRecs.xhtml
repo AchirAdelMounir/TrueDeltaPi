@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/WEB-INF/template/template.xhtml">
+
+	<ui:define name="content">
+		<section class="content">
+			 <i class="pi pi-check" style="font-size: 3em"></i>
+		</section>
+	
+
+	<div class="app-sidebar__inner">
+	<center><h:form><h:commandButton value="Add A reclamation" class="btn btn-primary" action="AddARec"></h:commandButton> </h:form></center>
+		<div class="col-lg-6">
+			<div class="main-card mb-3 card">
+				<div class="card-body">
+					<h5 class="card-title">Reclamations</h5>
+					<h:form>
+					
+					<h:dataTable binding="#{table}" class="mb-0 table" id="mytable"
+			value="#{eymen.displayRec()}" var="u" >
+			<h:column style="color:orange;background-color:black">
+				<f:facet name="header">   #</f:facet>
+				<h:outputText  value="#{u.id}" />
+			</h:column>
+			<h:column style="color:orange;background-color:black">
+				<f:facet name="header">Description</f:facet>
+				<h:outputText  value="#{u.description}" />
+			</h:column>
+			<h:column style="color:orange;background-color:black">
+				<f:facet name="header">Category</f:facet>
+				<h:outputText  value="#{u.categories}" />
+			</h:column>
+			<h:column style="color:orange;background-color:black">
+				<f:facet name="header">Date</f:facet>
+				<h:outputText  value="#{u.date}" />
+			</h:column>
+			<h:column style="color:orange;background-color:black">
+				<f:facet name="header">Traitement</f:facet>
+				<h:outputText  value="#{u.traitement}" />
+			</h:column>
+			
+			<h:column style="color:white;background-color:black">
+				<f:facet name="header">Details</f:facet>
+				<h:commandLink value="details">
+					
+					<f:param name="Sym"  />
+
+				</h:commandLink>
+			</h:column>
+
+			<h:column style="color:white;background-color:black">
+				<f:facet value="update" name="header">Update</f:facet>
+				<h:commandLink value="update">
+					
+					<f:param name="Sym" />
+				</h:commandLink>
+
+			</h:column>
+			<h:column style="color:white;background-color:black">
+				<f:facet name="header">Delete</f:facet>
+				<h:commandLink value="delete" action="#{eymen.DeleteRec(u.id)}">
+				
+				</h:commandLink>
+
+			</h:column>
+
+		</h:dataTable>
+		
+	</h:form>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+		
+</ui:define>
+
+</ui:composition>

@@ -1,0 +1,211 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+
+
+
+
+	<ui:param name="page_name" value="CustomerFeedbacks" />
+
+
+
+	<ui:define name="content">
+		<div id="main-slide" class="carousel slide carousel-fade"
+			data-ride="carousel">
+			<!-- Indicators Starts -->
+			<ol class="carousel-indicators visible-lg visible-md">
+				<li data-target="#main-slide" data-slide-to="0" class="active"></li>
+				<li data-target="#main-slide" data-slide-to="1"></li>
+				<li data-target="#main-slide" data-slide-to="2"></li>
+			</ol>
+			<!-- Indicators Ends -->
+			<!-- Carousel Inner Starts -->
+			<div class="carousel-inner">
+				<!-- Carousel Item Starts -->
+				<div class="item active bg-parallax item-1">
+					<img src="Assets/images/sim5.jpg" />
+					<div class="slider-content">
+						<div class="container">
+							<div class="slider-text text-center">
+								<h3 class="slide-title">
+									<span>FEED</span><br /> BACKS
+								</h3>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel Item Ends -->
+
+			</div>
+			<!-- Carousel Inner Ends -->
+
+			<h:body>
+				<!-- 			<p:toolbar> -->
+				<!--         <f:facet name="left"> -->
+				<!--             <p:commandButton value="Submit"   style="margin-right:20px;" /> -->
+				<!--         </f:facet> -->
+				<!--         </p:toolbar> -->
+				<center>
+					<h:form>
+
+						<a class="slider btn btn-primary"
+							value="Did you want to add a feedback?" href="#add feedback">Did
+							you want to add a feedback?</a>
+
+					</h:form>
+				</center>
+
+				<h2 style="color: #E68919">My Feedbacks</h2>
+				<p></p>
+				<div style="margin-right: 30px; margin-left: 30px"
+						class="tab-pane fade active in">
+
+						<h:form id="tabform">
+							<p:growl id="msgs" showDetail="true"
+								skipDetailIfEqualsSummary="true" />
+
+
+
+
+						<div style="min-height:600px;height:280px;min-width:600px;width:1310px;overflow:auto;">
+							<table  class="table order text-center" >
+
+                            <tr>
+                                <th style="color:#E68919" ><center>Date</center></th>
+                                <th style="color:#E68919" >Who</th>
+                                <th style="color:#E68919" >Rate</th>
+                                <th style="color:#E68919" >Notice</th>
+                            </tr>
+                            <ui:repeat value="#{FeedbackBean.getAllFeedbackByIdUser(43)}"
+                                var="feedback">
+                                <tr>
+                                    <td><h:outputText value="#{feedback.date}">
+                                                    <f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+                                                </h:outputText>  </td>
+                                        <td ><h:outputText value="#{feedback.who}"
+                                        class="col-xs-2 col-sm-5" /></td>
+                                        <td><h:outputText value="#{feedback.rating}"
+                                        class="col-xs-2 col-sm-5" /></td>
+                                        <td><h:outputText value="#{feedback.notice}"
+                                        class="col-xs-2 col-sm-5" /></td>
+
+                                </tr>
+                        </ui:repeat>
+
+                            </table>
+                           </div>
+                            
+
+						</h:form>
+					</div>
+				<section id="add feedback" class="contact">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-12 col-md-8 contact-form">
+								<h3 class="col-xs-12" style="color:#E68919" >Did you want to add a new feedback</h3>
+								
+								<!-- Contact Form Starts -->
+								<h:form id="createCompanyForm">
+
+									<!-- Input Field Starts -->
+									<div class="form-group col-xs-12">
+
+										<p:messages rendered="true" />
+
+									</div>
+									<div class="form-group col-md-6">
+
+										<h:outputLabel for="name" value="Who" />
+										<td><h:selectOneMenu class="form-control"
+												value="#{FeedbackBean.who}" required="true">
+												<f:selectItem itemLabel="Select who" itemValue="#{null}"
+													noSelectionOption="true" class="form-control" />
+												<f:selectItem itemValue="Overall" itemLabel="Overall"
+													class="form-control" />
+												<f:selectItem itemValue="AssetManager"
+													itemLabel="AssetManager" class="form-control" />
+												<f:selectItem itemValue="Article" itemLabel="Article"
+													class="form-control" />
+											</h:selectOneMenu></td>
+									</div>
+									<div class="form-group col-md-6">
+
+										<h:outputLabel for="name" value="Rate" />
+										<td><h:selectOneMenu class="form-control"
+												value="#{FeedbackBean.rating}" required="true">
+												<f:selectItem itemLabel="Select rate Level"
+													itemValue="#{null}" noSelectionOption="true" />
+												<f:selectItem itemValue="Null" itemLabel="Null" />
+												<f:selectItem itemValue="Bad" itemLabel="Bad" />
+												<f:selectItem itemValue="Middling" itemLabel="Middling" />
+												<f:selectItem itemValue="Good" itemLabel="Good" />
+												<f:selectItem itemValue="Very_good" itemLabel="Very_good" />
+												<f:selectItem itemValue="Perfect" itemLabel="Perfect" />
+											</h:selectOneMenu></td>
+									</div>
+									<div class="form-group col-md-6">
+
+										<h:outputLabel for="notice" value="Notice" />
+										<h:inputText class="form-control" label="Notice"
+											value="#{FeedbackBean.notice}" id="notice" required="true">
+
+										</h:inputText>
+										<p:commandLink id="ajaxValider" update="createCompanyForm"
+											action="#{FeedbackBean.val(FeedbackBean.notice)}">
+											<i class="fa fa-shield" aria-hidden="true"></i>
+										</p:commandLink>
+										<tr>
+											<br />
+											<h:outputText
+												value="please delete this word : '#{FeedbackBean.word}' "
+												style="text-decoration:underline;font-weight: bold ; color:white"
+												rendered="#{ FeedbackBean.word ne ''}" />
+										</tr>
+									</div>
+									<div class="form-group col-xs-12 col-sm-4">
+
+										<h:commandButton value="Save" ajax="false"
+											icon="fa fa-check-square" class="btn btn-primary btn-contact"
+											action="#{FeedbackBean.AddFeedback()}"
+											disabled="#{FeedbackBean.valider==false}">
+											<f:resetValues render="createCompanyForm:name" />
+										</h:commandButton>
+
+
+
+
+
+									</div>
+
+									<!-- Button save-->
+
+
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+			</h:body>
+
+		</div>
+		<style>
+.test {
+	background-color: #cf8608;
+}
+
+th {
+  background: #111111;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
+</style>
+	</ui:define>
+</ui:composition>

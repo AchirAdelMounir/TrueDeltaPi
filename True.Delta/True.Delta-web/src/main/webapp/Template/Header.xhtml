@@ -2,6 +2,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 	
 <header class="header">
@@ -10,7 +11,8 @@
                     <!-- Logo Starts -->
                     <div class="main-logo col-xs-12 col-md-3 col-md-2 col-lg-2 hidden-xs">
                         <a href="index.html">
-							<img class="img-responsive" src="Assets/images/logo.png" alt="logo"/>
+                        <h:graphicImage class="img-responsive" value="/Template/Assets/images/creative-didactique-triangle.gif" height="65px" width="65px"></h:graphicImage>
+							
 						</a>
                     </div>
                     <!-- Logo Ends -->
@@ -35,8 +37,14 @@
                     <!-- User Sign In/Sign Up Starts -->
                     <div class="col-md-3 col-lg-3">
                         <ul class="unstyled user">
-                            <li class="sign-in"><a href="login.html" class="btn btn-primary"><i class="fa fa-user"></i> sign in</a></li>
-                            <li class="sign-up"><a href="register.html" class="btn btn-primary"><i class="fa fa-user-plus"></i> register</a></li>
+                        <c:if test="#{UserBean.u==null}">
+                            <li class="sign-in"><h:form><h:commandLink class="btn btn-primary" action="#{UserBean.redirecToLogin()}"><i class="fa fa-user"></i> sign in</h:commandLink></h:form></li>
+                            <li class="sign-up"><h:form><h:commandLink class="btn btn-primary" action="#{UserBean.redirectToRegister()}"><i class="fa fa-user-plus"></i>Register</h:commandLink></h:form></li>
+                            </c:if>
+                            <c:if test="#{UserBean.u!=null}">
+                            <li class="sign-in"><h:outputText style="color:orange" value="  #{UserBean.u.nom}"/> <h:outputText style="color:white" value=" #{UserBean.u.prenom}"/></li>
+                            <li class="sign-up"><h:form><h:commandLink class="btn btn-primary" action="#{UserBean.logout()}"><i class="fa fa-user-logout"></i>Logout</h:commandLink></h:form></li>
+                            </c:if>
                         </ul>
                     </div>
                     <!-- User Sign In/Sign Up Ends -->
@@ -63,22 +71,15 @@
                             <!-- Main Menu Starts -->
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="services.html">Services</a></li>
-                                <li><a href="pricing.html">Pricing</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <i class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="blog-right-sidebar.html">Right Sidebar</a></li>
-                                        <li><a href="blog-left-sidebar.html">Left Sidebar</a></li>
-										<li><a href="blog-grid-no-sidebar.html">Grid No Sidebar</a></li>
-                                        <li><a href="blog-post.html">Single Post</a></li>
-                                    </ul>
-                                </li>
+                                <li><h:form><h:commandLink escape="false" class="active" value=" " action="#{SecurityBean.gotocomp()}">Firms</h:commandLink></h:form></li>
+                                <li><h:form><h:commandLink escape="false"  style="color:white" value="" action="#{PorfolioBean.gobacktoPortfolioM()}">Portfolio</h:commandLink></h:form></li>
+                                <li><h:form><h:commandLink escape="false" value="   Bitcoin" action="/Template/Views/SecuritiesViews/Bitcoin"/></h:form></li>
+                                <li><h:form><h:commandLink escape="false" value="   Feedbacks" action="#{FeedbackBean.FeedbacksCustomer()}"/></h:form></li>
+                               <li> <h:form><h:commandLink escape="false" value="  Complains" action="#{FeedbackBean.ComplainsCustomer()}"/></h:form></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">pages <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="register.html">Register page</a></li>
+                                        <li><h:form><h:commandLink action="#{UserBean.redirectToRegister()}">Register</h:commandLink></h:form></li>
                                         <li><a href="login.html">Login page</a></li>
 										<li><a href="shopping-cart.html">Shopping cart</a></li>
                                         <li><a href="shopping-checkout.html">shopping checkout</a></li>

@@ -5,7 +5,9 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+
 import javax.ejb.Local;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
@@ -20,12 +22,15 @@ import Enumerations.Professional_Status_Type;
 import Enumerations.Residency_Status_Type;
 import Enumerations.Type_of_contract_type;
 import Interfaces.UserIServices;
-import Interfaces.UserServiceLocal;
-import Interfaces.UserServiceRemote;
+
+
+
+
+
 @Stateless
 @LocalBean
+public class UserService implements  UserIServices {
 
-public class UserService implements  UserServiceRemote,UserServiceLocal,UserIServices {
 
 	@PersistenceContext(unitName= "primary")
 	EntityManager em;

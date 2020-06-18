@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<f:facet name="first">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	</f:facet>
+	<title>#{page_name}</title>
+	<h:outputStylesheet library="css" name="main.css" />
+	<h:outputStylesheet library="css" name="fonts.css" />
+	<h:outputStylesheet library="css" name="all.min.css" />
+	<h:outputStylesheet library="css" name="custom.css" />
+</h:head>
+<h:body>
+	<h:panelGroup layout="block"
+		styleClass="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+		<ui:include src="/WEB-INF/template/includes/top-menu.xhtml" />
+		<h:panelGroup layout="block" styleClass="app-main">
+			<ui:include src="/WEB-INF/template/includes/menubar.xhtml" />
+			<h:panelGroup layout="block" styleClass="app-main__outer">
+				<h:panelGroup layout="block" styleClass="app-main__inner">
+					<!-- Need to define this part "Content" in the page to work on -->
+					<ui:insert name="content" /> 
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="app-wrapper-footer">
+					<ui:include src="/WEB-INF/template/includes/footer.xhtml" />
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+	<h:outputScript library="js" name="main.js" />
+</h:body>
+</html>

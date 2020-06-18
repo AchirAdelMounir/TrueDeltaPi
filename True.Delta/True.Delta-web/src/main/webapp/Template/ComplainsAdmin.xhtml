@@ -1,0 +1,278 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	template="Template.xhtml">
+
+
+
+	<ui:param name="page_name" value="adminComplain" />
+
+
+
+	<ui:define name="content">
+		<style type="text/css">
+.ui-sticky {
+	top: 70px !important;
+}
+
+@media ( max-width : 960px) {
+	.ui-sticky {
+		top: 110px !important;
+	}
+}
+</style>
+
+		<div id="main-slide" class="carousel slide carousel-fade"
+			data-ride="carousel">
+			<!-- Indicators Starts -->
+			<ol class="carousel-indicators visible-lg visible-md">
+				<li data-target="#main-slide" data-slide-to="0" class="active"></li>
+				<li data-target="#main-slide" data-slide-to="1"></li>
+				<li data-target="#main-slide" data-slide-to="2"></li>
+			</ol>
+			<!-- Indicators Ends -->
+			<!-- Carousel Inner Starts -->
+			<div class="carousel-inner">
+				<!-- Carousel Item Starts -->
+				<div class="item active bg-parallax item-1">
+					<img src="Assets/images/sim4.jpg" />
+					<div class="slider-content">
+						<div class="container">
+							<div class="slider-text text-center">
+								<h3 class="slide-title">
+									<span>COMPLAINS</span><br />
+								</h3>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel Item Ends -->
+
+			</div>
+			<!-- Carousel Inner Ends -->
+			<h:form id="mainForm1">
+
+				<p:toolbar id="tb" style="background-color:black">
+					<f:facet name="right">
+						<i class="fa fa-bell-o" aria-hidden="true" style="color: white"><span
+							class="badge badge-light" style="background-color: red">#{ComplainBean.getNbComplainByStatus(ComplainBean.statusNotRead)}</span></i>
+					</f:facet>
+				</p:toolbar>
+
+				<p:sticky target="tb" />
+
+
+
+
+
+				<div id="menu2" class="col-xs-12 table-responsive">
+					<h:dataTable var="complain" value="#{ComplainBean.complainList}"
+						class="table order text-center">
+						<h:column>
+							<f:facet name="header" class="col-xs-1"></f:facet>
+							<p:commandLink id="ajaxDelet1" update="mainForm1"
+								action="#{ComplainBean.selectionComplain(complain)}">
+								<i class="fa fa-check" aria-hidden="true"></i>
+							</p:commandLink>
+
+
+						</h:column>
+						<h:column>
+							<f:facet name="header" class="col-xs-1"></f:facet>
+
+							<i
+								class="fa #{complain.status.toString()=='Not_Read' ? 'fa fa-exclamation' : ''}"
+								style="color: red" />
+							<i
+								class="fa #{complain.id==ComplainBean.selectedComplain1.id ? 'fa fa-hand-o-right' : ''}"
+								style="color: red" />
+
+						</h:column>
+						
+						<h:column>
+							<f:facet name="header" class="col-xs-2 col-sm-5">Name</f:facet>
+							<h:outputText
+								value="#{complain.user.prenom}#{ComplainBean.x}#{complain.user.nom}"
+								class="col-xs-2 col-sm-5" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header" class="col-xs-2">Subject</f:facet>
+							<h:outputText value="#{complain.subject}" class="col-xs-2" />
+						</h:column>
+						<h:column>
+							<f:facet name="header" class="col-xs-1 col-sm-2">Description</f:facet>
+							<h:outputText value="#{complain.description}"
+								class="col-xs-1 col-sm-2" />
+						</h:column>
+						<h:column>
+							<f:facet name="header" class="col-xs-2 col-sm-2">Status</f:facet>
+							<h:outputText value="#{complain.status}"
+								class="col-xs-2 col-sm-2"
+								style="#{complain.status.toString()=='Not_Read' ? 'color:red' : complain.status.toString()=='Answered' ? 'color:#008000' :'color:#0000FF'}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header" class="col-xs-2 col-sm-2">Date</f:facet>
+							<h:outputText value="#{complain.date}" class="col-xs-2 col-sm-2" >
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</h:column>
+						<h:column>
+							<f:facet name="header" class="col-xs-2 col-sm-2">Answer</f:facet>
+							<h:outputText value="#{complain.answer}"
+								class="col-xs-2 col-sm-2" />
+						</h:column>
+						<h:column>
+							<f:facet name="header" class="col-xs-1"></f:facet>
+							<p:commandLink id="ajaxDelet" update="mainForm1"
+								action="#{ComplainBean.DeleteComplainById(complain.id)}">
+								<i class="fa fa-trash" aria-hidden="true"></i>
+							</p:commandLink>
+						</h:column>
+
+						<h:column>
+							<f:facet name="header" class="col-xs-1"></f:facet>
+							<p:commandLink id="ajaxVu" update="mainForm1"
+								action="#{ComplainBean.vu(complain.id)}">
+								<i class="fa fa-eye" aria-hidden="true" />
+							</p:commandLink>
+						</h:column>
+
+
+
+
+
+					</h:dataTable>
+
+					<p:commandLink id="ajaxRefresh" update="mainForm1"
+						action="#{ComplainBean.refresh}"
+						class="col-xs-12 col-sm-7 text-center">
+						<i class="fa fa-refresh" aria-hidden="true" />
+					</p:commandLink>
+
+					<center>
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#exampleModal" data-whatever="@mdo">Replay
+							Customer</button>
+					</center>
+
+
+				</div>
+
+
+
+				<h:body>
+
+					<h1 style="color: #E68919">Status Statistics</h1>
+
+					<div id="piechart"></div>
+
+					<script type="text/javascript"
+						src="https://www.gstatic.com/charts/loader.js"></script>
+
+					<script type="text/javascript">
+// Load google charts
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+// Draw the chart and set the chart values
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+  ['Task', 'Complains Status'],
+  ['Not Read', #{ComplainBean.getNbComplainByStatus(ComplainBean.statusNotRead)}],
+  ['Answered', #{ComplainBean.getNbComplainByStatus(ComplainBean.statusAnswered)}],
+  ['In Progress', #{ComplainBean.getNbComplainByStatus(ComplainBean.statusInProgress)}]
+  ]);
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {
+  'legend':'left',
+  legend: {textStyle: {color: 'white'}},
+  'title':'',
+  
+  titleTextStyle: {
+	    color: '#E68919'
+	},
+  'is3D':true,
+  'width':400,
+  'height':300,
+  backgroundColor: '#111111',
+  colors: ['red', '#008000', '#0000FF']
+};
+  
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+
+
+				</h:body>
+
+
+
+			</h:form>
+
+		</div>
+
+
+
+		<h:form>
+
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+
+					<div class="modal-content">
+						<div class="modal-header">
+
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true"></span>
+							</button>
+						</div>
+						<div class="modal-body">
+
+
+
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Reply:</label>
+								<p:inputText class="form-control" label="Notice"
+									value="#{ComplainBean.answer}" id="message-text"
+									required="true">
+
+
+								</p:inputText>
+							</div>
+
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Close</button>
+
+							<h:commandButton value="Reply" icon="fa fa-check-square"
+								class="btn btn-primary btn-contact"
+								action="#{ComplainBean.reply(ComplainBean.selectedComplain1.id,ComplainBean.answer)}">
+
+							</h:commandButton>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</h:form>
+
+
+
+
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,462 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="Template.xhtml">
+
+
+
+
+	<ui:param name="page_name" value="CustomerFeedbacks" />
+
+
+
+	<ui:define name="content">
+
+
+		<!-- Add icon library -->
+		<h:form id="Overall" >
+		
+		<span class="heading">Overall Rating</span>
+		<h:form>
+		<c:forEach begin="1" end="#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.overall))}"  >
+		<span class="fa fa-star checked"></span>
+		</c:forEach>
+		<c:forEach begin="1" end="#{FeedbackBean.rest(FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.overall)))}"  >
+		<span class="fa fa-star"></span>
+		</c:forEach>
+		</h:form>
+		
+		
+		
+
+		<h1 style="color:#E68919" >#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.overall))}  average based on #{FeedbackBean.getNbFeedbackByWho(FeedbackBean.overall)} reviews.</h1>
+		
+		<div style="padding-left: 60px; padding-right: 60px">
+			<div class="row">
+				<div class="side">
+					<div>5 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-5"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.perfect,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>4 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-4"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.very_good,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>3 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-3"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.good,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>2 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-2"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.middling,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>1 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-1"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.bad,FeedbackBean.overall)}</div>
+				</div>
+			
+			<div class="side">
+					<div>0 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-0"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.nulle,FeedbackBean.overall)}</div>
+				</div>
+			</div>
+			</div>
+			<hr style="border: 3px solid #f1f1f1" />
+		</h:form>
+		
+		<h:form id="AssetManager" >
+		
+		<span class="heading">Asset Managers Rating</span>
+		<h:form>
+		<c:forEach begin="1" end="#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.assetManager))}"  >
+		<span class="fa fa-star checked"></span>
+		</c:forEach>
+		<c:forEach begin="1" end="#{FeedbackBean.rest(FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.assetManager)))}"  >
+		<span class="fa fa-star"></span>
+		</c:forEach>
+		</h:form>
+		
+		
+		
+
+		<h1 style="color:#E68919" >#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.assetManager))}  average based on #{FeedbackBean.getNbFeedbackByWho(FeedbackBean.assetManager)} reviews.</h1>
+		
+		<div style="padding-left: 60px; padding-right: 60px">
+			<div class="row">
+				<div class="side">
+					<div>5 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-5"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.perfect,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>4 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-4"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.very_good,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>3 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-3"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.good,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>2 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-2"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.middling,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>1 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-1"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.bad,FeedbackBean.assetManager)}</div>
+				</div>
+			
+			<div class="side">
+					<div>0 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-0"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.nulle,FeedbackBean.assetManager)}</div>
+				</div>
+			</div>
+			</div>
+			<hr style="border: 3px solid #f1f1f1" />
+		</h:form>
+		
+		<h:form id="Article" >
+		
+		<span class="heading">Article Rating</span>
+		<h:form>
+		<c:forEach begin="1" end="#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.article))}"  >
+		<span class="fa fa-star checked"></span>
+		</c:forEach>
+		<c:forEach begin="1" end="#{FeedbackBean.rest(FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.article)))}"  >
+		<span class="fa fa-star"></span>
+		</c:forEach>
+		</h:form>
+		
+		
+		
+
+		<h1 style="color:#E68919" >#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.article))}  average based on #{FeedbackBean.getNbFeedbackByWho(FeedbackBean.article)} reviews.</h1>
+		
+		<div style="padding-left: 60px; padding-right: 60px">
+			<div class="row">
+				<div class="side">
+					<div>5 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-5"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.perfect,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>4 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-4"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.very_good,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>3 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-3"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.good,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>2 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-2"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.middling,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>1 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-1"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.bad,FeedbackBean.article)}</div>
+				</div>
+			
+			<div class="side">
+					<div>0 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-0"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.nulle,FeedbackBean.article)}</div>
+				</div>
+			</div>
+			</div>
+			<hr style="border: 3px solid #f1f1f1" />
+		</h:form>
+		
+		<style>
+* {
+	box-sizing: border-box;
+}
+
+.heading {
+	font-size: 25px;
+	margin-right: 25px;
+}
+
+.fa {
+	font-size: 25px;
+}
+
+.checked {
+	color: orange;
+}
+
+/* Three column layout */
+.side {
+	float: left;
+	width: 15%;
+	margin-top: 10px;
+}
+
+.middle {
+	float: left;
+	width: 70%;
+	margin-top: 10px;
+}
+
+/* Place text to the right */
+.right {
+	text-align: right;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* The bar container */
+.bar-container {
+	width: 100%;
+	background-color: #f1f1f1;
+	text-align: center;
+	color: white;
+}
+
+/* Individual bars */
+.bar-5 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.perfect,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #4CAF50;
+}
+
+.bar-4 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.very_good,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #582900;
+}
+
+.bar-3 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.good,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #00bcd4;
+}
+
+.bar-2 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.middling,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #ff9800;
+}
+
+.bar-1 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.bad,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #f44336;
+}
+.bar-0 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.nulle,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #7f00ff;
+}
+/*Bar AssetManager*/
+.bara-5 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.perfect,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #4CAF50;
+}
+
+.bara-4 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.very_good,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #582900;
+}
+
+.bara-3 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.good,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #00bcd4;
+}
+
+.bara-2 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.middling,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #ff9800;
+}
+
+.bara-1 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.bad,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #f44336;
+}
+.bara-0 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.nulle,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #7f00ff;
+}
+/*Article*/
+.barar-5 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.perfect,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #4CAF50;
+}
+
+.barar-4 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.very_good,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #582900;
+}
+
+.barar-3 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.good,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #00bcd4;
+}
+
+.barar-2 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.middling,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #ff9800;
+}
+
+.barar-1 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.bad,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #f44336;
+}
+.barar-0 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.nulle,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #7f00ff;
+}
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media ( max-width : 400px) {
+	.side, .middle {
+		width: 100%;
+	}
+	/* Hide the right column on small screens */
+	.right {
+		display: none;
+	}
+}
+</style>
+	</ui:define>
+</ui:composition>

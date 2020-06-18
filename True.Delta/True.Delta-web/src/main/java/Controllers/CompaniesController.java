@@ -60,17 +60,17 @@ public class CompaniesController {
     }
 	@GET
 	@Path("Find/{SearchField}/{operator}/{o}")
-    public Response FindCompany(@PathParam("SearchField, operator, o") String SearchField,String operator,Object o) {
+    public Response FindCompany(@PathParam("SearchField")String SearchField,@PathParam ("operator")String operator, @PathParam("o") String o) {
         return Response.ok(service.SearchByInput(SearchField, operator, o)).build();
     }
 	@GET
 	@Path("Top/{Input}/{TopN}")
-    public Response getTopNCompanies(@PathParam("Input, TopN") String Input,int TopN) {
+    public Response getTopNCompanies(@PathParam("Input")String Input, @PathParam("TopN") int TopN) {
         return Response.ok(service.GetTopByInput(Input, TopN)).build();
     }
 	@GET
 	@Path("Last/{Input}/{TopN}")
-    public Response getLastNCompanies(@PathParam("Input, TopN") String Input,int TopN) {
+    public Response getLastNCompanies(@PathParam("Input")String Input, @PathParam("TopN") int TopN) {
         return Response.ok(service.GetLastByInput(Input, TopN)).build();
     }
 	

@@ -4,73 +4,716 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:ct="http://www.chartistjsf.org/charts" 
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="Template.xhtml">
-	<ui:param name="page_name" value="Accueil" />
+
+
+
+
+	<ui:param name="page_name" value="Feedbacks" />
+
+
+
 	<ui:define name="content">
-		<section class="container blog-page">
-			<div class="row">
-				<div class="content col-xs-12 col-md-8">
-					<!-- Article Starts -->
-					<article>
-						<!-- Figure Starts -->
-						<figure class="blog-figure">
-							<img class="img-responsive" src="images/blog/blog-post-1.jpg"
-								alt=""/>
-						</figure>
-						<!-- Figure Ends -->
-						<!-- Content Starts -->
-						
+	
+		<div id="main-slide" class="carousel slide carousel-fade"
+			data-ride="carousel">
+			<!-- Indicators Starts -->
+			<ol class="carousel-indicators visible-lg visible-md">
+				<li data-target="#main-slide" data-slide-to="0" class="active"></li>
+				<li data-target="#main-slide" data-slide-to="1"></li>
+				<li data-target="#main-slide" data-slide-to="2"></li>
+			</ol>
+			<!-- Indicators Ends -->
+			<!-- Carousel Inner Starts -->
+			<div class="carousel-inner">
+				<!-- Carousel Item Starts -->
+				<div class="item active bg-parallax item-1">
+					<img src="Assets/images/sim9.jpg" />
+					<div class="slider-content">
+						<div class="container">
+							<div class="slider-text text-center">
+								
+								<h:form>
+
+									<h:commandButton class="slider btn btn-primary"
+										value="Show More About Feedback"
+										action="#{FeedbackBean.getAllFeedback()}"></h:commandButton>
+
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Carousel Item Ends -->
+
+			</div>
+			<!-- Carousel Inner Ends -->
+
+		</div>
+
+		<section class="shop-cart">
+			<!--Start section-->
+			<div class="container">
+				<div class="row">
+
+
+					<center>
+						<h:form>
+
+							<h:commandButton class="slider btn btn-primary"
+								value="Did you find a raising star?" action="AddCompany"></h:commandButton>
+
+						</h:form>
+					</center>
+
+
+
+
+
+
+
+					<!-- Purchased Products Starts -->
+					<div class="col-xs-12 table-responsive">
+
+						<h:form>
+
+
+
+							<p:dataTable binding="#{table}"
+								value="#{FeedbackBean.getAllFeedback()}" var="u"
+								class="table order text-center" paginator="true" rows="10"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+                     {PreviousPageLink} {PageLinks} {NextPageLink}
+                     {LastPageLink} {RowsPerPageDropdown} "
+								rowsPerPageTemplate="5,10,15"
+								filteredValue="#{FeedbackBean.filteredFeedback}"
+								widgetVar="uWidget" emptyMessage="No data">
+								<f:facet name="header">
+									<p:outputPanel>
+										<h:outputText value="Search all:" />
+										<p:inputText id="globalFilter"
+											onkeyup="PF('uWidget').filter()" style="width:150px"
+											placeholder="Search text" />
+									</p:outputPanel>
+								</f:facet>
+								<p:column filterBy="#{u.getUser().prenom }"
+									filterMatchMode="contains">
+									<f:facet name="header">FIRST NAME</f:facet>
+									<h:outputText value="#{u.getUser().prenom }" />
+								</p:column>
+								<p:column filterBy="#{u.getUser().nom }"
+									filterMatchMode="contains">
+									<f:facet name="header">LAST NAME</f:facet>
+									<h:outputText value="#{u.getUser().nom }" />
+								</p:column>
+								<p:column headerText="Who" filterBy="#{u.who}"
+									filterMatchMode="exact">
+									<f:facet name="filter">
+										<h:selectOneMenu value="#{FeedbackBean.who}"
+											onchange="PF('uWidget').filter()">
+											<f:selectItem itemLabel="Select who" itemValue="#{null}"
+												noSelectionOption="true" />
+											<f:selectItem itemValue="Overall" itemLabel="Overall" />
+											<f:selectItem itemValue="AssetManager"
+												itemLabel="AssetManager" />
+											<f:selectItem itemValue="Article" itemLabel="Article" />
+										</h:selectOneMenu>
+									</f:facet>
+									<h:outputText value="#{u.who}" />
+								</p:column>
+								<p:column headerText="rating" filterBy="#{u.rating}"
+									filterMatchMode="exact">
+									<f:facet name="filter">
+										<h:selectOneMenu value="#{FeedbackBean.rating}"
+											onchange="PF('uWidget').filter()">
+											<f:selectItem itemLabel="Select rate Level"
+												itemValue="#{null}" noSelectionOption="true" />
+											<f:selectItem itemValue="Null" itemLabel="Null" />
+											<f:selectItem itemValue="Bad" itemLabel="Bad" />
+											<f:selectItem itemValue="Middling" itemLabel="Middling" />
+											<f:selectItem itemValue="Good" itemLabel="Good" />
+											<f:selectItem itemValue="Very_good" itemLabel="Very_good" />
+											<f:selectItem itemValue="Perfect" itemLabel="Perfect" />
+										</h:selectOneMenu>
+									</f:facet>
+									<h:outputText value="#{u.rating}" />
+								</p:column>
+								<p:column headerText="Date" filterBy="#{u.date}"
+									filterMatchMode="contains">
+									<f:facet name="header">Date</f:facet>
+									<h:outputText value="#{u.date }" />
+								</p:column>
+
+								<p:column>
+									<f:facet name="header">Update</f:facet>
+									<h:commandLink>
+										<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+										<f:param name="Sym" value="#{u.getId()}" />
+									</h:commandLink>
+
+								</p:column>
+								<p:column>
+									<f:facet name="header">Delete</f:facet>
+									<h:commandLink
+										action="#{FeedbackBean.DeleteFeddbackById(u.getId())}">
+										<i class="fa fa-trash" aria-hidden="true"></i>
+									</h:commandLink>
+
+								</p:column>
+							</p:dataTable>
+							<!-- Début de star rating -->
+							<div class="comments">
+								<h3 class="comments-heading uppercase">Many Notice </h3>
+								<ul class="comments-list">
+									<h:form id="ajax_commentaires">
+										<ui:repeat value="#{FeedbackBean.listv(FeedbackBean.ind)}"
+											var="u" class="table order text-center">
+											<li>
+												<!-- Comment Starts -->
+												<div class="comment">
+													<img class="comment-avatar pull-left" alt=""
+														src="images/blog/sa1.jpg" />
+													<div class="comment-body">
+														<div class="meta-data">
+															<span class="comment-author">#{u.getUser().prenom}</span>
+															<span class="comment-date pull-right second-font"><h:outputText
+																	value="#{u.date}">
+																	<f:convertDateTime type="date" locale="us"
+																		dateStyle="full" />
+																</h:outputText> </span>
+														</div>
+														<p class="comment-content">#{u.getNotice()}</p>
+														<div>
+															<p class="comment-reply">
+																#{u.rating}
+																<h:form>
+																	<p:rating readonly="true" stars="5"
+																		value="#{FeedbackBean.nbOfStarsById(u.id)}">
+																	</p:rating>
+																</h:form>
+															</p>
+														</div>
+													</div>
+												</div>
+
+											</li>
+										</ui:repeat>
+
+									</h:form>
+
+								</ul>
+							</div>
+							<div align="center">
+
+								<h3 class="comments-heading uppercase" align="center">
+									<SPAN style="color: #E68919">3</SPAN><br /> <span
+										style="color: #E68919"> MOST ACTIVE </span><br /> <SPAN
+										style="color: #E68919">CUSTOMERS</SPAN>
+								</h3>
+								<ui:repeat value="#{FeedbackBean.affichageOfBest3()}" var="t"
+									class="table order text-center">
+									<h:outputText value="#{t}"
+										style="#{t.charAt(4)=='1' ? 'color:gold' : t.charAt(4)=='2' ? 'color:silver' : 'color:#614e1a'}">
+									</h:outputText>
+									<br />
+								</ui:repeat>
+
+							</div>
+							<p></p>
+							<h1><SPAN style="color: #E68919">Feedbacks Statistics</SPAN></h1>
+							<tr>
 							
-						<!-- Content Ends -->
-						<!-- Meta Starts -->
-						<div class="meta second-font">
-							<span><i class="fa fa-user"></i> <a href="#">admin</a></span> <span
-								class="date"><i class="fa fa-calendar"></i> 9 November
-								2017</span> <span><i class="fa fa-commenting"></i> <a
-								href="blog-post.html">18 comments</a></span> <span><i
-								class="fa fa-tags"></i> market, cryptocurrency, trading</span>
+							<td>
+			<f:view contentType="text/html">
+				<h:head>
+					<f:facet name="first">
+						<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+						<title >Prime Faces</title>
+					</f:facet>
+				</h:head>
+				<h:body >
+					<p:panel
+						style="width: 100%; height: 100%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto; color:black; background-color: #111111;border-color: white;border:2px " >
+						<div
+							style="width: 100%; height: 100%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;" align="left" >
+							<ct:chart id="lineChart" type="bar"
+								model="#{FeedbackBean.chart()}"    >
+								<p:ajax event="itemSelect"
+									listener="#{FeedbackBean.barItemSelect}"
+									update="lineChartMessage" />
+							</ct:chart>
 						</div>
-						<!-- Meta Ends -->
-						<!-- Comments Starts -->
-						<div class="comments">
-							<h3 class="comments-heading uppercase">3 Comments</h3>
-							<ul class="comments-list">
-								<li>
-									<!-- Comment Starts -->
-									<div class="comment">
-										<img class="comment-avatar pull-left" alt=""
-											src="images/blog/user1.jpg"/>
-										<div class="comment-body">
-											<div class="meta-data">
-												<span class="comment-author">Lina Marzouki</span> <span
-													class="comment-date pull-right second-font">January
-													17, 2017</span>
-											</div>
-											<p class="comment-content">Lorem ipsum dolor sit amet,
-												consectetur adipisicing elit, sed do eiusmod tempor
-												incididunt ut labore et dolore magna aliqua. Ut enim ad
-												minim veniam, quis nostrud exercitation ullamco laboris nisi
-												ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-												reprehen.</p>
-											<div>
-												<a class="comment-reply" href="#">Reply</a>
-											</div>
-										</div>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</article>
+					</p:panel>
+					<p:message id="lineChartMessage" for="lineChart" showDetail="true" />
+				</h:body>
+
+			</f:view>
+</td></tr>
+
+						</h:form>
+
+
+
+
+
+					</div>
+					<!-- Cart Totals Ends -->
 				</div>
 			</div>
+
+<h:form id="Overall" >
+		
+		<span class="heading">Overall Rating</span>
+		<h:form>
+		<c:forEach begin="1" end="#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.overall))}"  >
+		<span class="fa fa-star checked"></span>
+		</c:forEach>
+		<c:forEach begin="1" end="#{FeedbackBean.rest(FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.overall)))}"  >
+		<span class="fa fa-star"></span>
+		</c:forEach>
+		</h:form>
+		
+		
+		
+
+		<h1 style="color:#E68919" >#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.overall))}/5  average based on #{FeedbackBean.getNbFeedbackByWho(FeedbackBean.overall)} reviews.</h1>
+		
+		<div style="padding-left: 60px; padding-right: 60px">
+			<div class="row">
+				<div class="side">
+					<div>5 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-5"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.perfect,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>4 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-4"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.very_good,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>3 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-3"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.good,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>2 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-2"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.middling,FeedbackBean.overall)}</div>
+				</div>
+				<div class="side">
+					<div>1 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-1"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.bad,FeedbackBean.overall)}</div>
+				</div>
+			
+			<div class="side">
+					<div>0 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bar-0"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.nulle,FeedbackBean.overall)}</div>
+				</div>
+			</div>
+			</div>
+			<hr style="border: 3px solid #f1f1f1" />
+		</h:form>
+		
+		<h:form id="AssetManager" >
+		
+		<span class="heading">Asset Managers Rating</span>
+		<h:form>
+		<c:forEach begin="1" end="#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.assetManager))}"  >
+		<span class="fa fa-star checked"></span>
+		</c:forEach>
+		<c:forEach begin="1" end="#{FeedbackBean.rest(FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.assetManager)))}"  >
+		<span class="fa fa-star"></span>
+		</c:forEach>
+		</h:form>
+		
+		
+		
+
+		<h1 style="color:#E68919" >#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.assetManager))}/5  average based on #{FeedbackBean.getNbFeedbackByWho(FeedbackBean.assetManager)} reviews.</h1>
+		
+		<div style="padding-left: 60px; padding-right: 60px">
+			<div class="row">
+				<div class="side">
+					<div>5 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-5"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.perfect,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>4 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-4"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.very_good,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>3 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-3"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.good,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>2 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-2"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.middling,FeedbackBean.assetManager)}</div>
+				</div>
+				<div class="side">
+					<div>1 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-1"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.bad,FeedbackBean.assetManager)}</div>
+				</div>
+			
+			<div class="side">
+					<div>0 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="bara-0"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.nulle,FeedbackBean.assetManager)}</div>
+				</div>
+			</div>
+			</div>
+			<hr style="border: 3px solid #f1f1f1" />
+		</h:form>
+		
+		<h:form id="Article" >
+		
+		<span class="heading">Article Rating</span>
+		<h:form>
+		<c:forEach begin="1" end="#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.article))}"  >
+		<span class="fa fa-star checked"></span>
+		</c:forEach>
+		<c:forEach begin="1" end="#{FeedbackBean.rest(FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.article)))}"  >
+		<span class="fa fa-star"></span>
+		</c:forEach>
+		</h:form>
+		
+		
+		
+
+		<h1 style="color:#E68919" >#{FeedbackBean.arrond(FeedbackBean.noteGlobal(FeedbackBean.article))}/5  average based on #{FeedbackBean.getNbFeedbackByWho(FeedbackBean.article)} reviews.</h1>
+		
+		<div style="padding-left: 60px; padding-right: 60px">
+			<div class="row">
+				<div class="side">
+					<div>5 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-5"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.perfect,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>4 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-4"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.very_good,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>3 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-3"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.good,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>2 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-2"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.middling,FeedbackBean.article)}</div>
+				</div>
+				<div class="side">
+					<div>1 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-1"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.bad,FeedbackBean.article)}</div>
+				</div>
+			
+			<div class="side">
+					<div>0 star</div>
+				</div>
+				<div class="middle">
+					<div class="bar-container">
+						<div class="barar-0"></div>
+					</div>
+				</div>
+				<div class="side right">
+					<div>#{FeedbackBean.getNbFeedbackByRating(FeedbackBean.nulle,FeedbackBean.article)}</div>
+				</div>
+			</div>
+			</div>
+			<hr style="border: 3px solid #f1f1f1" />
+		</h:form>
+
 		</section>
+		<style>
+.ct-label {
+	font-weight: bold;
+	font-size:17px;
+	color: white;
+	
+}
+* {
+	box-sizing: border-box;
+}
 
+.heading {
+	font-size: 25px;
+	margin-right: 25px;
+}
 
+.fa {
+	font-size: 25px;
+}
 
+.checked {
+	color: orange;
+}
 
+/* Three column layout */
+.side {
+	float: left;
+	width: 15%;
+	margin-top: 10px;
+}
 
+.middle {
+	float: left;
+	width: 70%;
+	margin-top: 10px;
+}
 
+/* Place text to the right */
+.right {
+	text-align: right;
+}
 
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* The bar container */
+.bar-container {
+	width: 100%;
+	background-color: #f1f1f1;
+	text-align: center;
+	color: white;
+}
+
+/* Individual bars */
+.bar-5 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.perfect,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #4CAF50;
+}
+
+.bar-4 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.very_good,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #582900;
+}
+
+.bar-3 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.good,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #00bcd4;
+}
+
+.bar-2 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.middling,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #ff9800;
+}
+
+.bar-1 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.bad,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #f44336;
+}
+.bar-0 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.nulle,FeedbackBean.overall)}%;
+	height: 18px;
+	background-color: #7f00ff;
+}
+/*Bar AssetManager*/
+.bara-5 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.perfect,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #4CAF50;
+}
+
+.bara-4 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.very_good,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #582900;
+}
+
+.bara-3 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.good,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #00bcd4;
+}
+
+.bara-2 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.middling,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #ff9800;
+}
+
+.bara-1 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.bad,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #f44336;
+}
+.bara-0 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.nulle,FeedbackBean.assetManager)}%;
+	height: 18px;
+	background-color: #7f00ff;
+}
+/*Article*/
+.barar-5 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.perfect,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #4CAF50;
+}
+
+.barar-4 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.very_good,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #582900;
+}
+
+.barar-3 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.good,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #00bcd4;
+}
+
+.barar-2 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.middling,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #ff9800;
+}
+
+.barar-1 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.bad,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #f44336;
+}
+.barar-0 {
+	width: #{FeedbackBean.getAvgOfRating(FeedbackBean.nulle,FeedbackBean.article)}%;
+	height: 18px;
+	background-color: #7f00ff;
+}
+/* Responsive layout - make the columns stack on top of each other instead of next to each other */
+@media ( max-width : 400px) {
+	.side, .middle {
+		width: 100%;
+	}
+	/* Hide the right column on small screens */
+	.right {
+		display: none;
+	}
+}
+</style>
 
 	</ui:define>
+
+
 </ui:composition>
+>>>>>>> branch 'Saleh_Gestion_User' of https://github.com/AchirAdelMounir/TrueDeltaPi.git
