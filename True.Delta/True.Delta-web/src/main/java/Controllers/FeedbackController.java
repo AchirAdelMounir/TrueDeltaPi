@@ -18,7 +18,9 @@ import javax.ws.rs.core.Response;
 
 
 import Entities.Feedback;
+import Enumerations.Who;
 import Interfaces.FeedbackIServices;
+import Services.FeedbackServices;
 
 @RequestScoped
 @Path("feedback")
@@ -26,7 +28,7 @@ import Interfaces.FeedbackIServices;
 @Consumes(MediaType.APPLICATION_JSON)
 public class FeedbackController {
 	@Inject
-	FeedbackIServices service;
+	FeedbackServices service;
 	@POST
 	@Path("create")
     public Response create(Feedback f) {
@@ -127,9 +129,9 @@ public class FeedbackController {
 		
 	}
 	@GET
-	@Path("getNbFeedbackByRating/{rating}")
-	public Response getNbFeedbackByRating(@PathParam("rating") Enumerations.LevelRating rating) {
-		double cc = service.getNbFeedbackByRating(rating);
+	@Path("getNbFeedbackByRating/{rating}/{who}")
+	public Response getNbFeedbackByRating(@PathParam("rating") Enumerations.LevelRating rating,@PathParam("who") Who who) {
+		double cc = service.getNbFeedbackByRating(rating,who);
 		
 		return Response.ok(cc).build();
 		
@@ -143,9 +145,9 @@ public class FeedbackController {
 		
 	}
 	@GET
-	@Path("getAvgOfRating/{rating}")
-	public Response getAvgOfRating(@PathParam("rating") Enumerations.LevelRating rating) {
-		double cc = service.getAvgOfRating(rating);
+	@Path("getAvgOfRating/{rating}/{who}")
+	public Response getAvgOfRating(@PathParam("rating") Enumerations.LevelRating rating,@PathParam("who") Who who) {
+		double cc = service.getAvgOfRating(rating,who);
 		
 		return Response.ok(cc).build();
 		
@@ -159,9 +161,9 @@ public class FeedbackController {
 		
 	}
 	@GET
-	@Path("noteGlobal")
-    public Response nbOfStarsGlobal() {
-        return Response.ok(service.noteGlobal()).build();
+	@Path("noteGlobal/{who}")
+    public Response nbOfStarsGlobal(@PathParam("who") Who who) {
+        return Response.ok(service.noteGlobal(who)).build();
     }
 	@GET
 	@Path("getNbActivityByUser/{idUser}")

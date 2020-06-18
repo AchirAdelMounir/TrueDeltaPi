@@ -3,10 +3,11 @@ package Interfaces;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import Entities.User;
 
-@Local
+@Remote
 public interface UserIServices {
 	int AddUser(User U);
 	void DeleteUser(int Id);
@@ -15,6 +16,9 @@ public interface UserIServices {
 	List<User> DisplayUsers();
 	User authentication(String login, String password);
 	String happyBirthday(int id_user);
+	int EstimatedScore(User u);
+	void validateProfile(User u);
+	void EditUser(User u);
 	
 
 }

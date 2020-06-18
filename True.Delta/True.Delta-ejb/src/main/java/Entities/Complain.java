@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.omg.CORBA.PRIVATE_MEMBER;
+
 import Enumerations.StatusTypeOfComplain;
 
 import java.util.Date;
@@ -45,13 +47,19 @@ public class Complain implements Serializable {
 	@Column(name="COMPLAIN_DESCRIPTION")
 	private String description;
 	
+	@Column(name="COMPLAIN_CUSTOMER_VU")
+	private Boolean customer_vu;
+	
 	/*@Column(name="COMPLAIN_STATUS")
 	private String status;*/
 	@Enumerated(EnumType.STRING) 
-    Enumerations.StatusTypeOfComplain status;
+    StatusTypeOfComplain status;
 	
 	@Column(name="COMPLAIN_DATE")
 	private Date date ;
+	
+	@Column(name="COMPLAIN_ANSWER")
+	private String answer;
 	
 
 	@ManyToOne(cascade = {CascadeType.MERGE})
@@ -104,6 +112,20 @@ public class Complain implements Serializable {
 	/*public Complain () {
 		this.User=new User();
 	}*/
+	public String getAnswer() {
+		return answer;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public Boolean getCustomer_vu() {
+		return customer_vu;
+	}
+	public void setCustomer_vu(Boolean customer_vu) {
+		this.customer_vu = customer_vu;
+	}
+	
+	
 	
 	
 

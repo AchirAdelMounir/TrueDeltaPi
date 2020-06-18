@@ -3,12 +3,13 @@ package Interfaces;
 import java.text.ParseException;
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import Entities.Complain;
+import Enumerations.StatusTypeOfComplain;
 
 
-@Local
+@Remote
 public interface ComplainIServices {
 
 	int AddComplain(Complain c);
@@ -17,7 +18,7 @@ public interface ComplainIServices {
 	
 	int DeleteComplainByIdUser(int idUser);
 	
-	int DeleteComplainByStatus(Enumerations.StatusTypeOfComplain status);
+	int DeleteComplainByStatus(StatusTypeOfComplain status);
 	
 	int DeleteComplainByDate(String date) ;
 
@@ -42,6 +43,10 @@ public interface ComplainIServices {
 	Long getNbComplainByDate(String date) throws ParseException;
 
 	Complain findById(int id);
+
+	void AnswerComplain(int id,String answer);
+
+	Long getNbComplainVuByCustomer();
 
 
 
